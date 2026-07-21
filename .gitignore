@@ -29,6 +29,7 @@ tmp/
 # Editors / OS
 .idea/
 .vscode/
+.claude/
 .DS_Store
 
 # Test coverage

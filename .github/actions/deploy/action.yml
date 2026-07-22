@@ -85,7 +85,7 @@ runs:
             || docker compose exec -T postgres psql -U "$POSTGRES_USER" -v ON_ERROR_STOP=1 -v db_name="$DB_NAME" -c 'CREATE DATABASE :"db_name"'
 
           docker compose --profile "$PROFILE" up -d --build --remove-orphans
-          docker image prune -af
+          docker image prune -af --filter "until=168h"
         REMOTE
 
     - name: Health check

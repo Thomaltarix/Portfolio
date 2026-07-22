@@ -1,0 +1,90 @@
+name: Discord notify
+description: Send a Discord embed reporting a deployment's outcome
+
+inputs:
+  webhook:
+    description: Discord webhook URL
+    required: true
+  status:
+    description: Outcome to report, typically ${{ job.status }} (success, failure, cancelled)
+    required: true
+  site-url:
+    description: URL of the environment that was targeted
+    required: true
+  started-at:
+    description: Epoch seconds when the job started, used to report duration. Omit to skip it.
+    required: false
+    default: ''
+
+runs:
+  using: composite
+  steps:
+    - name: Send embed
+      shell: bash
+      env:
+        WEBHOOK: ${{ inputs.webhook }}
+        STATUS: ${{ inputs.status }}
+        SITE_URL: ${{ inputs.site-url }}
+        STARTED_AT: ${{ inputs.started-at }}
+        REPOSITORY: ${{ github.repository }}
+        BRANCH: ${{ github.ref_name }}
+        AUTHOR: ${{ github.actor }}
+        RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        COMMIT_URL: ${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}
+        COMMIT_SHA: ${{ github.sha }}
+      run: |
+        set -euo pipefail
+
+        SHORT_SHA="${COMMIT_SHA:0:7}"
+        # github.event.head_commit.message is unavailable on workflow_dispatch (used by deploy-dev),
+        # so the commit message is read from the checked-out ref instead.
+        COMMIT_MESSAGE="$(git log -1 --pretty=%s 2>/dev/null || echo "unknown")"
+
+        if [ "$STATUS" = "success" ]; then
+          TITLE="🚀 Deployment succeeded"
+          COLOR=5763719
+        else
+          TITLE="❌ Deployment failed"
+          COLOR=15548997
+        fi
+
+        DURATION=""
+        if [ -n "$STARTED_AT" ]; then
+          ELAPSED=$(( $(date +%s) - STARTED_AT ))
+          DURATION="$((ELAPSED / 60))m $((ELAPSED % 60))s"
+        fi
+
+        PAYLOAD=$(jq -n \
+          --arg title "$TITLE" \
+          --argjson color "$COLOR" \
+          --arg repository "$REPOSITORY" \
+          --arg branch "$BRANCH" \
+          --arg author "$AUTHOR" \
+          --arg commit "[\`${SHORT_SHA}\`](${COMMIT_URL}) ${COMMIT_MESSAGE}" \
+          --arg run_url "$RUN_URL" \
+          --arg site_url "$SITE_URL" \
+          --arg duration "$DURATION" \
+          --arg timestamp "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+          '{
+            embeds: [{
+              title: $title,
+              color: $color,
+              fields: (
+                [
+                  { name: "Repository", value: $repository, inline: true },
+                  { name: "Branch", value: $branch, inline: true },
+                  { name: "Author", value: $author, inline: true },
+                  { name: "Commit", value: $commit },
+                  { name: "Workflow run", value: $run_url },
+                  { name: "Site", value: $site_url }
+                ] + (if $duration != "" then [{ name: "Duration", value: $duration, inline: true }] else [] end)
+              ),
+              footer: { text: "GitHub Actions" },
+              timestamp: $timestamp
+            }]
+          }')
+
+        curl --fail --silent --show-error \
+          -H "Content-Type: application/json" \
+          -X POST "$WEBHOOK" \
+          -d "$PAYLOAD"

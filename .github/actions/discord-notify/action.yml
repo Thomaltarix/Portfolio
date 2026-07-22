@@ -6,7 +6,7 @@ inputs:
     description: Discord webhook URL
     required: true
   status:
-    description: Outcome to report, typically ${{ job.status }} (success, failure, cancelled)
+    description: "Outcome to report: success, failure, or cancelled (pass job.status from the calling workflow)"
     required: true
   site-url:
     description: URL of the environment that was targeted

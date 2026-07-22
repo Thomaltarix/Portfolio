@@ -37,8 +37,13 @@ runs:
         SSH_HOST: ${{ inputs.ssh-host }}
       run: |
         mkdir -p ~/.ssh
-        echo "$SSH_KEY" > ~/.ssh/id_ed25519
+        printf '%s\n' "$SSH_KEY" > ~/.ssh/id_ed25519
         chmod 600 ~/.ssh/id_ed25519
+
+        # Fails fast with a clear error if the secret isn't a valid private key,
+        # instead of a generic "Permission denied" from ssh much further down.
+        ssh-keygen -y -f ~/.ssh/id_ed25519 > /dev/null
+
         ssh-keyscan -H "$SSH_HOST" >> ~/.ssh/known_hosts
 
     - name: Deploy

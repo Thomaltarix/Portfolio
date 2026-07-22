@@ -52,7 +52,7 @@ runs:
         DB_NAME: ${{ inputs.db-name }}
       run: |
         ssh "$SSH_USER@$SSH_HOST" bash -s -- "$PROJECT_PATH" "$BRANCH" "$PROFILE" "$DB_NAME" <<'REMOTE'
-          set -e
+          set -euo pipefail
 
           PROJECT_PATH="$1"
           BRANCH="$2"

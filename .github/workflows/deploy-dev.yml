@@ -1,0 +1,46 @@
+name: Deploy Staging
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Branch to deploy to staging
+        required: false
+        default: dev
+
+concurrency:
+  group: staging
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    environment: Staging
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
+
+      - id: start
+        run: echo "time=$(date +%s)" >> "$GITHUB_OUTPUT"
+
+      - uses: ./.github/actions/deploy
+        with:
+          ssh-key: ${{ secrets.VPS_SSH_KEY }}
+          ssh-host: ${{ secrets.VPS_HOST }}
+          ssh-user: ${{ secrets.VPS_USER }}
+          project-path: /opt/apps/Portfolio
+          branch: ${{ inputs.ref }}
+          profile: staging
+          db-name: portfolio_staging
+          health-url: https://dev.thomasboue.com
+
+      - uses: ./.github/actions/discord-notify
+        if: always()
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          status: ${{ job.status }}
+          site-url: https://dev.thomasboue.com
+          started-at: ${{ steps.start.outputs.time }}

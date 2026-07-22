@@ -1,0 +1,95 @@
+name: Deploy
+description: Deploy a Docker Compose profile to the VPS and verify it comes back healthy
+
+inputs:
+  ssh-key:
+    description: Private key for the VPS deploy user
+    required: true
+  ssh-host:
+    description: VPS hostname or IP
+    required: true
+  ssh-user:
+    description: VPS SSH user
+    required: true
+  project-path:
+    description: Absolute path of the checked-out repo on the VPS (shared by both profiles)
+    required: true
+  branch:
+    description: Branch to reset the checkout to before building
+    required: true
+  profile:
+    description: Docker Compose profile to bring up (production or staging)
+    required: true
+  db-name:
+    description: Postgres database this profile's backend connects to
+    required: true
+  health-url:
+    description: Public URL to verify after deploying
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Configure SSH
+      shell: bash
+      env:
+        SSH_KEY: ${{ inputs.ssh-key }}
+        SSH_HOST: ${{ inputs.ssh-host }}
+      run: |
+        mkdir -p ~/.ssh
+        echo "$SSH_KEY" > ~/.ssh/id_ed25519
+        chmod 600 ~/.ssh/id_ed25519
+        ssh-keyscan -H "$SSH_HOST" >> ~/.ssh/known_hosts
+
+    - name: Deploy
+      shell: bash
+      env:
+        SSH_USER: ${{ inputs.ssh-user }}
+        SSH_HOST: ${{ inputs.ssh-host }}
+        PROJECT_PATH: ${{ inputs.project-path }}
+        BRANCH: ${{ inputs.branch }}
+        PROFILE: ${{ inputs.profile }}
+        DB_NAME: ${{ inputs.db-name }}
+      run: |
+        ssh "$SSH_USER@$SSH_HOST" bash -s -- "$PROJECT_PATH" "$BRANCH" "$PROFILE" "$DB_NAME" <<'REMOTE'
+          set -e
+
+          PROJECT_PATH="$1"
+          BRANCH="$2"
+          PROFILE="$3"
+          DB_NAME="$4"
+
+          cd "$PROJECT_PATH"
+
+          git fetch origin
+          git reset --hard "origin/$BRANCH"
+
+          set -a
+          source .env
+          set +a
+
+          # Postgres is shared by both profiles and carries no "profiles:" key of its
+          # own, so it must be brought up before the exists-check below can run.
+          docker compose up -d postgres
+
+          for _ in $(seq 1 10); do
+            docker compose exec -T postgres pg_isready -U "$POSTGRES_USER" && break
+            sleep 2
+          done
+
+          # The Postgres volume was initialized before this database existed, so
+          # docker-entrypoint-initdb.d won't create it retroactively. Idempotent:
+          # a no-op once the database is there (e.g. every production deploy).
+          docker compose exec -T postgres psql -U "$POSTGRES_USER" -tc \
+            "SELECT 1 FROM pg_database WHERE datname = '${DB_NAME}'" | grep -q 1 \
+            || docker compose exec -T postgres psql -U "$POSTGRES_USER" -c "CREATE DATABASE ${DB_NAME}"
+
+          docker compose --profile "$PROFILE" up -d --build --remove-orphans
+          docker image prune -af
+        REMOTE
+
+    - name: Health check
+      shell: bash
+      env:
+        HEALTH_URL: ${{ inputs.health-url }}
+      run: bash ./.github/scripts/healthcheck.sh

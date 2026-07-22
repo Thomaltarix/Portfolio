@@ -17,6 +17,7 @@ services:
       retries: 10
 
   backend:
+    profiles: [production]
     build:
       context: ./backend
     restart: unless-stopped
@@ -34,6 +35,7 @@ services:
       - '3000:3000'
 
   frontend:
+    profiles: [production]
     build:
       context: ./frontend
       args:
@@ -43,6 +45,36 @@ services:
       - backend
     ports:
       - '8080:80'
+
+  backend-staging:
+    profiles: [staging]
+    build:
+      context: ./backend
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-portfolio}:${POSTGRES_PASSWORD:-portfolio}@postgres:5432/${POSTGRES_DB_STAGING:-portfolio_staging}?schema=public
+      PORT: 3000
+      CORS_ORIGIN: ${CORS_ORIGIN_STAGING:-http://localhost:8081}
+      GITHUB_USERNAME: ${GITHUB_USERNAME:-octocat}
+      GITHUB_TOKEN: ${GITHUB_TOKEN:-}
+      GITHUB_CACHE_TTL_SECONDS: ${GITHUB_CACHE_TTL_SECONDS:-300}
+    ports:
+      - '3001:3000'
+
+  frontend-staging:
+    profiles: [staging]
+    build:
+      context: ./frontend
+      args:
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL_STAGING:-http://localhost:3001}
+    restart: unless-stopped
+    depends_on:
+      - backend-staging
+    ports:
+      - '8081:80'
 
 volumes:
   postgres_data:

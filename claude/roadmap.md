@@ -32,8 +32,9 @@ A working full-stack skeleton proving the architecture end-to-end, not the finis
 
 ## Phase 4 — Operational maturity
 
-- CI/CD via GitHub Actions (lint, typecheck, test, build, optionally deploy).
-- Automated tests: backend unit tests for services (Prisma mocked at the repository boundary), frontend component/integration tests for the Projects and Contact flows.
+- ~~CI/CD via GitHub Actions~~ — done: `ci.yml` (lint/test/build/Docker validation on every branch but `main`), `deploy-prod.yml` (push to `main`), `deploy-dev.yml` (manual, any branch), composite actions `deploy` and `discord-notify`, branch protection on `main`, separate `Production`/`Staging` GitHub Environments. See `architecture.md`.
+- ~~Staging environment~~ — done: `docker-compose.yml` profiles (`production`/`staging`) sharing one Postgres instance via separate databases, routed through dedicated subdomains (`dev.thomasboue.com`, `api.dev.thomasboue.com`) — see `architecture.md`.
+- Automated tests: backend unit tests for services (Prisma mocked at the repository boundary), frontend component/integration tests for the Projects and Contact flows. CI already runs `npm test` but there's nothing for it to run yet (`--passWithNoTests`).
 - Rate limiting on `POST /contact` and `GET /github/activity` (`@nestjs/throttler`).
 - Runtime-configurable frontend API base URL (currently build-time only, due to Vite's env-inlining — see `architecture.md`).
 - Revisit the "no shared types" and "no workspace tooling" decisions if backend/frontend duplication becomes a real maintenance cost.

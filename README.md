@@ -8,9 +8,11 @@ See [`CLAUDE.md`](CLAUDE.md) for engineering principles and [`claude/`](claude/C
 
 ```bash
 cp .env.example .env
-docker compose up -d --build
+docker compose --profile production up -d --build
 docker compose exec backend npm run prisma:seed
 ```
+
+Postgres is shared by both profiles and has no `profiles:` of its own, so it always starts. Swap `production` for `staging` to bring up `backend-staging`/`frontend-staging` instead (on ports 3001/8081, against a separate `portfolio_staging` database).
 
 - Frontend: http://localhost:8080
 - Backend API docs (Swagger): http://localhost:3000/docs

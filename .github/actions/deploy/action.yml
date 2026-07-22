@@ -76,7 +76,7 @@ runs:
             docker compose exec -T postgres pg_isready -U "$POSTGRES_USER" && break
             sleep 2
           done
-
+          docker compose exec -T postgres pg_isready -U "$POSTGRES_USER"
           # The Postgres volume was initialized before this database existed, so
           # docker-entrypoint-initdb.d won't create it retroactively. Idempotent:
           # a no-op once the database is there (e.g. every production deploy).

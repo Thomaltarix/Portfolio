@@ -105,11 +105,19 @@ runs:
             staging) APP_SERVICES=(backend-staging frontend-staging) ;;
             *) echo "Unknown PROFILE: $PROFILE" >&2; exit 1 ;;
           esac
-          # < /dev/null: this whole script is itself fed to bash over the SSH
-          # heredoc's stdin. Without this, docker compose's buildx-bake build
-          # inherits that same stdin, finds it already drained, and silently
-          # builds nothing — "succeeding" in seconds without changing the image.
-          docker compose --profile "$PROFILE" up -d --build --force-recreate --remove-orphans "${APP_SERVICES[@]}" < /dev/null
+
+          # TEMPORARY: unconditional tracing to find out why this command
+          # produces no output and finishes in ~1s over the SSH heredoc, despite
+          # doing a real 30s+ rebuild when run by hand in an interactive shell.
+          echo "TRACE: about to build, PROFILE=$PROFILE APP_SERVICES=${APP_SERVICES[*]} VITE_BUILD_SHA=$VITE_BUILD_SHA"
+          echo "TRACE: docker compose version: $(docker compose version)"
+          set +e
+          docker compose --profile "$PROFILE" up -d --build --force-recreate --remove-orphans --progress=plain "${APP_SERVICES[@]}" < /dev/null
+          BUILD_RC=$?
+          set -e
+          echo "TRACE: docker compose up exit code: $BUILD_RC"
+          echo "TRACE: frontend image id now: $(docker compose images -q frontend)"
+
           docker image prune -af --filter "until=168h"
         REMOTE
 

@@ -1,9 +1,8 @@
 import { Badge } from '@/components/ui/badge';
-import { buttonVariants } from '@/components/ui/button';
-import { cn } from '@/lib/cn';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { LanguageToggle } from './LanguageToggle';
+import { ResumeMenu } from './ResumeMenu';
 import { ThemeToggle } from './ThemeToggle';
 
 const NAV_LINKS = [
@@ -38,13 +37,7 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <a
-            href="/resume.pdf"
-            download
-            className={cn(buttonVariants({ variant: 'outline', size: 'sm' }))}
-          >
-            {t('resume')}
-          </a>
+          <ResumeMenu />
           <LanguageToggle />
           <ThemeToggle />
         </div>

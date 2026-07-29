@@ -6,16 +6,16 @@ import { PlaygroundSection } from '@/features/playground/components/PlaygroundSe
 import { ProjectsSection } from '@/features/projects/components/ProjectsSection';
 import { SkillsSection } from '@/features/skills/components/SkillsSection';
 import { Helmet } from 'react-helmet-async';
+import { useTranslation } from 'react-i18next';
 
 export function HomePage() {
+  const { t } = useTranslation('common');
+
   return (
     <>
       <Helmet>
-        <title>Portfolio — Backend & Software Engineer</title>
-        <meta
-          name="description"
-          content="Backend & software engineer building production-ready systems, clean APIs, and pragmatic architecture."
-        />
+        <title>{t('meta.title')}</title>
+        <meta name="description" content={t('meta.description')} />
       </Helmet>
 
       <HeroSection />

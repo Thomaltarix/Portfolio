@@ -5,9 +5,11 @@ import { cn } from '@/lib/cn';
 import { ProjectMarkdown } from '@/features/projects/components/ProjectMarkdown';
 import { useProject } from '@/features/projects/hooks/use-project';
 import { Helmet } from 'react-helmet-async';
+import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'react-router-dom';
 
 export function ProjectDetailPage() {
+  const { t } = useTranslation('projects');
   const { slug } = useParams<{ slug: string }>();
   const { data: project, isLoading, isError } = useProject(slug);
 
@@ -21,11 +23,11 @@ export function ProjectDetailPage() {
       )}
 
       <Link to="/#projects" className="text-sm text-muted-foreground hover:text-foreground">
-        ← Back to projects
+        {t('detail.backToProjects')}
       </Link>
 
-      {isLoading && <p className="mt-8 text-muted-foreground">Loading…</p>}
-      {isError && <p className="mt-8 text-muted-foreground">Project not found.</p>}
+      {isLoading && <p className="mt-8 text-muted-foreground">{t('detail.loading')}</p>}
+      {isError && <p className="mt-8 text-muted-foreground">{t('detail.notFound')}</p>}
 
       {project && (
         <FadeIn className="mt-6">
@@ -46,7 +48,7 @@ export function ProjectDetailPage() {
                 rel="noreferrer"
                 className={cn(buttonVariants({ variant: 'outline', size: 'sm' }))}
               >
-                View source
+                {t('detail.viewSource')}
               </a>
             )}
             {project.liveUrl && (
@@ -56,7 +58,7 @@ export function ProjectDetailPage() {
                 rel="noreferrer"
                 className={cn(buttonVariants({ variant: 'outline', size: 'sm' }))}
               >
-                Live demo
+                {t('detail.liveDemo')}
               </a>
             )}
           </div>

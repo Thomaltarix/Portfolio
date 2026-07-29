@@ -1,0 +1,9 @@
+{
+  "heading": "Skills",
+  "groups": [
+    { "category": "Backend", "items": ["Node.js", "NestJS", "Go", "REST APIs", "GraphQL"] },
+    { "category": "Data", "items": ["PostgreSQL", "Prisma", "Redis"] },
+    { "category": "Infrastructure", "items": ["Docker", "GitHub Actions", "AWS"] },
+    { "category": "Frontend", "items": ["React", "TypeScript", "TailwindCSS"] }
+  ]
+}

@@ -1,8 +1,11 @@
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/cn';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 export function HeroSection() {
+  const { t } = useTranslation('hero');
+
   return (
     <section className="mx-auto flex max-w-5xl flex-col items-start gap-6 px-6 py-28 sm:py-36">
       <motion.p
@@ -11,7 +14,7 @@ export function HeroSection() {
         transition={{ duration: 0.4 }}
         className="text-sm font-medium text-accent"
       >
-        Backend & Software Engineer
+        {t('eyebrow')}
       </motion.p>
 
       <motion.h1
@@ -20,7 +23,7 @@ export function HeroSection() {
         transition={{ duration: 0.4, delay: 0.05 }}
         className="max-w-2xl text-4xl font-semibold tracking-tight sm:text-5xl"
       >
-        I build systems that stay reliable long after the demo ends.
+        {t('title')}
       </motion.h1>
 
       <motion.p
@@ -29,9 +32,7 @@ export function HeroSection() {
         transition={{ duration: 0.4, delay: 0.1 }}
         className="max-w-xl text-lg text-muted-foreground"
       >
-        I design APIs, data models, and infrastructure with the same care most people reserve
-        for user interfaces — clean, typed, and built to be maintained by someone else in five
-        years.
+        {t('subtitle')}
       </motion.p>
 
       <motion.div
@@ -41,10 +42,10 @@ export function HeroSection() {
         className="flex gap-3 pt-2"
       >
         <a href="#projects" className={cn(buttonVariants({ size: 'lg' }))}>
-          View projects
+          {t('viewProjects')}
         </a>
         <a href="#contact" className={cn(buttonVariants({ variant: 'outline', size: 'lg' }))}>
-          Get in touch
+          {t('getInTouch')}
         </a>
       </motion.div>
     </section>

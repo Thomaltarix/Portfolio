@@ -1,8 +1,0 @@
-export const aboutContent = {
-  heading: 'About',
-  paragraphs: [
-    "I'm a backend-leaning software engineer who enjoys the parts of a system most people never see: the API contracts, the data model, the deployment pipeline that just works.",
-    'My background is in building services that need to stay correct under load — queues, realtime systems, and internal tools where a subtle bug costs someone real time.',
-    "I care about code that's still readable a year later, and I'd rather ship something simple that works than something impressive that doesn't.",
-  ],
-};

@@ -1,0 +1,16 @@
+{
+  "title": "Recent GitHub activity",
+  "subtitle": "Pulled live from the public events API.",
+  "loading": "Loading…",
+  "error": "GitHub activity is unavailable right now.",
+  "empty": "No recent public activity.",
+  "fallbackEvent": "was active on",
+  "events": {
+    "PushEvent": "pushed to",
+    "PullRequestEvent": "opened a pull request on",
+    "IssuesEvent": "opened an issue on",
+    "CreateEvent": "created",
+    "WatchEvent": "starred",
+    "ForkEvent": "forked"
+  }
+}

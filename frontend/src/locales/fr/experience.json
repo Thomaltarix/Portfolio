@@ -1,0 +1,23 @@
+{
+  "heading": "Expérience",
+  "entries": [
+    {
+      "company": "Company Name",
+      "role": "Ingénieur Backend Senior",
+      "period": "2023 — Aujourd'hui",
+      "description": "Responsable de l'API et de la couche de données d'un produit utilisé par des milliers d'utilisateurs actifs quotidiens ; a mené la migration d'un monolithe vers des services NestJS modulaires."
+    },
+    {
+      "company": "Previous Company",
+      "role": "Ingénieur Logiciel",
+      "period": "2020 — 2023",
+      "description": "Conception et maintenance d'outils internes et d'API publiques, avec un focus sur l'observabilité et la fiabilité des déploiements."
+    },
+    {
+      "company": "Earlier Company",
+      "role": "Développeur Junior",
+      "period": "2018 — 2020",
+      "description": "Débuts au sein d'une petite équipe full-stack, livrant des fonctionnalités de bout en bout."
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "heading": "Contact",
+  "description": "Have a role, a project, or a question? Send a message and I'll get back to you.",
+  "fields": {
+    "name": "Name",
+    "email": "Email",
+    "message": "Message"
+  },
+  "submit": "Send message",
+  "sending": "Sending…",
+  "success": "Thanks — your message was sent.",
+  "error": "Something went wrong. Please try again.",
+  "validation": {
+    "nameMin": "Name must be at least 2 characters.",
+    "nameMax": "Name must be at most 100 characters.",
+    "emailInvalid": "Please enter a valid email address.",
+    "messageMin": "Message must be at least 10 characters.",
+    "messageMax": "Message must be at most 2000 characters."
+  }
+}

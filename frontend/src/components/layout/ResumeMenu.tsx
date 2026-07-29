@@ -44,8 +44,7 @@ export function ResumeMenu() {
         onClick={() => setIsOpen((open) => !open)}
       >
         {t('resume')}
-        <ChevronDown className="size-4" />
-      </Button>
+        <ChevronDown className="size-4" aria-hidden="true" />
 
       <AnimatePresence>
         {isOpen && (

@@ -1,0 +1,8 @@
+{
+  "heading": "À propos",
+  "paragraphs": [
+    "Je suis un ingénieur logiciel orienté backend, attiré par les parties d'un système que peu de gens voient : les contrats d'API, le modèle de données, le pipeline de déploiement qui fonctionne sans accroc.",
+    "Mon parcours porte sur la construction de services qui doivent rester corrects sous charge — files d'attente, systèmes temps réel, outils internes où un bug discret coûte du temps réel à quelqu'un.",
+    "Je tiens à ce que le code reste lisible un an plus tard, et je préfère livrer quelque chose de simple qui fonctionne plutôt que quelque chose d'impressionnant qui ne fonctionne pas."
+  ]
+}

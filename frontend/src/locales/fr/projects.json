@@ -1,0 +1,12 @@
+{
+  "heading": "Projets",
+  "loading": "Chargement des projets…",
+  "loadError": "Impossible de charger les projets pour l'instant.",
+  "detail": {
+    "backToProjects": "← Retour aux projets",
+    "loading": "Chargement…",
+    "notFound": "Projet introuvable.",
+    "viewSource": "Voir le code source",
+    "liveDemo": "Démo en ligne"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "brand": "portfolio",
+  "nav": {
+    "about": "À propos",
+    "experience": "Expérience",
+    "projects": "Projets",
+    "playground": "Playground",
+    "contact": "Contact"
+  },
+  "resume": "CV",
+  "footer": {
+    "copyright": "© {{year}}. Construit avec React, NestJS et Postgres.",
+    "backToTop": "Haut de page"
+  },
+  "meta": {
+    "title": "Portfolio — Ingénieur Backend & Logiciel",
+    "description": "Ingénieur backend & logiciel, spécialisé dans les systèmes prêts pour la production, les API propres et une architecture pragmatique."
+  },
+  "language": {
+    "en": "EN",
+    "fr": "FR",
+    "switchTo": "Passer en {{language}}"
+  }
+}

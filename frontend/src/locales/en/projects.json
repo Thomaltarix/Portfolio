@@ -1,0 +1,12 @@
+{
+  "heading": "Projects",
+  "loading": "Loading projects…",
+  "loadError": "Couldn't load projects right now.",
+  "detail": {
+    "backToProjects": "← Back to projects",
+    "loading": "Loading…",
+    "notFound": "Project not found.",
+    "viewSource": "View source",
+    "liveDemo": "Live demo"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "brand": "portfolio",
+  "nav": {
+    "about": "About",
+    "experience": "Experience",
+    "projects": "Projects",
+    "playground": "Playground",
+    "contact": "Contact"
+  },
+  "resume": "Resume",
+  "footer": {
+    "copyright": "© {{year}}. Built with React, NestJS, and Postgres.",
+    "backToTop": "Back to top"
+  },
+  "meta": {
+    "title": "Portfolio — Backend & Software Engineer",
+    "description": "Backend & software engineer building production-ready systems, clean APIs, and pragmatic architecture."
+  },
+  "language": {
+    "en": "EN",
+    "fr": "FR",
+    "switchTo": "Switch to {{language}}"
+  }
+}

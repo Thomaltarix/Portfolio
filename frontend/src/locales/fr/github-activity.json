@@ -1,0 +1,16 @@
+{
+  "title": "Activité GitHub récente",
+  "subtitle": "Récupérée en direct depuis l'API publique des événements.",
+  "loading": "Chargement…",
+  "error": "L'activité GitHub est indisponible pour le moment.",
+  "empty": "Aucune activité publique récente.",
+  "fallbackEvent": "a été actif sur",
+  "events": {
+    "PushEvent": "a poussé sur",
+    "PullRequestEvent": "a ouvert une pull request sur",
+    "IssuesEvent": "a ouvert une issue sur",
+    "CreateEvent": "a créé",
+    "WatchEvent": "a mis une étoile à",
+    "ForkEvent": "a forké"
+  }
+}

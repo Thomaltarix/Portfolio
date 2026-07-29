@@ -1,5 +1,5 @@
 {
-  "brand": "portfolio",
+  "brand": "Thomas Boué",
   "nav": {
     "about": "About",
     "experience": "Experience",
@@ -8,13 +8,18 @@
     "contact": "Contact"
   },
   "resume": "Resume",
+  "resumeOptions": {
+    "en": "English",
+    "fr": "French"
+  },
+  "comingSoon": "Coming soon",
   "footer": {
-    "copyright": "© {{year}}. Built with React, NestJS, and Postgres.",
+    "copyright": "© {{year}} Thomas Boué. Built with React, NestJS and PostgreSQL.",
     "backToTop": "Back to top"
   },
   "meta": {
-    "title": "Portfolio — Backend & Software Engineer",
-    "description": "Backend & software engineer building production-ready systems, clean APIs, and pragmatic architecture."
+    "title": "Thomas Boué — Backend & Software Engineer",
+    "description": "Backend software engineer specializing in scalable APIs, cloud infrastructure, automation and modern web applications."
   },
   "language": {
     "en": "EN",

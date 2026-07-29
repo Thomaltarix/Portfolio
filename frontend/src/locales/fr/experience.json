@@ -2,22 +2,28 @@
   "heading": "Expérience",
   "entries": [
     {
-      "company": "Company Name",
-      "role": "Ingénieur Backend Senior",
-      "period": "2023 — Aujourd'hui",
-      "description": "Responsable de l'API et de la couche de données d'un produit utilisé par des milliers d'utilisateurs actifs quotidiens ; a mené la migration d'un monolithe vers des services NestJS modulaires."
+      "company": "La Trace",
+      "role": "Développeur Full Stack",
+      "period": "2025 — 2026",
+      "description": "Développement et maintenance d'applications métier, de services backend et des processus de déploiement au sein d'une équipe pluridisciplinaire."
     },
     {
-      "company": "Previous Company",
-      "role": "Ingénieur Logiciel",
-      "period": "2020 — 2023",
-      "description": "Conception et maintenance d'outils internes et d'API publiques, avec un focus sur l'observabilité et la fiabilité des déploiements."
+      "company": "Bouygues Telecom",
+      "role": "Développeur Full Stack",
+      "period": "2025",
+      "description": "Participation au développement de solutions logicielles internes dans un environnement Agile, avec un focus sur les fonctionnalités backend et la maintenance des applications."
     },
     {
-      "company": "Earlier Company",
-      "role": "Développeur Junior",
-      "period": "2018 — 2020",
-      "description": "Débuts au sein d'une petite équipe full-stack, livrant des fonctionnalités de bout en bout."
+      "company": "Epitech Nantes",
+      "role": "Assistant pédagogique",
+      "period": "2024 — 2025",
+      "description": "Accompagnement des étudiants de première année en C, C++, Python, algorithmique et ingénierie logicielle, en les aidant à résoudre des problématiques techniques et à progresser dans leurs projets."
+    },
+    {
+      "company": "SERAD",
+      "role": "Stagiaire Développement Mobile",
+      "period": "2023",
+      "description": "Découverte du développement mobile en entreprise en contribuant à différentes tâches de développement et en travaillant sur des projets collaboratifs."
     }
   ]
 }

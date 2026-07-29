@@ -1,5 +1,5 @@
 {
-  "brand": "portfolio",
+  "brand": "Thomas Boué",
   "nav": {
     "about": "À propos",
     "experience": "Expérience",
@@ -8,13 +8,18 @@
     "contact": "Contact"
   },
   "resume": "CV",
+  "resumeOptions": {
+    "en": "Anglais",
+    "fr": "Français"
+  },
+  "comingSoon": "Bientôt disponible",
   "footer": {
-    "copyright": "© {{year}}. Construit avec React, NestJS et Postgres.",
-    "backToTop": "Haut de page"
+    "copyright": "© {{year}} Thomas Boué. Développé avec React, NestJS et PostgreSQL.",
+    "backToTop": "Retour en haut"
   },
   "meta": {
-    "title": "Portfolio — Ingénieur Backend & Logiciel",
-    "description": "Ingénieur backend & logiciel, spécialisé dans les systèmes prêts pour la production, les API propres et une architecture pragmatique."
+    "title": "Thomas Boué — Ingénieur Backend & Logiciel",
+    "description": "Ingénieur logiciel spécialisé dans les API, les infrastructures cloud, l'automatisation et les applications web modernes."
   },
   "language": {
     "en": "EN",

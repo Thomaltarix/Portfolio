@@ -1,15 +1,15 @@
-import { buttonVariants } from '@/components/ui/button';
-import { cn } from '@/lib/cn';
+import { Badge } from '@/components/ui/badge';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { LanguageToggle } from './LanguageToggle';
+import { ResumeMenu } from './ResumeMenu';
 import { ThemeToggle } from './ThemeToggle';
 
 const NAV_LINKS = [
   { href: '#about', labelKey: 'nav.about' },
   { href: '#experience', labelKey: 'nav.experience' },
-  { href: '#projects', labelKey: 'nav.projects' },
-  { href: '#playground', labelKey: 'nav.playground' },
+  { href: '#projects', labelKey: 'nav.projects', comingSoon: true },
+  { href: '#playground', labelKey: 'nav.playground', comingSoon: true },
   { href: '#contact', labelKey: 'nav.contact' },
 ] as const;
 
@@ -28,21 +28,16 @@ export function Header() {
             <a
               key={link.href}
               href={link.href}
-              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+              className="flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
             >
               {t(link.labelKey)}
+              {'comingSoon' in link && link.comingSoon && <Badge>{t('comingSoon')}</Badge>}
             </a>
           ))}
         </nav>
 
         <div className="flex items-center gap-2">
-          <a
-            href="/resume.pdf"
-            download
-            className={cn(buttonVariants({ variant: 'outline', size: 'sm' }))}
-          >
-            {t('resume')}
-          </a>
+          <ResumeMenu />
           <LanguageToggle />
           <ThemeToggle />
         </div>

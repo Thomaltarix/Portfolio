@@ -1,15 +1,19 @@
 import { FadeIn } from '@/components/motion/FadeIn';
-import { experienceEntries } from '../experience.data';
+import { useTranslation } from 'react-i18next';
+import type { ExperienceEntry } from '../types';
 
 export function ExperienceSection() {
+  const { t } = useTranslation('experience');
+  const entries = t('entries', { returnObjects: true }) as readonly ExperienceEntry[];
+
   return (
     <section id="experience" className="mx-auto max-w-5xl px-6 py-24">
       <FadeIn>
-        <h2 className="text-2xl font-semibold tracking-tight">Experience</h2>
+        <h2 className="text-2xl font-semibold tracking-tight">{t('heading')}</h2>
       </FadeIn>
 
       <div className="mt-10 space-y-10 border-l border-border pl-8">
-        {experienceEntries.map((entry, index) => (
+        {entries.map((entry, index) => (
           <FadeIn key={entry.company} delay={index * 0.05}>
             <div className="relative">
               <span className="absolute -left-[2.15rem] top-1.5 size-2 rounded-full bg-accent" />

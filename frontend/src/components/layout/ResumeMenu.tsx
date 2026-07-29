@@ -45,6 +45,7 @@ export function ResumeMenu() {
       >
         {t('resume')}
         <ChevronDown className="size-4" aria-hidden="true" />
+      </Button>
 
       <AnimatePresence>
         {isOpen && (

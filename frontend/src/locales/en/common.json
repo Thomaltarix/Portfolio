@@ -8,6 +8,7 @@
     "contact": "Contact"
   },
   "resume": "Resume",
+  "comingSoon": "Coming soon",
   "footer": {
     "copyright": "© {{year}} Thomas Boué. Built with React, NestJS and PostgreSQL.",
     "backToTop": "Back to top"

@@ -54,7 +54,6 @@ export function ResumeMenu() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -4 }}
             transition={{ duration: 0.15 }}
-            role="menu"
             className="absolute right-0 z-10 mt-2 min-w-40 rounded-md border border-border bg-background p-1 shadow-lg"
           >
             <a

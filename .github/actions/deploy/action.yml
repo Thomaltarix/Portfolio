@@ -82,43 +82,38 @@ runs:
 
           # Postgres is shared by both profiles and carries no "profiles:" key of its
           # own, so it must be brought up before the exists-check below can run.
-          docker compose up -d postgres
+          docker compose up -d postgres < /dev/null
 
+          # < /dev/null on every "exec": without it, each one inherits this
+          # whole script's own stdin (the SSH heredoc) and happily proxies it
+          # into the container. The exec'd command ignores that input, but the
+          # read still drains the pipe — silently eating every line of this
+          # script that comes after it, so bash hits EOF and exits 0 having
+          # never run the build below. This is what made every deploy "succeed"
+          # on GitHub while quietly leaving the old container running.
           for _ in $(seq 1 10); do
-            docker compose exec -T postgres pg_isready -U "$POSTGRES_USER" && break
+            docker compose exec -T postgres pg_isready -U "$POSTGRES_USER" < /dev/null && break
             sleep 2
           done
-          docker compose exec -T postgres pg_isready -U "$POSTGRES_USER"
+          docker compose exec -T postgres pg_isready -U "$POSTGRES_USER" < /dev/null
           # The Postgres volume was initialized before this database existed, so
           # docker-entrypoint-initdb.d won't create it retroactively. Idempotent:
           # a no-op once the database is there (e.g. every production deploy).
           docker compose exec -T postgres psql -U "$POSTGRES_USER" -v ON_ERROR_STOP=1 -v db_name="$DB_NAME" -tc \
-            "SELECT 1 FROM pg_database WHERE datname = :'db_name'" | grep -q 1 \
-            || docker compose exec -T postgres psql -U "$POSTGRES_USER" -v ON_ERROR_STOP=1 -v db_name="$DB_NAME" -c 'CREATE DATABASE :"db_name"'
+            "SELECT 1 FROM pg_database WHERE datname = :'db_name'" < /dev/null | grep -q 1 \
+            || docker compose exec -T postgres psql -U "$POSTGRES_USER" -v ON_ERROR_STOP=1 -v db_name="$DB_NAME" -c 'CREATE DATABASE :"db_name"' < /dev/null
 
           # --force-recreate is scoped to the profile's own services (not postgres,
           # which has no "profiles:" key and would otherwise restart every deploy)
           # to guarantee the container is actually replaced even if Compose thinks
-          # nothing changed — this is what silently left a stale build running before.
+          # nothing changed.
           case "$PROFILE" in
             production) APP_SERVICES=(backend frontend) ;;
             staging) APP_SERVICES=(backend-staging frontend-staging) ;;
             *) echo "Unknown PROFILE: $PROFILE" >&2; exit 1 ;;
           esac
-
-          # TEMPORARY: unconditional tracing to find out why this command
-          # produces no output and finishes in ~1s over the SSH heredoc, despite
-          # doing a real 30s+ rebuild when run by hand in an interactive shell.
-          echo "TRACE: about to build, PROFILE=$PROFILE APP_SERVICES=${APP_SERVICES[*]} VITE_BUILD_SHA=$VITE_BUILD_SHA"
-          echo "TRACE: docker compose version: $(docker compose version)"
-          set +e
-          docker compose --profile "$PROFILE" up -d --build --force-recreate --remove-orphans --progress=plain "${APP_SERVICES[@]}" < /dev/null
-          BUILD_RC=$?
-          set -e
-          echo "TRACE: docker compose up exit code: $BUILD_RC"
-          echo "TRACE: frontend image id now: $(docker compose images -q frontend)"
-
-          docker image prune -af --filter "until=168h"
+          docker compose --profile "$PROFILE" up -d --build --force-recreate --remove-orphans "${APP_SERVICES[@]}" < /dev/null
+          docker image prune -af --filter "until=168h" < /dev/null
         REMOTE
 
     - name: Health check

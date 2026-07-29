@@ -26,6 +26,9 @@ inputs:
   health-url:
     description: Public URL to verify after deploying
     required: true
+  commit-sha:
+    description: SHA of the commit being deployed, verified against the live site after deploying
+    required: true
 
 runs:
   using: composite
@@ -73,6 +76,10 @@ runs:
           source .env
           set +a
 
+          # Baked into the frontend image so the health check can confirm the live
+          # site actually served this build, not a stale container left running.
+          export VITE_BUILD_SHA="$(git rev-parse HEAD)"
+
           # Postgres is shared by both profiles and carries no "profiles:" key of its
           # own, so it must be brought up before the exists-check below can run.
           docker compose up -d postgres
@@ -89,7 +96,16 @@ runs:
             "SELECT 1 FROM pg_database WHERE datname = :'db_name'" | grep -q 1 \
             || docker compose exec -T postgres psql -U "$POSTGRES_USER" -v ON_ERROR_STOP=1 -v db_name="$DB_NAME" -c 'CREATE DATABASE :"db_name"'
 
-          docker compose --profile "$PROFILE" up -d --build --remove-orphans
+          # --force-recreate is scoped to the profile's own services (not postgres,
+          # which has no "profiles:" key and would otherwise restart every deploy)
+          # to guarantee the container is actually replaced even if Compose thinks
+          # nothing changed — this is what silently left a stale build running before.
+          case "$PROFILE" in
+            production) APP_SERVICES=(backend frontend) ;;
+            staging) APP_SERVICES=(backend-staging frontend-staging) ;;
+            *) echo "Unknown PROFILE: $PROFILE" >&2; exit 1 ;;
+          esac
+          docker compose --profile "$PROFILE" up -d --build --force-recreate --remove-orphans "${APP_SERVICES[@]}"
           docker image prune -af --filter "until=168h"
         REMOTE
 
@@ -97,4 +113,5 @@ runs:
       shell: bash
       env:
         HEALTH_URL: ${{ inputs.health-url }}
+        EXPECTED_SHA: ${{ inputs.commit-sha }}
       run: bash ./.github/scripts/healthcheck.sh

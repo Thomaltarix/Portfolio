@@ -26,6 +26,9 @@ jobs:
       - id: start
         run: echo "time=$(date +%s)" >> "$GITHUB_OUTPUT"
 
+      - id: sha
+        run: echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
       - uses: ./.github/actions/deploy
         with:
           ssh-key: ${{ secrets.VPS_SSH_KEY }}
@@ -36,6 +39,7 @@ jobs:
           profile: staging
           db-name: portfolio_staging
           health-url: https://dev.thomasboue.com
+          commit-sha: ${{ steps.sha.outputs.sha }}
 
       - uses: ./.github/actions/discord-notify
         if: always()

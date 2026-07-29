@@ -4,7 +4,10 @@ import { useTranslation } from 'react-i18next';
 
 export function LanguageToggle() {
   const { i18n, t } = useTranslation('common');
-  const currentLanguage = (i18n.resolvedLanguage ?? 'en') as SupportedLanguage;
+  const resolvedLanguage = i18n.resolvedLanguage ?? 'en';
+  const currentLanguage: SupportedLanguage = SUPPORTED_LANGUAGES.includes(resolvedLanguage as SupportedLanguage)
+    ? (resolvedLanguage as SupportedLanguage)
+    : 'en';
   const nextLanguage = SUPPORTED_LANGUAGES.find((language) => language !== currentLanguage) ?? 'en';
 
   return (

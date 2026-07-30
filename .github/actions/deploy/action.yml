@@ -99,9 +99,12 @@ runs:
           # The Postgres volume was initialized before this database existed, so
           # docker-entrypoint-initdb.d won't create it retroactively. Idempotent:
           # a no-op once the database is there (e.g. every production deploy).
-          docker compose exec -T postgres psql -U "$POSTGRES_USER" -v ON_ERROR_STOP=1 -v db_name="$DB_NAME" -tc \
-            "SELECT 1 FROM pg_database WHERE datname = :'db_name'" < /dev/null | grep -q 1 \
-            || docker compose exec -T postgres psql -U "$POSTGRES_USER" -v ON_ERROR_STOP=1 -v db_name="$DB_NAME" -c 'CREATE DATABASE :"db_name"' < /dev/null
+          # $DB_NAME is a fixed value from the workflow (never user input), so
+          # interpolating it directly is fine — psql's own "-v"/":'var'" client-side
+          # substitution doesn't survive being passed through docker compose exec.
+          docker compose exec -T postgres psql -U "$POSTGRES_USER" -tAc \
+            "SELECT 1 FROM pg_database WHERE datname = '$DB_NAME'" < /dev/null | grep -q 1 \
+            || docker compose exec -T postgres psql -U "$POSTGRES_USER" -c "CREATE DATABASE \"$DB_NAME\"" < /dev/null
 
           # --force-recreate is scoped to the profile's own services (not postgres,
           # which has no "profiles:" key and would otherwise restart every deploy)

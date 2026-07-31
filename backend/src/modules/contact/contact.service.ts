@@ -24,6 +24,7 @@ export class ContactService {
         to: this.configService.get<string>('contactNotificationEmail')!,
         subject: `New contact message from ${dto.name}`,
         html: this.buildNotificationHtml(dto),
+        replyTo: dto.email,
       });
     } catch (error) {
       this.logger.error('Failed to send contact notification email', error);
@@ -37,12 +38,45 @@ export class ContactService {
     const email = this.escapeHtml(dto.email);
     const message = this.escapeHtml(dto.message).replace(/\n/g, '<br>');
 
-    return `
-      <p><strong>Name:</strong> ${name}</p>
-      <p><strong>Email:</strong> ${email}</p>
-      <p><strong>Message:</strong></p>
-      <p>${message}</p>
-    `;
+    return `<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body style="margin:0;padding:0;">
+    <div style="background-color:#f4f4f5;padding:32px 16px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;margin:0 auto;background-color:#ffffff;border:1px solid #e4e4e7;border-radius:12px;">
+        <tr>
+          <td style="padding:20px 32px;border-bottom:1px solid #e4e4e7;">
+            <span style="font-size:12px;font-weight:600;letter-spacing:0.04em;color:#026fd7;text-transform:uppercase;">New contact message</span>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:32px;">
+            <div style="margin-bottom:20px;">
+              <div style="font-size:12px;color:#71717a;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:4px;">Name</div>
+              <div style="font-size:15px;color:#18181b;">${name}</div>
+            </div>
+            <div style="margin-bottom:20px;">
+              <div style="font-size:12px;color:#71717a;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:4px;">Email</div>
+              <div style="font-size:15px;"><a href="mailto:${email}" style="color:#026fd7;text-decoration:none;">${email}</a></div>
+            </div>
+            <div>
+              <div style="font-size:12px;color:#71717a;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:8px;">Message</div>
+              <div style="font-size:15px;line-height:1.6;color:#18181b;background-color:#fafafa;border:1px solid #e4e4e7;border-radius:8px;padding:16px;">${message}</div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:16px 32px;border-top:1px solid #e4e4e7;">
+            <span style="font-size:12px;color:#a1a1aa;">Sent from the contact form on thomasboue.com — reply to this email to respond directly to ${name}.</span>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>`;
   }
 
   // Contact-form fields are visitor-controlled; escape before interpolating

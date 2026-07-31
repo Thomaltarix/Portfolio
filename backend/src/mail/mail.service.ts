@@ -6,6 +6,7 @@ export interface SendEmailParams {
   readonly to: string;
   readonly subject: string;
   readonly html: string;
+  readonly replyTo?: string;
 }
 
 @Injectable()
@@ -24,6 +25,7 @@ export class MailService {
       to: params.to,
       subject: params.subject,
       html: params.html,
+      replyTo: params.replyTo,
     });
   }
 }

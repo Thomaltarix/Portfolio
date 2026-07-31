@@ -9,6 +9,9 @@ const envValidationSchema = Joi.object({
   GITHUB_USERNAME: Joi.string().required(),
   GITHUB_TOKEN: Joi.string().allow('').optional(),
   GITHUB_CACHE_TTL_SECONDS: Joi.number().default(300),
+  RESEND_API_KEY: Joi.string().required(),
+  CONTACT_FROM_EMAIL: Joi.string().required(),
+  CONTACT_NOTIFICATION_EMAIL: Joi.string().email().required(),
 }).unknown(true);
 
 export function validateEnv(

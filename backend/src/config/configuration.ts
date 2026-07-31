@@ -7,6 +7,9 @@ export interface AppConfig {
     readonly token: string | undefined;
     readonly cacheTtlSeconds: number;
   };
+  readonly resendApiKey: string;
+  readonly contactFromEmail: string;
+  readonly contactNotificationEmail: string;
 }
 
 export default (): AppConfig => ({
@@ -18,4 +21,7 @@ export default (): AppConfig => ({
     token: process.env.GITHUB_TOKEN || undefined,
     cacheTtlSeconds: Number(process.env.GITHUB_CACHE_TTL_SECONDS),
   },
+  resendApiKey: process.env.RESEND_API_KEY as string,
+  contactFromEmail: process.env.CONTACT_FROM_EMAIL as string,
+  contactNotificationEmail: process.env.CONTACT_NOTIFICATION_EMAIL as string,
 });

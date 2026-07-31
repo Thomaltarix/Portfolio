@@ -7,12 +7,13 @@ NestJS + Prisma + PostgreSQL, documented with Swagger.
 | Module | Responsibility |
 |---|---|
 | `PrismaModule` | `@Global()` module exposing `PrismaService` (a `PrismaClient` wrapper with lifecycle hooks) to every feature module. |
+| `MailModule` | `@Global()` module exposing `MailService`, a thin wrapper around the Resend SDK (`send({ to, subject, html })`). No domain knowledge — just transport. |
 | `health` | `GET /health` — real readiness check (`SELECT 1` through Prisma). |
 | `projects` | Public read API for the dynamic project system: list + detail by slug. |
-| `contact` | Validates and persists contact-form submissions. |
+| `contact` | Validates and persists contact-form submissions, then emails a notification via `MailService` (best-effort — persistence is the source of truth, so a mail failure is logged, not thrown). |
 | `github` | Proxies and caches GitHub's public REST API for the activity widget. |
 
-Modules are independent: `contact` does not import from `projects`, `github` does not touch Prisma at all. Shared infrastructure (Prisma, config) lives in its own module and is injected, not imported ad hoc.
+Modules are independent: `contact` does not import from `projects`, `github` does not touch Prisma at all. Shared infrastructure (Prisma, Mail, config) lives in its own module and is injected, not imported ad hoc.
 
 ## Controller → Service → Repository
 

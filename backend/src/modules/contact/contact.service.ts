@@ -22,12 +22,14 @@ export class ContactService {
     try {
       await this.mailService.send({
         to: this.configService.get<string>('contactNotificationEmail')!,
-        subject: `New contact message from ${dto.name}`,
+        // Strip CR/LF from visitor-controlled input before it reaches a header field.
+        subject: `New contact message from ${this.stripNewlines(dto.name)}`,
         html: this.buildNotificationHtml(dto),
         replyTo: dto.email,
       });
     } catch (error) {
-      this.logger.error('Failed to send contact notification email', error);
+      const trace = error instanceof Error ? error.stack : String(error);
+      this.logger.error('Failed to send contact notification email', trace);
     }
 
     return { id: message.id };
@@ -36,7 +38,9 @@ export class ContactService {
   private buildNotificationHtml(dto: CreateContactMessageDto): string {
     const name = this.escapeHtml(dto.name);
     const email = this.escapeHtml(dto.email);
-    const message = this.escapeHtml(dto.message).replace(/\n/g, '<br>');
+    const message = this.escapeHtml(dto.message)
+      .replace(/\r\n|\r/g, '\n')
+      .replace(/\n/g, '<br>');
 
     return `<!DOCTYPE html>
 <html>
@@ -77,6 +81,12 @@ export class ContactService {
     </div>
   </body>
 </html>`;
+  }
+
+  // Visitor-controlled input must not be able to inject extra header lines
+  // (e.g. via the email subject) — strip CR/LF before it reaches a header field.
+  private stripNewlines(value: string): string {
+    return value.replace(/[\r\n]+/g, ' ').trim();
   }
 
   // Contact-form fields are visitor-controlled; escape before interpolating

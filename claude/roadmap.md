@@ -26,7 +26,7 @@ A working full-stack skeleton proving the architecture end-to-end, not the finis
 ## Phase 3 — Deferred features from the original spec
 
 - Blog: `BlogPost` Prisma model, `blog` backend module, `/blog` and `/blog/:slug` frontend routes, reusing the markdown-rendering pattern from project detail pages.
-- Contact-form email delivery (e.g. Resend or SMTP via Nodemailer) once the store-only version has been used for a while.
+- ~~Contact-form email delivery~~ — done: `MailModule`/`MailService` wraps Resend, `ContactService` sends a best-effort notification to `CONTACT_NOTIFICATION_EMAIL` after persisting. See `backend.md`.
 - Real analytics vendor account wired into the existing `VITE_ANALYTICS_SCRIPT_URL` env-var slot.
 - Dynamic sitemap generation reflecting real project slugs (build-time API call or backend-served sitemap).
 

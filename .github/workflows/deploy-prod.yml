@@ -35,7 +35,7 @@ jobs:
           ssh-host: ${{ secrets.VPS_HOST }}
           ssh-user: ${{ secrets.VPS_USER }}
           project-path: /opt/apps/Portfolio
-          branch: ${{ inputs.ref }}
+          ref: ${{ inputs.ref }}
           profile: production
           db-name: portfolio
           health-url: https://thomasboue.com

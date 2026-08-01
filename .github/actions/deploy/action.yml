@@ -14,8 +14,8 @@ inputs:
   project-path:
     description: Absolute path of the checked-out repo on the VPS (shared by both profiles)
     required: true
-  branch:
-    description: Branch to reset the checkout to before building
+  ref:
+    description: Branch or tag to reset the checkout to before building
     required: true
   profile:
     description: Docker Compose profile to bring up (production or staging)
@@ -55,22 +55,29 @@ runs:
         SSH_USER: ${{ inputs.ssh-user }}
         SSH_HOST: ${{ inputs.ssh-host }}
         PROJECT_PATH: ${{ inputs.project-path }}
-        BRANCH: ${{ inputs.branch }}
+        REF: ${{ inputs.ref }}
         PROFILE: ${{ inputs.profile }}
         DB_NAME: ${{ inputs.db-name }}
       run: |
-        ssh "$SSH_USER@$SSH_HOST" bash -s -- "$PROJECT_PATH" "$BRANCH" "$PROFILE" "$DB_NAME" <<'REMOTE'
+        ssh "$SSH_USER@$SSH_HOST" bash -s -- "$PROJECT_PATH" "$REF" "$PROFILE" "$DB_NAME" <<'REMOTE'
           set -euo pipefail
 
           PROJECT_PATH="$1"
-          BRANCH="$2"
+          REF="$2"
           PROFILE="$3"
           DB_NAME="$4"
 
           cd "$PROJECT_PATH"
 
-          git fetch origin
-          git reset --hard "origin/$BRANCH"
+          git fetch origin --tags --prune
+          # $REF may be a branch or a tag: branches only exist locally as
+          # origin/<branch>, so try that first and fall back to the bare
+          # name, which resolves against the tag fetched above.
+          if git rev-parse --verify --quiet "origin/$REF" > /dev/null; then
+            git reset --hard "origin/$REF"
+          else
+            git reset --hard "$REF"
+          fi
 
           set -a
           source .env

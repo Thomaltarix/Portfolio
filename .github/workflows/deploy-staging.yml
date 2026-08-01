@@ -30,7 +30,7 @@ jobs:
           ssh-host: ${{ secrets.VPS_HOST }}
           ssh-user: ${{ secrets.VPS_USER }}
           project-path: /opt/apps/Portfolio
-          branch: main
+          ref: main
           profile: staging
           db-name: portfolio_staging
           health-url: https://dev.thomasboue.com

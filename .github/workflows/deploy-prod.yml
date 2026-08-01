@@ -1,9 +1,12 @@
 name: Deploy Production
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Branch or tag to deploy to production
+        required: false
+        default: main
 
 concurrency:
   group: production
@@ -17,6 +20,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
 
       - id: start
         run: echo "time=$(date +%s)" >> "$GITHUB_OUTPUT"
@@ -30,7 +35,7 @@ jobs:
           ssh-host: ${{ secrets.VPS_HOST }}
           ssh-user: ${{ secrets.VPS_USER }}
           project-path: /opt/apps/Portfolio
-          branch: main
+          branch: ${{ inputs.ref }}
           profile: production
           db-name: portfolio
           health-url: https://thomasboue.com

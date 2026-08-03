@@ -27,9 +27,36 @@ The list endpoint (`GET /projects`) returns everything except `content` (kept ou
 | `name` | `String` | 2–100 chars, validated in the DTO. |
 | `email` | `String` | Validated as an email in the DTO; not unique — the same person can submit more than once. |
 | `message` | `String` (`@db.Text`) | 10–2000 chars, validated in the DTO. |
+| `read` | `Boolean @default(false)` | Set via the admin inbox (`PATCH /contact/:id/read`); not exposed to visitors. |
 | `createdAt` | `DateTime` | |
 
-No email-sending is wired to this table yet — submissions are persisted only. Reading them today means a direct DB query (`psql`/Prisma Studio); an admin view is a deferred feature (see `roadmap.md`).
+Notification emails are sent (see `MailModule` in `backend.md`) but the row is still the source of truth. The admin inbox (`GET /contact`, mark-read, delete — see `roadmap.md` Phase 5) replaced the "direct DB query" workflow this doc used to point to.
+
+## `Admin`
+
+| Field | Type | Notes |
+|---|---|---|
+| `id` | `String @id @default(uuid())` | |
+| `email` | `String @unique` | |
+| `passwordHash` | `String` | bcrypt, cost 10. Never leaves the backend — `AdminProfileDto` only ever exposes `id`/`email`. |
+| `createdAt` / `updatedAt` | `DateTime` | |
+
+Provisioned by `prisma/create-admin.ts` (upsert by email), not through the API — there is no registration endpoint. See `backend.md` for the auth flow this backs.
+
+## `PageView`
+
+| Field | Type | Notes |
+|---|---|---|
+| `id` | `String @id @default(uuid())` | |
+| `path` | `String` | |
+| `referrer` | `String?` | |
+| `country` | `String?` | ISO 3166-1 alpha-2, from `geoip-lite` against the request IP. The IP itself is never stored. |
+| `device` | `String?` | `mobile` / `tablet` / `desktop`, from the User-Agent. |
+| `browser` | `String?` | From the User-Agent. |
+| `visitorHash` | `String` | `sha256(ip + user-agent + today's date)` — irreversible in practice and rotates daily, so it can't link the same visitor across days. Used only to approximate unique visitors. |
+| `createdAt` | `DateTime` | Indexed, along with `path` — both are aggregated over in `GET /analytics/stats`. |
+
+No IP column, by design — see `backend.md`'s analytics section for the privacy reasoning. This is a first-party alternative to the Phase 3 "real analytics vendor" item, not a replacement for it; they can coexist.
 
 ## Migration policy
 

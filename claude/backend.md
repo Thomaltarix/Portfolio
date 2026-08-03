@@ -10,10 +10,26 @@ NestJS + Prisma + PostgreSQL, documented with Swagger.
 | `MailModule` | `@Global()` module exposing `MailService`, a thin wrapper around the Resend SDK (`send({ to, subject, html })`). No domain knowledge — just transport. |
 | `health` | `GET /health` — real readiness check (`SELECT 1` through Prisma). |
 | `projects` | Public read API for the dynamic project system: list + detail by slug. |
-| `contact` | Validates and persists contact-form submissions, then emails a notification via `MailService` (best-effort — persistence is the source of truth, so a mail failure is logged, not thrown). |
+| `contact` | Validates and persists contact-form submissions, then emails a notification via `MailService` (best-effort — persistence is the source of truth, so a mail failure is logged, not thrown). Also exposes an admin-only inbox (list/mark-read/delete). |
 | `github` | Proxies and caches GitHub's public REST API for the activity widget. |
+| `auth` | Admin login (`POST /auth/login`, `/logout`, `/me`), all cookie-based JWT — see below. |
+| `analytics` | Public `POST /analytics/track` beacon + admin-only `GET /analytics/stats` aggregation — see below. |
 
-Modules are independent: `contact` does not import from `projects`, `github` does not touch Prisma at all. Shared infrastructure (Prisma, Mail, config) lives in its own module and is injected, not imported ad hoc.
+Modules are independent: `contact` does not import from `projects`, `github` does not touch Prisma at all. Shared infrastructure (Prisma, Mail, config) lives in its own module and is injected, not imported ad hoc. `projects` and `contact` also expose admin-only write/read routes (project CRUD; message list/read/delete) guarded by `JwtAuthGuard` — a plain class imported from `auth/guards/jwt-auth.guard.ts`, not a Nest module dependency on `AuthModule`, so those modules stay independent in the sense that matters (no import cycle, no shared providers).
+
+## Admin auth (cookie-based JWT)
+
+A single `Admin` row (bcrypt-hashed password, provisioned via `prisma/create-admin.ts` — same upsert-by-key idiom as `seed.ts`, run manually) backs `POST /auth/login`. On success the server signs a JWT (`@nestjs/jwt`) and sets it as an **httpOnly, secure-in-production, sameSite=strict** cookie (`admin_token`, see `auth/auth.constants.ts`) — never returned in the response body, never touched by frontend JS. `JwtStrategy` (`passport-jwt`) extracts it from the cookie via a custom extractor (not the `Authorization` header); `JwtAuthGuard extends AuthGuard('jwt')` is the guard every admin-only route uses via `@UseGuards(JwtAuthGuard)`.
+
+No refresh-token flow — the token's lifetime (`JWT_EXPIRES_IN_SECONDS`, default 7200 = 2h) is the whole session; re-login after expiry. Deliberately simple for a single-admin, low-traffic panel — see `roadmap.md` Phase 5 for what'd change this.
+
+`main.ts` registers `cookie-parser` and turns on `credentials: true` in CORS — both required for the cookie to round-trip from the frontend's separate origin.
+
+## Analytics: privacy-first, no cookies, no stored IPs
+
+`POST /analytics/track` (public, rate-limited like `contact`) derives everything itself from the request rather than trusting the client: `geoip-lite` (a bundled local IP→country database, no outbound network call — same "no new external vendor" posture as the GitHub cache below) for country, `ua-parser-js` for device/browser, and a `visitorHash = sha256(ip + user-agent + today's date)` for approximate unique-visitor counting. The salt (today's UTC date) is intentionally public, not secret: the privacy property being bought is "no persistent visitor id across days," not "we can't recompute the hash ourselves" — we could, trivially, since we control the algorithm. The raw IP is never persisted.
+
+`GET /analytics/stats` (admin-only) pulls raw `PageView` rows for the window and aggregates in memory in `AnalyticsService` (`AnalyticsRepository` stays a thin `findSince`/`create`). Fine at personal-portfolio scale; revisit with real Prisma `groupBy` queries only if the row count ever makes that slow.
 
 ## Controller → Service → Repository
 

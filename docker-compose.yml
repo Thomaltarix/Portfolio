@@ -48,9 +48,9 @@ services:
     depends_on:
       - backend
     environment:
-      # Same var as the build arg above, but read at container startup by
-      # docker-entrypoint.sh — changing it and running `up -d` (no `--build`)
-      # is enough, no rebuild needed. See claude/architecture.md.
+      # Same var as the build arg above, but read at container startup by the
+      # docker-entrypoint.d script — changing it and running `up -d` (no
+      # `--build`) is enough, no rebuild needed. See claude/architecture.md.
       API_BASE_URL: ${VITE_API_BASE_URL:-http://localhost:3000}
     ports:
       - '8080:80'

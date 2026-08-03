@@ -32,4 +32,13 @@ export default tseslint.config(
       "prettier/prettier": ["error", { endOfLine: "auto" }],
     },
   },
+  {
+    // jest.fn() properties are plain functions, not methods that rely on
+    // `this` — the unbound-method rule can't tell the difference and
+    // false-positives on every `expect(mock.method).toHaveBeenCalledWith(...)`.
+    files: ['**/*.spec.ts'],
+    rules: {
+      '@typescript-eslint/unbound-method': 'off',
+    },
+  },
 );

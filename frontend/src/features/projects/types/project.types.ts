@@ -12,3 +12,14 @@ export interface ProjectSummary {
 export interface ProjectDetail extends ProjectSummary {
   readonly content: string;
 }
+
+export interface ProjectInput {
+  slug: string;
+  title: string;
+  summary: string;
+  content: string;
+  techStack: string[];
+  githubUrl?: string;
+  liveUrl?: string;
+  featured?: boolean;
+}

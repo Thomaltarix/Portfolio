@@ -55,13 +55,16 @@ Both databases live in the same Postgres container. `portfolio_staging` can't be
 
 ## CI/CD
 
-Three workflows, two reusable composite actions:
+Four workflows, two reusable composite actions:
 
 - `ci.yml` — on every PR to `main` and every push to any other branch: lint/test/build backend, lint/build frontend, and a Docker build of both images (no push). Never runs on `main` directly and never deploys.
-- `deploy-prod.yml` — on push to `main` (i.e. after a PR merges), `environment: Production`.
-- `deploy-dev.yml` — manual (`workflow_dispatch`, picks a branch/ref), `environment: Staging`.
+- `deploy-staging.yml` — on every push to `main` (i.e. after a PR merges), `environment: Staging`. Staging deploys automatically so it stays a true preview of what's about to ship.
+- `deploy-prod.yml` — manual (`workflow_dispatch`, picks a branch/tag to deploy, defaults to `main`), `environment: Production`. Gated behind a manual trigger rather than auto-deploying on merge, so a merge to `main` doesn't immediately go live.
+- `release.yml` — on pushing a `v*.*.*` tag: creates a GitHub Release. Independent of deployment; a tag is just a marker, not a trigger to deploy it (deploy-prod can target one manually).
 
-Both deploy workflows are thin: they call `.github/actions/deploy` (SSH → git reset → ensure the target database exists → `docker compose --profile <profile> up -d --build` → prune old images → healthcheck against the public URL, retried, failing the workflow if the site doesn't come back) and `.github/actions/discord-notify` (one embed, `status: ${{ job.status }}`, `if: always()` — no separate success/failure steps). Branch protection on `main` requires the CI jobs to pass and blocks direct pushes, so `main` is always in a deployable state before `deploy-prod` ever runs.
+Both deploy workflows are thin: they call `.github/actions/deploy` (SSH → git reset → ensure the target database exists → `docker compose --profile <profile> up -d --build` → prune old images → healthcheck against the public URL, failing the workflow if the site doesn't come back) and `.github/actions/discord-notify` (one embed, `status: ${{ job.status }}`, `if: always()` — no separate success/failure steps). Branch protection on `main` requires the CI jobs to pass and blocks direct pushes, so `main` is always in a deployable state before either deploy workflow runs.
+
+`healthcheck.sh` retries on two different kinds of failure: curl's own `--retry` covers transport-level errors (connection refused, timeout, non-2xx), while a separate loop retries on a *successful* response whose `/version.txt` doesn't match the commit just deployed — the old container can still answer for a moment after `docker compose up --force-recreate` reports the new one started, and that's a stale-but-200 response curl's retry wouldn't catch on its own.
 
 ## Dependency direction
 

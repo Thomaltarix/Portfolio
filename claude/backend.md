@@ -59,9 +59,11 @@ Built-in Nest exceptions (`NotFoundException`, `BadRequestException`) are the de
 
 ## Rate limiting
 
-`@nestjs/throttler`'s `ThrottlerGuard` is registered globally (`APP_GUARD`) with a generous default (60 requests/minute per IP) covering every route. `POST /contact` and `GET /github/activity` override it with `@Throttle()` to a tighter, endpoint-specific limit — 5/min and 20/min respectively — because they're the two routes that do real work per request (a DB write + email send; a potential upstream call to GitHub's own rate-limited API) and are the most exposed to abuse from being public and unauthenticated. `GET /health` is exempted with `@SkipThrottle()` since it's an infra check, not a public-facing route worth protecting.
+`@nestjs/throttler`'s `ThrottlerGuard` is registered globally (`APP_GUARD`) with a generous default (60 requests/minute per IP) covering every route. `POST /contact` and `GET /github/activity` override it with `@Throttle()` to a tighter, endpoint-specific limit — 5/min and 20/min respectively — because they're the two routes that do real work per request (a DB write + email send; a potential upstream call to GitHub's own rate-limited API) and are the most exposed to abuse from being public and unauthenticated. `GET /health` is exempted with `@SkipThrottle({ default: true })` since it's an infra check, not a public-facing route worth protecting — spelled out explicitly (rather than the bare `@SkipThrottle()`) so it doesn't silently depend on that being the library's default for an unnamed throttler.
 
 The limits are hardcoded rather than env-configurable — unlike `GITHUB_CACHE_TTL_SECONDS`, there's no expected need to tune these per environment, and adding config for numbers nobody needs to change yet would be premature.
+
+**`trust proxy` matters more than the guard itself.** Production sits behind exactly one Nginx reverse proxy (see `architecture.md`), which sets `X-Forwarded-For`. `main.ts` calls `app.set('trust proxy', 1)` on the Express adapter — without it, Express ignores that header and every request's `req.ip` resolves to Nginx's own address, so `ThrottlerGuard`'s default IP-based tracker would bucket *all* visitors together instead of limiting each one independently. `1` (not `true`) because there's exactly one trusted hop in front; trusting an unbounded chain would let a client spoof its own `X-Forwarded-For`. `rate-limiting.spec.ts` has a regression test for this — it fails immediately if the `trust proxy` line is removed.
 
 ## GitHub caching: in-memory, not Redis
 

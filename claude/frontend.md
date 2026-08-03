@@ -24,7 +24,7 @@ Both routes render inside `RootLayout` (`Header` + `<Outlet/>` + `Footer`).
 
 ## Data fetching
 
-`src/lib/api-client.ts` is a thin `fetch` wrapper (base URL from `VITE_API_BASE_URL`, throws on non-2xx). There is no shared global data-fetching layer beyond that — each feature owns its own `api.ts` and TanStack Query hook(s) (`useProjects`, `useProject(slug)`, `useSubmitContact`, `useGithubActivity`). Query keys are scoped per feature (e.g. `['projects']`, `['projects', slug]`).
+`src/lib/api-client.ts` is a thin `fetch` wrapper (base URL from the runtime `window.__APP_CONFIG__`, falling back to the build-time `VITE_API_BASE_URL` — see `architecture.md`; throws on non-2xx). There is no shared global data-fetching layer beyond that — each feature owns its own `api.ts` and TanStack Query hook(s) (`useProjects`, `useProject(slug)`, `useSubmitContact`, `useGithubActivity`). Query keys are scoped per feature (e.g. `['projects']`, `['projects', slug]`).
 
 No Redux, no Zustand, no global client state store — React Query covers server state, and the only client-only state (theme) is small enough for a dedicated context (`theme-provider.tsx`).
 
@@ -61,3 +61,5 @@ Explicitly deferred: dynamic sitemap entries per project slug (needs either a bu
 ## Types: no shared package with the backend
 
 `features/projects/types/project.types.ts` duplicates the shape of the backend's response DTOs by hand rather than importing from a shared workspace package. This is consistent with the two-folder-monorepo decision in `architecture.md` — if this duplication becomes a real maintenance burden, the fix is a shared types package, not before.
+
+**Reviewed 2026-08-03 (Phase 4):** three shapes are hand-duplicated today — `ProjectSummary`/`ProjectDetail` (mirrors `ProjectSummaryDto`/`ProjectDetailDto`) and `GithubActivityItem` (mirrors `GithubActivityItemDto`). The contact form's `ContactFormValues` looks like a fourth, but it isn't one to fix — its Zod schema exists for translated, UX-facing validation messages, a concern the backend's `class-validator` DTO doesn't share, so the two are meant to diverge even if a types package existed. All three real duplicates have been stable since Phase 1 with zero drift incidents. Conclusion: still not worth a workspace package — the tooling cost (root manifest, workspace-aware scripts/CI, an extra build step) outweighs keeping three small, rarely-changed shapes in sync by hand. Revisit again if a shape starts changing often, a fourth or fifth genuine duplicate appears, or a drift bug actually ships.

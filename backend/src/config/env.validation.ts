@@ -12,6 +12,8 @@ const envValidationSchema = Joi.object({
   RESEND_API_KEY: Joi.string().required(),
   CONTACT_FROM_EMAIL: Joi.string().required(),
   CONTACT_NOTIFICATION_EMAIL: Joi.string().email().required(),
+  JWT_SECRET: Joi.string().min(32).required(),
+  JWT_EXPIRES_IN_SECONDS: Joi.number().default(7_200),
 }).unknown(true);
 
 export function validateEnv(

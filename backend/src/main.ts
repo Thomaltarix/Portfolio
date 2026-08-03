@@ -3,7 +3,9 @@ import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import cookieParser from 'cookie-parser';
 import { AppModule } from './app.module';
+import { ADMIN_TOKEN_COOKIE } from './modules/auth/auth.constants';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -16,6 +18,8 @@ async function bootstrap() {
   // bucket for all visitors.
   app.set('trust proxy', 1);
 
+  app.use(cookieParser());
+
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
@@ -24,14 +28,20 @@ async function bootstrap() {
     }),
   );
 
-  app.enableCors({ origin: configService.get<string>('corsOrigin') });
+  // credentials: true is required for the admin JWT cookie to round-trip —
+  // the frontend fetches with credentials: 'include' (see api-client.ts).
+  app.enableCors({
+    origin: configService.get<string>('corsOrigin'),
+    credentials: true,
+  });
 
   const swaggerConfig = new DocumentBuilder()
     .setTitle('Portfolio API')
     .setDescription(
-      'Backend API powering the portfolio: projects, contact form, and GitHub activity',
+      'Backend API powering the portfolio: projects, contact form, GitHub activity, and the admin dashboard',
     )
     .setVersion('1.0')
+    .addCookieAuth(ADMIN_TOKEN_COOKIE)
     .build();
   const document = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup('docs', app, document);

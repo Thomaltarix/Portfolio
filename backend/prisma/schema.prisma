@@ -25,5 +25,31 @@ model ContactMessage {
   name      String
   email     String
   message   String   @db.Text
+  read      Boolean  @default(false)
   createdAt DateTime @default(now())
+}
+
+model Admin {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model PageView {
+  id          String   @id @default(uuid())
+  path        String
+  referrer    String?
+  // ISO 3166-1 alpha-2, looked up from the request IP; the IP itself is never persisted.
+  country     String?
+  device      String?
+  browser     String?
+  // sha256(ip + user-agent + daily salt) — irreversible and rotates daily, used only
+  // to approximate unique visitors without storing any personal data.
+  visitorHash String
+  createdAt   DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([path])
 }

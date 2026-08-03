@@ -1,8 +1,16 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { Project } from '@prisma/client';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
+import { Prisma, Project } from '@prisma/client';
+import { CreateProjectDto } from './dto/create-project.dto';
 import { ProjectDetailDto } from './dto/project-detail.dto';
 import { ProjectSummaryDto } from './dto/project-summary.dto';
+import { UpdateProjectDto } from './dto/update-project.dto';
 import { ProjectsRepository } from './projects.repository';
+
+const UNIQUE_CONSTRAINT_VIOLATION = 'P2002';
 
 @Injectable()
 export class ProjectsService {
@@ -19,6 +27,47 @@ export class ProjectsService {
       throw new NotFoundException(`Project with slug "${slug}" not found`);
     }
     return toDetailDto(project);
+  }
+
+  async create(dto: CreateProjectDto): Promise<ProjectDetailDto> {
+    try {
+      const project = await this.projectsRepository.create(dto);
+      return toDetailDto(project);
+    } catch (error) {
+      throw this.mapWriteError(error, dto.slug);
+    }
+  }
+
+  async update(id: string, dto: UpdateProjectDto): Promise<ProjectDetailDto> {
+    await this.getOrThrow(id);
+    try {
+      const project = await this.projectsRepository.update(id, dto);
+      return toDetailDto(project);
+    } catch (error) {
+      throw this.mapWriteError(error, dto.slug);
+    }
+  }
+
+  async remove(id: string): Promise<void> {
+    await this.getOrThrow(id);
+    await this.projectsRepository.delete(id);
+  }
+
+  private async getOrThrow(id: string): Promise<Project> {
+    const project = await this.projectsRepository.findById(id);
+    if (!project) {
+      throw new NotFoundException(`Project with id "${id}" not found`);
+    }
+    return project;
+  }
+
+  private mapWriteError(error: unknown, slug: string | undefined): unknown {
+    const isUniqueViolation =
+      error instanceof Prisma.PrismaClientKnownRequestError &&
+      error.code === UNIQUE_CONSTRAINT_VIOLATION;
+    return isUniqueViolation
+      ? new ConflictException(`A project with slug "${slug}" already exists`)
+      : error;
   }
 }
 

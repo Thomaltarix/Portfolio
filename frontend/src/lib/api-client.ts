@@ -23,6 +23,9 @@ export class ApiError extends Error {
 export async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> {
   const response = await fetch(`${API_BASE_URL}${path}`, {
     ...init,
+    // Lets the admin session cookie round-trip to api.<domain> — harmless for
+    // anonymous requests, since there's no cookie to send until logged in.
+    credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
       ...init?.headers,
@@ -34,5 +37,13 @@ export async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> 
     throw new ApiError(response.status, body?.message ?? `Request to ${path} failed`);
   }
 
+  // 204 (and any other empty body) has nothing for response.json() to parse —
+  // several admin endpoints (delete, analytics tracking) return exactly this.
+  if (response.status === HTTP_NO_CONTENT) {
+    return undefined as T;
+  }
+
   return response.json() as Promise<T>;
 }
+
+const HTTP_NO_CONTENT = 204;

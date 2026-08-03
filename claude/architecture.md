@@ -70,6 +70,12 @@ Both deploy workflows are thin: they call `.github/actions/deploy` (SSH → git 
 
 That split exists because a real deploy once failed the public-URL version check even though the loopback check (run manually to debug it) proved the container was serving the correct build within milliseconds of starting: Cloudflare's edge served a stale cached response for longer than any reasonable retry budget after the origin connection was briefly interrupted by the container swap. The public check is only useful for confirming the whole external chain works, not for deciding whether the deploy itself succeeded.
 
+## Admin auth: cookie-based JWT, not a session store
+
+The admin dashboard (`/admin/*`, Phase 5) authenticates with a JWT in an httpOnly, secure-in-production, `sameSite=strict` cookie — not a database-backed session table. `thomasboue.com` and `api.thomasboue.com` share the same registrable domain (`thomasboue.com`), so the cookie set by the API is still sent as "same-site" when the frontend's JS calls `fetch('https://api.thomasboue.com/...', { credentials: 'include' })`; `sameSite=strict` doesn't need loosening to `lax` for this to work. This is why `main.ts` also turns on CORS `credentials: true` — without it, the browser drops the cookie on cross-origin requests even within the same site.
+
+No Redis, no session table: the JWT itself is the full session state, stateless and cheap, consistent with the "no shared cache" stance below — there's exactly one admin, so there's nothing to share across instances yet.
+
 ## Dependency direction
 
 Frontend → Backend → Database. Never the reverse. Within the backend, Controller → Service → Repository → Prisma; a repository never calls a service, a service never touches `Request`/`Response` objects directly.

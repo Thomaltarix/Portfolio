@@ -5,6 +5,8 @@ import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import configuration from './config/configuration';
 import { validateEnv } from './config/env.validation';
 import { MailModule } from './mail/mail.module';
+import { AnalyticsModule } from './modules/analytics/analytics.module';
+import { AuthModule } from './modules/auth/auth.module';
 import { ContactModule } from './modules/contact/contact.module';
 import { GithubModule } from './modules/github/github.module';
 import { HealthModule } from './modules/health/health.module';
@@ -27,6 +29,8 @@ import { PrismaModule } from './prisma/prisma.module';
     ProjectsModule,
     ContactModule,
     GithubModule,
+    AuthModule,
+    AnalyticsModule,
   ],
   providers: [{ provide: APP_GUARD, useClass: ThrottlerGuard }],
 })

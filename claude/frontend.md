@@ -20,7 +20,10 @@ Cross-cutting, non-feature UI (layout, generic shadcn primitives, motion helpers
 - `/projects/:slug` → `ProjectDetailPage`.
 - `*` → `NotFoundPage`.
 
-Both routes render inside `RootLayout` (`Header` + `<Outlet/>` + `Footer`).
+These routes render inside `RootLayout` (`Header` + `<Outlet/>` + `Footer`).
+
+- `/admin/login` → `AdminLoginPage` (public).
+- `/admin/*` → gated by `ProtectedRoute` (redirects to `/admin/login` if `useMe()` fails), then rendered inside `AdminLayout` (its own header/nav — not the public site chrome): `/admin/dashboard`, `/admin/projects`, `/admin/messages`.
 
 ## Data fetching
 
@@ -56,7 +59,18 @@ Explicitly deferred: dynamic sitemap entries per project slug (needs either a bu
 
 ## Analytics
 
-`src/lib/analytics.ts` conditionally injects a single script tag only if `VITE_ANALYTICS_SCRIPT_URL` (and a site-id var) are set at build time. No vendor is hardcoded — this works with Plausible, Umami, or similar, and is a no-op if the env vars are absent.
+Two independent things, both called "analytics" — don't conflate them:
+
+- `src/lib/analytics.ts` conditionally injects a single script tag only if `VITE_ANALYTICS_SCRIPT_URL` (and a site-id var) are set at build time. No vendor is hardcoded — this works with Plausible, Umami, or similar, and is a no-op if the env vars are absent. (Phase 3 item, still unconfigured.)
+- `features/analytics/` is the first-party, in-house page-view tracker feeding the admin dashboard (Phase 5). `PageViewTracker` (mounted once at the router root, inside `BrowserRouter`) calls `useTrackPageView()`, which fires a `POST /analytics/track` beacon on every `useLocation()` change — skipped for `/admin/*` paths so the owner's own visits don't skew their own stats. Best-effort: a failed beacon is swallowed, never surfaced to the visitor. See `backend.md` for what the backend derives from that request server-side.
+
+## Admin dashboard (`features/admin/`, `features/auth/`, `features/analytics/`)
+
+- `features/auth/` — `useMe()`/`useLogin()`/`useLogout()` (TanStack Query on top of `/auth/*`). `apiFetch` always sends `credentials: 'include'` so the httpOnly admin cookie round-trips to `api.<domain>` (harmless for anonymous requests — there's simply no cookie yet).
+- `features/admin/components/ProtectedRoute.tsx` gates the `/admin/*` subtree; `AdminLayout` is a separate shell from the public `RootLayout` (own nav: Dashboard/Projets/Messages + logout).
+- Charts and ranked breakdowns (`features/analytics/components/TimeSeriesChart.tsx`, `RankedList.tsx`) are hand-rolled (inline SVG / styled lists), not a charting library — the design system (`design-system.md`) has exactly one accent color and no categorical palette, so a magnitude/ranked-list encoding (one hue, varying bar length) fits without inventing new colors or a dependency. Followed the `dataviz` skill's procedure (form → color → hover interaction → legend) rather than reaching for a library by default.
+- Project create/edit (`features/admin/components/ProjectForm.tsx`) reuses the existing `Button`/`Input`/`Label`/`Textarea` primitives and the react-hook-form + zod pattern from the contact form — no new `table`/`dialog`/`toast` primitives were needed; edit is a full-page form swap, not a modal, and save/delete feedback is inline text, matching `ContactSection`'s existing convention.
+- Deliberately **not** wired into i18n: the admin UI is a private tool for the site owner, not indexed/public content, so it's French-only hardcoded strings rather than extending the `locales/en`+`fr` JSON machinery to a surface with one audience of one.
 
 ## Types: no shared package with the backend
 

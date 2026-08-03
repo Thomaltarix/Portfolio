@@ -1,5 +1,6 @@
 import { Controller, Get, ServiceUnavailableException } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { SkipThrottle } from '@nestjs/throttler';
 import { PrismaService } from '../../prisma/prisma.service';
 
 @ApiTags('health')
@@ -8,6 +9,7 @@ export class HealthController {
   constructor(private readonly prisma: PrismaService) {}
 
   @Get()
+  @SkipThrottle()
   @ApiOperation({
     summary: 'Report whether the API and its database connection are healthy',
   })

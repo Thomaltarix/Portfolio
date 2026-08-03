@@ -7,7 +7,7 @@
 // (apiFetch('/projects')), so a base URL ending in "/" would otherwise
 // produce a double slash.
 const API_BASE_URL = (
-  window.__APP_CONFIG__?.apiBaseUrl || (import.meta.env.VITE_API_BASE_URL as string)
+  window.__APP_CONFIG__?.apiBaseUrl || (import.meta.env.VITE_API_BASE_URL as string | undefined) || ''
 ).replace(/\/+$/, '');
 
 export class ApiError extends Error {

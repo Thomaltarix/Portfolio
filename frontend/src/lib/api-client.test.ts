@@ -68,12 +68,17 @@ describe('API_BASE_URL resolution', () => {
   beforeEach(() => {
     vi.resetModules();
     delete window.__APP_CONFIG__;
+    // Stubbed explicitly rather than relying on the local .env file's value:
+    // .env is gitignored, so import.meta.env.VITE_API_BASE_URL is undefined
+    // in CI, and these tests need to behave the same in both places.
+    vi.stubEnv('VITE_API_BASE_URL', 'https://build-time.example.com');
     fetchMock = vi.fn().mockResolvedValue({ ok: true, json: () => Promise.resolve({}) });
     vi.stubGlobal('fetch', fetchMock);
   });
 
   afterEach(() => {
     vi.unstubAllGlobals();
+    vi.unstubAllEnvs();
   });
 
   it('prefers the runtime config injected by config.js', async () => {
@@ -91,7 +96,7 @@ describe('API_BASE_URL resolution', () => {
     await freshApiFetch('/projects');
 
     const [url] = fetchMock.mock.calls[0] as [string];
-    expect(url).toBe(`${import.meta.env.VITE_API_BASE_URL}/projects`);
+    expect(url).toBe('https://build-time.example.com/projects');
   });
 
   it('strips a trailing slash from the base URL to avoid a double slash', async () => {
@@ -102,5 +107,15 @@ describe('API_BASE_URL resolution', () => {
 
     const [url] = fetchMock.mock.calls[0] as [string];
     expect(url).toBe('https://runtime.example.com/projects');
+  });
+
+  it('resolves to an empty base URL rather than throwing when neither is set', async () => {
+    vi.stubEnv('VITE_API_BASE_URL', '');
+
+    const { apiFetch: freshApiFetch } = await import('./api-client');
+    await freshApiFetch('/projects');
+
+    const [url] = fetchMock.mock.calls[0] as [string];
+    expect(url).toBe('/projects');
   });
 });

@@ -9,7 +9,11 @@ export class HealthController {
   constructor(private readonly prisma: PrismaService) {}
 
   @Get()
-  @SkipThrottle()
+  // Explicit rather than the bare @SkipThrottle() — it happens to default to
+  // the same thing (our one unnamed throttler resolves to 'default'), but
+  // spelling out the name isn't tied to that default surviving future
+  // @nestjs/throttler versions.
+  @SkipThrottle({ default: true })
   @ApiOperation({
     summary: 'Report whether the API and its database connection are healthy',
   })

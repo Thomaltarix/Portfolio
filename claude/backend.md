@@ -57,6 +57,12 @@ Built-in Nest exceptions (`NotFoundException`, `BadRequestException`) are the de
 
 `ConfigModule.forRoot({ isGlobal: true, load: [configuration], validate })`, where `validate` runs a Joi schema over `process.env` at boot. Missing or malformed env vars fail startup immediately rather than surfacing as a confusing runtime error later.
 
+## Rate limiting
+
+`@nestjs/throttler`'s `ThrottlerGuard` is registered globally (`APP_GUARD`) with a generous default (60 requests/minute per IP) covering every route. `POST /contact` and `GET /github/activity` override it with `@Throttle()` to a tighter, endpoint-specific limit — 5/min and 20/min respectively — because they're the two routes that do real work per request (a DB write + email send; a potential upstream call to GitHub's own rate-limited API) and are the most exposed to abuse from being public and unauthenticated. `GET /health` is exempted with `@SkipThrottle()` since it's an infra check, not a public-facing route worth protecting.
+
+The limits are hardcoded rather than env-configurable — unlike `GITHUB_CACHE_TTL_SECONDS`, there's no expected need to tune these per environment, and adding config for numbers nobody needs to change yet would be premature.
+
 ## GitHub caching: in-memory, not Redis
 
 The `github` module caches GitHub API responses in a plain `Map<string, { data, expiresAt }>` keyed by username, with a configurable TTL (`GITHUB_CACHE_TTL_SECONDS`, default 300). No Redis, no database table.

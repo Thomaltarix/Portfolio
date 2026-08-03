@@ -33,6 +33,15 @@ describe('apiFetch', () => {
     expect(init.headers).toMatchObject({ 'Content-Type': 'application/json' });
   });
 
+  it('includes credentials so the admin session cookie round-trips', async () => {
+    fetchMock.mockResolvedValue({ ok: true, json: () => Promise.resolve({}) });
+
+    await apiFetch('/projects');
+
+    const [, init] = fetchMock.mock.calls[0] as [string, RequestInit];
+    expect(init.credentials).toBe('include');
+  });
+
   it('throws an ApiError using the response body message on failure', async () => {
     fetchMock.mockResolvedValue({
       ok: false,
@@ -45,6 +54,16 @@ describe('apiFetch', () => {
       status: 400,
       message: 'Invalid payload',
     });
+  });
+
+  it('resolves to undefined for a 204 No Content response without parsing a body', async () => {
+    const json = vi.fn();
+    fetchMock.mockResolvedValue({ ok: true, status: 204, json });
+
+    const result = await apiFetch('/analytics/track');
+
+    expect(result).toBeUndefined();
+    expect(json).not.toHaveBeenCalled();
   });
 
   it('falls back to a generic message when the error body is not JSON', async () => {

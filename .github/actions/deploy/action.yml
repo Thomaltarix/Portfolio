@@ -27,7 +27,7 @@ inputs:
     description: Public URL to verify after deploying
     required: true
   commit-sha:
-    description: SHA of the commit being deployed, verified against the live site after deploying
+    description: SHA of the commit being deployed, verified against the container directly on the VPS after deploying
     required: true
 
 runs:
@@ -58,14 +58,16 @@ runs:
         REF: ${{ inputs.ref }}
         PROFILE: ${{ inputs.profile }}
         DB_NAME: ${{ inputs.db-name }}
+        EXPECTED_SHA: ${{ inputs.commit-sha }}
       run: |
-        ssh "$SSH_USER@$SSH_HOST" bash -s -- "$PROJECT_PATH" "$REF" "$PROFILE" "$DB_NAME" <<'REMOTE'
+        ssh "$SSH_USER@$SSH_HOST" bash -s -- "$PROJECT_PATH" "$REF" "$PROFILE" "$DB_NAME" "$EXPECTED_SHA" <<'REMOTE'
           set -euo pipefail
 
           PROJECT_PATH="$1"
           REF="$2"
           PROFILE="$3"
           DB_NAME="$4"
+          EXPECTED_SHA="$5"
 
           cd "$PROJECT_PATH"
 
@@ -83,8 +85,8 @@ runs:
           source .env
           set +a
 
-          # Baked into the frontend image so the health check can confirm the live
-          # site actually served this build, not a stale container left running.
+          # Baked into the frontend image so we can confirm below that the live
+          # container actually served this build, not a stale one left running.
           export VITE_BUILD_SHA="$(git rev-parse HEAD)"
 
           # Postgres is shared by both profiles and carries no "profiles:" key of its
@@ -118,17 +120,36 @@ runs:
           # to guarantee the container is actually replaced even if Compose thinks
           # nothing changed.
           case "$PROFILE" in
-            production) APP_SERVICES=(backend frontend) ;;
-            staging) APP_SERVICES=(backend-staging frontend-staging) ;;
+            production) APP_SERVICES=(backend frontend); FRONTEND_PORT=8080 ;;
+            staging) APP_SERVICES=(backend-staging frontend-staging); FRONTEND_PORT=8081 ;;
             *) echo "Unknown PROFILE: $PROFILE" >&2; exit 1 ;;
           esac
           docker compose --profile "$PROFILE" up -d --build --force-recreate --remove-orphans "${APP_SERVICES[@]}" < /dev/null
           docker image prune -af --filter "until=168h" < /dev/null
+
+          # Checked here, against the container directly on the VPS's loopback
+          # interface, rather than only through the public HTTPS URL (that
+          # check still runs afterwards, but as a separate reachability
+          # check — see healthcheck.sh). Going through Cloudflare for this
+          # comparison caused a false-failure deploy: the container was
+          # provably serving the right build within milliseconds of starting,
+          # but Cloudflare's edge briefly served a stale cached response
+          # after the origin connection was interrupted by the container
+          # swap, and kept doing so for longer than any reasonable retry
+          # budget here. A loopback curl has no CDN in the way.
+          for _ in $(seq 1 10); do
+            DEPLOYED_SHA="$(curl --silent --max-time 5 "http://127.0.0.1:${FRONTEND_PORT}/version.txt" || true)"
+            [ "$DEPLOYED_SHA" = "$EXPECTED_SHA" ] && break
+            sleep 2
+          done
+          if [ "$DEPLOYED_SHA" != "$EXPECTED_SHA" ]; then
+            echo "Deployed version mismatch: expected $EXPECTED_SHA, container is serving $DEPLOYED_SHA" >&2
+            exit 1
+          fi
         REMOTE
 
     - name: Health check
       shell: bash
       env:
         HEALTH_URL: ${{ inputs.health-url }}
-        EXPECTED_SHA: ${{ inputs.commit-sha }}
       run: bash ./.github/scripts/healthcheck.sh

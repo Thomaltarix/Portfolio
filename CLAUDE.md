@@ -82,6 +82,7 @@ Durable engineering principles for this repository. This file is auto-loaded eve
 - Small commits.
 - Meaningful commit messages.
 - One logical change per commit.
+- Never commit directly on `main` — always work on a feature/topic branch, even for small or solo changes.
 
 ## Code Style
 

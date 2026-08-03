@@ -47,6 +47,11 @@ services:
     restart: unless-stopped
     depends_on:
       - backend
+    environment:
+      # Same var as the build arg above, but read at container startup by the
+      # docker-entrypoint.d script — changing it and running `up -d` (no
+      # `--build`) is enough, no rebuild needed. See claude/architecture.md.
+      API_BASE_URL: ${VITE_API_BASE_URL:-http://localhost:3000}
     ports:
       - '8080:80'
 
@@ -81,6 +86,8 @@ services:
     restart: unless-stopped
     depends_on:
       - backend-staging
+    environment:
+      API_BASE_URL: ${VITE_API_BASE_URL_STAGING:-http://localhost:3001}
     ports:
       - '8081:80'
 

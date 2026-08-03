@@ -61,3 +61,61 @@ describe('apiFetch', () => {
     expect(error.message).toContain('/contact');
   });
 });
+
+describe('API_BASE_URL resolution', () => {
+  let fetchMock: ReturnType<typeof vi.fn>;
+
+  beforeEach(() => {
+    vi.resetModules();
+    delete window.__APP_CONFIG__;
+    // Stubbed explicitly rather than relying on the local .env file's value:
+    // .env is gitignored, so import.meta.env.VITE_API_BASE_URL is undefined
+    // in CI, and these tests need to behave the same in both places.
+    vi.stubEnv('VITE_API_BASE_URL', 'https://build-time.example.com');
+    fetchMock = vi.fn().mockResolvedValue({ ok: true, json: () => Promise.resolve({}) });
+    vi.stubGlobal('fetch', fetchMock);
+  });
+
+  afterEach(() => {
+    vi.unstubAllGlobals();
+    vi.unstubAllEnvs();
+  });
+
+  it('prefers the runtime config injected by config.js', async () => {
+    window.__APP_CONFIG__ = { apiBaseUrl: 'https://runtime.example.com' };
+
+    const { apiFetch: freshApiFetch } = await import('./api-client');
+    await freshApiFetch('/projects');
+
+    const [url] = fetchMock.mock.calls[0] as [string];
+    expect(url).toBe('https://runtime.example.com/projects');
+  });
+
+  it('falls back to the build-time VITE_API_BASE_URL when no runtime config is present', async () => {
+    const { apiFetch: freshApiFetch } = await import('./api-client');
+    await freshApiFetch('/projects');
+
+    const [url] = fetchMock.mock.calls[0] as [string];
+    expect(url).toBe('https://build-time.example.com/projects');
+  });
+
+  it('strips a trailing slash from the base URL to avoid a double slash', async () => {
+    window.__APP_CONFIG__ = { apiBaseUrl: 'https://runtime.example.com/' };
+
+    const { apiFetch: freshApiFetch } = await import('./api-client');
+    await freshApiFetch('/projects');
+
+    const [url] = fetchMock.mock.calls[0] as [string];
+    expect(url).toBe('https://runtime.example.com/projects');
+  });
+
+  it('resolves to an empty base URL rather than throwing when neither is set', async () => {
+    vi.stubEnv('VITE_API_BASE_URL', '');
+
+    const { apiFetch: freshApiFetch } = await import('./api-client');
+    await freshApiFetch('/projects');
+
+    const [url] = fetchMock.mock.calls[0] as [string];
+    expect(url).toBe('/projects');
+  });
+});

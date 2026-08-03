@@ -7,3 +7,10 @@ interface ImportMetaEnv {
 interface ImportMeta {
   readonly env: ImportMetaEnv;
 }
+
+// Set by public/config.js, loaded before the app bundle — see api-client.ts.
+interface Window {
+  __APP_CONFIG__?: {
+    readonly apiBaseUrl?: string;
+  };
+}

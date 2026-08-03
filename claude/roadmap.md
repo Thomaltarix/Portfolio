@@ -30,14 +30,14 @@ A working full-stack skeleton proving the architecture end-to-end, not the finis
 - Real analytics vendor account wired into the existing `VITE_ANALYTICS_SCRIPT_URL` env-var slot.
 - Dynamic sitemap generation reflecting real project slugs (build-time API call or backend-served sitemap).
 
-## Phase 4 — Operational maturity
+## Phase 4 — Operational maturity (done)
 
 - ~~CI/CD via GitHub Actions~~ — done: `ci.yml` (lint/test/build/Docker validation on every branch but `main`), `deploy-prod.yml` (push to `main`), `deploy-dev.yml` (manual, any branch), composite actions `deploy` and `discord-notify`, branch protection on `main`, separate `Production`/`Staging` GitHub Environments. See `architecture.md`.
 - ~~Staging environment~~ — done: `docker-compose.yml` profiles (`production`/`staging`) sharing one Postgres instance via separate databases, routed through dedicated subdomains (`dev.thomasboue.com`, `api.dev.thomasboue.com`) — see `architecture.md`.
 - ~~Automated tests~~ — done: backend Jest unit tests for `ContactService`/`ProjectsService`/`GithubService`/`MailService` (repositories/Resend mocked at the boundary); frontend Vitest + Testing Library component/integration tests for the Projects flow (`ProjectCard`, `ProjectsSection`, `ProjectDetailPage`) and Contact flow (`ContactSection`, form schema, `apiFetch`). `ci.yml` runs both without `--passWithNoTests`.
 - ~~Rate limiting~~ — done: `@nestjs/throttler`'s `ThrottlerGuard` applied globally (60 req/min default), with `POST /contact` (5/min) and `GET /github/activity` (20/min) tightened via `@Throttle()`, and `GET /health` exempted via `@SkipThrottle()`. See `backend.md`.
-- Runtime-configurable frontend API base URL (currently build-time only, due to Vite's env-inlining — see `architecture.md`).
-- Revisit the "no shared types" and "no workspace tooling" decisions if backend/frontend duplication becomes a real maintenance cost.
+- ~~Runtime-configurable frontend API base URL~~ — done: a `docker-entrypoint.d` script regenerates `public/config.js` from the `API_BASE_URL` env var at container startup; `api-client.ts` reads `window.__APP_CONFIG__.apiBaseUrl` first, falling back to the build-time `VITE_API_BASE_URL`. Changing a deployed frontend's API URL is now a config change + `docker compose up -d`, not a rebuild. See `architecture.md`.
+- ~~Revisit the "no shared types" and "no workspace tooling" decisions~~ — reviewed 2026-08-03: still not worth it. Three shapes are hand-duplicated (stable since Phase 1, no drift incidents); the workspace-tooling cost isn't justified yet. See `frontend.md`.
 
 ## Explicitly not planned unless requirements change
 

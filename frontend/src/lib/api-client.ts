@@ -1,4 +1,8 @@
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL as string;
+// Runtime value (set by public/config.js at container startup) wins over the
+// build-time one, so a deployed container's API URL can change without a
+// rebuild — see claude/architecture.md. Falls back to the build-time value
+// for local dev, where config.js is a static placeholder.
+const API_BASE_URL = window.__APP_CONFIG__?.apiBaseUrl || (import.meta.env.VITE_API_BASE_URL as string);
 
 export class ApiError extends Error {
   readonly status: number;

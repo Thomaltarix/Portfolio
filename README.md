@@ -16,6 +16,17 @@ Postgres is shared by both profiles and has no `profiles:` of its own, so it alw
 
 - Frontend: http://localhost:8080
 - Backend API docs (Swagger): http://localhost:3000/docs
+- Admin dashboard: http://localhost:8080/admin/login
+
+### Provisioning the admin account
+
+The dashboard needs one `Admin` row before you can log in. Run this once (repeat with a new password any time to rotate it — it's an upsert by email):
+
+```bash
+docker compose exec -e ADMIN_EMAIL=you@example.com -e ADMIN_PASSWORD=change-me backend npm run prisma:create-admin
+```
+
+`ADMIN_EMAIL`/`ADMIN_PASSWORD` are passed ad hoc to this one command, not stored in `.env` or the container's declared environment — the password only ever exists as a bcrypt hash in Postgres.
 
 ## Local development (without Docker)
 
@@ -28,6 +39,7 @@ cp .env.example .env
 npm install
 npm run prisma:migrate
 npm run prisma:seed
+ADMIN_EMAIL=you@example.com ADMIN_PASSWORD=change-me npm run prisma:create-admin
 npm run start:dev
 
 # Frontend (separate terminal)

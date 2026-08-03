@@ -1,8 +1,22 @@
-import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Param,
+  ParseUUIDPipe,
+  Patch,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
+import { ApiCookieAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Throttle } from '@nestjs/throttler';
-import { ContactService } from './contact.service';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { ContactMessageDto } from './dto/contact-message.dto';
 import { CreateContactMessageDto } from './dto/create-contact-message.dto';
+import { ContactService } from './contact.service';
 
 @ApiTags('contact')
 @Controller('contact')
@@ -17,5 +31,30 @@ export class ContactController {
   @ApiOperation({ summary: 'Submit a contact form message' })
   submit(@Body() dto: CreateContactMessageDto): Promise<{ id: string }> {
     return this.contactService.submit(dto);
+  }
+
+  @Get()
+  @UseGuards(JwtAuthGuard)
+  @ApiCookieAuth()
+  @ApiOperation({ summary: 'List all contact messages (admin only)' })
+  findAll(): Promise<ContactMessageDto[]> {
+    return this.contactService.findAll();
+  }
+
+  @Patch(':id/read')
+  @UseGuards(JwtAuthGuard)
+  @ApiCookieAuth()
+  @ApiOperation({ summary: 'Mark a contact message as read (admin only)' })
+  markRead(@Param('id', ParseUUIDPipe) id: string): Promise<ContactMessageDto> {
+    return this.contactService.markRead(id);
+  }
+
+  @Delete(':id')
+  @UseGuards(JwtAuthGuard)
+  @ApiCookieAuth()
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiOperation({ summary: 'Delete a contact message (admin only)' })
+  remove(@Param('id', ParseUUIDPipe) id: string): Promise<void> {
+    return this.contactService.remove(id);
   }
 }

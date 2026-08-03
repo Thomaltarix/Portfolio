@@ -10,4 +10,25 @@ export class ContactRepository {
   create(data: CreateContactMessageDto): Promise<ContactMessage> {
     return this.prisma.contactMessage.create({ data });
   }
+
+  findAll(): Promise<ContactMessage[]> {
+    return this.prisma.contactMessage.findMany({
+      orderBy: { createdAt: 'desc' },
+    });
+  }
+
+  findById(id: string): Promise<ContactMessage | null> {
+    return this.prisma.contactMessage.findUnique({ where: { id } });
+  }
+
+  markRead(id: string): Promise<ContactMessage> {
+    return this.prisma.contactMessage.update({
+      where: { id },
+      data: { read: true },
+    });
+  }
+
+  delete(id: string): Promise<ContactMessage> {
+    return this.prisma.contactMessage.delete({ where: { id } });
+  }
 }

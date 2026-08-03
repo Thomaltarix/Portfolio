@@ -1,4 +1,5 @@
 import { ConfigService } from '@nestjs/config';
+import { NotFoundException } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import { ContactMessage } from '@prisma/client';
 import { MailService } from '../../mail/mail.service';
@@ -25,7 +26,13 @@ describe('ContactService', () => {
         ContactService,
         {
           provide: ContactRepository,
-          useValue: { create: jest.fn() },
+          useValue: {
+            create: jest.fn(),
+            findAll: jest.fn(),
+            findById: jest.fn(),
+            markRead: jest.fn(),
+            delete: jest.fn(),
+          },
         },
         {
           provide: MailService,
@@ -83,6 +90,57 @@ describe('ContactService', () => {
 
     await expect(service.submit(dto)).resolves.toEqual({
       id: persistedMessage.id,
+    });
+  });
+
+  describe('findAll', () => {
+    it('returns every message from the repository', async () => {
+      const messages = [{ id: '1' } as ContactMessage];
+      contactRepository.findAll.mockResolvedValue(messages);
+
+      await expect(service.findAll()).resolves.toBe(messages);
+    });
+  });
+
+  describe('markRead', () => {
+    it('throws NotFoundException when the message does not exist', async () => {
+      contactRepository.findById.mockResolvedValue(null);
+
+      await expect(service.markRead('missing-id')).rejects.toThrow(
+        NotFoundException,
+      );
+      expect(contactRepository.markRead).not.toHaveBeenCalled();
+    });
+
+    it('marks the message as read when it exists', async () => {
+      const message = { id: 'message-id', read: false } as ContactMessage;
+      contactRepository.findById.mockResolvedValue(message);
+      contactRepository.markRead.mockResolvedValue({ ...message, read: true });
+
+      const result = await service.markRead(message.id);
+
+      expect(contactRepository.markRead).toHaveBeenCalledWith(message.id);
+      expect(result.read).toBe(true);
+    });
+  });
+
+  describe('remove', () => {
+    it('throws NotFoundException when the message does not exist', async () => {
+      contactRepository.findById.mockResolvedValue(null);
+
+      await expect(service.remove('missing-id')).rejects.toThrow(
+        NotFoundException,
+      );
+      expect(contactRepository.delete).not.toHaveBeenCalled();
+    });
+
+    it('deletes the message when it exists', async () => {
+      const message = { id: 'message-id' } as ContactMessage;
+      contactRepository.findById.mockResolvedValue(message);
+
+      await service.remove(message.id);
+
+      expect(contactRepository.delete).toHaveBeenCalledWith(message.id);
     });
   });
 });

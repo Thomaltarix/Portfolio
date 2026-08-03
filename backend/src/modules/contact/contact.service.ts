@@ -1,5 +1,6 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { ContactMessage } from '@prisma/client';
 import { MailService } from '../../mail/mail.service';
 import { ContactRepository } from './contact.repository';
 import { CreateContactMessageDto } from './dto/create-contact-message.dto';
@@ -13,6 +14,28 @@ export class ContactService {
     private readonly mailService: MailService,
     private readonly configService: ConfigService,
   ) {}
+
+  findAll(): Promise<ContactMessage[]> {
+    return this.contactRepository.findAll();
+  }
+
+  async markRead(id: string): Promise<ContactMessage> {
+    await this.getOrThrow(id);
+    return this.contactRepository.markRead(id);
+  }
+
+  async remove(id: string): Promise<void> {
+    await this.getOrThrow(id);
+    await this.contactRepository.delete(id);
+  }
+
+  private async getOrThrow(id: string): Promise<ContactMessage> {
+    const message = await this.contactRepository.findById(id);
+    if (!message) {
+      throw new NotFoundException(`Contact message with id "${id}" not found`);
+    }
+    return message;
+  }
 
   async submit(dto: CreateContactMessageDto): Promise<{ id: string }> {
     const message = await this.contactRepository.create(dto);

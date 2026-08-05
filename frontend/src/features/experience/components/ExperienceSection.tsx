@@ -1,4 +1,5 @@
 import { FadeIn } from '@/components/motion/FadeIn';
+import { SectionHeading } from '@/components/ui/section-heading';
 import { useTranslation } from 'react-i18next';
 import type { ExperienceEntry } from '../types';
 
@@ -9,7 +10,7 @@ export function ExperienceSection() {
   return (
     <section id="experience" className="mx-auto max-w-5xl px-6 py-24">
       <FadeIn>
-        <h2 className="text-2xl font-semibold tracking-tight">{t('heading')}</h2>
+        <SectionHeading>{t('heading')}</SectionHeading>
       </FadeIn>
 
       <div className="mt-10 space-y-10 border-l border-border pl-8">

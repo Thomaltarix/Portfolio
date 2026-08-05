@@ -3,6 +3,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { FadeIn } from '@/components/motion/FadeIn';
+import { SectionHeading } from '@/components/ui/section-heading';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
@@ -28,7 +29,7 @@ export function ContactSection() {
   return (
     <section id="contact" className="mx-auto max-w-5xl px-6 py-24">
       <FadeIn>
-        <h2 className="text-2xl font-semibold tracking-tight">{t('heading')}</h2>
+        <SectionHeading>{t('heading')}</SectionHeading>
         <p className="mt-3 max-w-xl text-muted-foreground">{t('description')}</p>
 
         <form onSubmit={handleSubmit(onSubmit)} className="mt-8 max-w-lg space-y-5">

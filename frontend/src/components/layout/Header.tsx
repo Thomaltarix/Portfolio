@@ -1,5 +1,6 @@
 import { CommandPalette } from '@/components/command-palette/CommandPalette';
 import { Badge } from '@/components/ui/badge';
+import { cn } from '@/lib/cn';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { LanguageToggle } from './LanguageToggle';
@@ -18,18 +19,22 @@ export function Header() {
   const { t } = useTranslation('common');
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur">
-      <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-6">
-        <Link to="/" className="text-sm font-semibold tracking-tight">
+    <header className="sticky top-0 z-50 bg-background/80 backdrop-blur">
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
+        <Link to="/" className="flex items-center gap-2 text-sm font-semibold tracking-tight">
+          <span className="h-px w-4 bg-accent" aria-hidden="true" />
           {t('brand')}
         </Link>
 
-        <nav className="hidden items-center gap-6 md:flex">
-          {NAV_LINKS.map((link) => (
+        <nav className="hidden items-stretch md:flex">
+          {NAV_LINKS.map((link, index) => (
             <a
               key={link.href}
               href={link.href}
-              className="flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
+              className={cn(
+                'flex items-center gap-2 px-4 font-mono text-xs uppercase tracking-wider text-muted-foreground transition-colors hover:text-foreground',
+                index > 0 && 'border-l border-border',
+              )}
             >
               {t(link.labelKey)}
               {'comingSoon' in link && link.comingSoon && <Badge>{t('comingSoon')}</Badge>}
@@ -44,6 +49,15 @@ export function Header() {
           <ThemeToggle />
         </div>
       </div>
+
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-px"
+        style={{
+          backgroundImage:
+            'repeating-linear-gradient(90deg, var(--border) 0, var(--border) 1px, transparent 1px, transparent 24px)',
+        }}
+        aria-hidden="true"
+      />
     </header>
   );
 }

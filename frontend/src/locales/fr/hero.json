@@ -1,7 +1,16 @@
 {
   "eyebrow": "Ingénieur Backend & Logiciel",
-  "title": "Je développe des logiciels fiables, de l'architecture backend jusqu'au déploiement en production.",
-  "subtitle": "Je suis Thomas Boué, ingénieur logiciel passionné par le développement backend, l'infrastructure cloud et les systèmes distribués. J'aime concevoir des architectures propres, créer des API robustes et automatiser tout ce qui peut l'être.",
+  "title": "Concevoir des logiciels fiables, de l'architecture backend jusqu'au déploiement en production.",
+  "subtitle": "Ingénieur logiciel spécialisé dans le développement backend, l'infrastructure cloud et les systèmes distribués — conception d'architectures propres, d'API robustes en production, et automatisation de tout ce qui peut l'être.",
   "viewProjects": "Voir les projets",
-  "getInTouch": "Me contacter"
+  "getInTouch": "Me contacter",
+  "now": {
+    "label": "La stack — en ce moment",
+    "roleLabel": "Rôle",
+    "role": "Développeur full-stack chez La Trace",
+    "studyingLabel": "Formation",
+    "studying": "Ingénierie logicielle à Epitech",
+    "stackLabel": "Stack",
+    "stack": "Go · TS · NestJS · Postgres · Docker"
+  }
 }

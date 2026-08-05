@@ -25,5 +25,14 @@
     "en": "EN",
     "fr": "FR",
     "switchTo": "Switch to {{language}}"
+  },
+  "commandPalette": {
+    "triggerLabel": "Open command menu",
+    "title": "Command menu",
+    "placeholder": "Type a command or search…",
+    "empty": "No results.",
+    "lightTheme": "Switch to light theme",
+    "darkTheme": "Switch to dark theme",
+    "downloadResume": "Download résumé"
   }
 }

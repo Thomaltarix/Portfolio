@@ -2,6 +2,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { render, type RenderOptions } from '@testing-library/react';
 import { useState, type ReactElement, type ReactNode } from 'react';
 import { MemoryRouter } from 'react-router-dom';
+import { ThemeProvider } from '@/lib/theme-provider';
 
 function createTestQueryClient() {
   return new QueryClient({
@@ -17,7 +18,9 @@ function Providers({ children }: { readonly children: ReactNode }) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <MemoryRouter>{children}</MemoryRouter>
+      <MemoryRouter>
+        <ThemeProvider>{children}</ThemeProvider>
+      </MemoryRouter>
     </QueryClientProvider>
   );
 }

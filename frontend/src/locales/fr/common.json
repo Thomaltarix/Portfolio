@@ -25,5 +25,14 @@
     "en": "EN",
     "fr": "FR",
     "switchTo": "Passer en {{language}}"
+  },
+  "commandPalette": {
+    "triggerLabel": "Ouvrir le menu de commandes",
+    "title": "Menu de commandes",
+    "placeholder": "Tape une commande ou une recherche…",
+    "empty": "Aucun résultat.",
+    "lightTheme": "Passer en thème clair",
+    "darkTheme": "Passer en thème sombre",
+    "downloadResume": "Télécharger le CV"
   }
 }

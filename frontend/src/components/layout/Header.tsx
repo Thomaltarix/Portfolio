@@ -1,3 +1,4 @@
+import { CommandPalette } from '@/components/command-palette/CommandPalette';
 import { Badge } from '@/components/ui/badge';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -37,6 +38,7 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
+          <CommandPalette />
           <ResumeMenu />
           <LanguageToggle />
           <ThemeToggle />

@@ -1,5 +1,6 @@
 import { Badge } from '@/components/ui/badge';
 import { FadeIn } from '@/components/motion/FadeIn';
+import { SectionHeading } from '@/components/ui/section-heading';
 import { useTranslation } from 'react-i18next';
 import type { SkillGroup } from '../types';
 
@@ -10,7 +11,7 @@ export function SkillsSection() {
   return (
     <section id="skills" className="mx-auto max-w-5xl px-6 py-24">
       <FadeIn>
-        <h2 className="text-2xl font-semibold tracking-tight">{t('heading')}</h2>
+        <SectionHeading>{t('heading')}</SectionHeading>
       </FadeIn>
 
       <div className="mt-10 grid gap-8 sm:grid-cols-2">

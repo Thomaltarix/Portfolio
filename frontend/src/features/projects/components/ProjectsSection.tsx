@@ -1,5 +1,6 @@
 import { Card, CardDescription, CardTitle } from '@/components/ui/card';
 import { FadeIn } from '@/components/motion/FadeIn';
+import { SectionHeading } from '@/components/ui/section-heading';
 import { useTranslation } from 'react-i18next';
 import { useProjects } from '../hooks/use-projects';
 import { ProjectCard } from './ProjectCard';
@@ -11,7 +12,7 @@ export function ProjectsSection() {
   return (
     <section id="projects" className="mx-auto max-w-5xl px-6 py-24">
       <FadeIn>
-        <h2 className="text-2xl font-semibold tracking-tight">{t('heading')}</h2>
+        <SectionHeading>{t('heading')}</SectionHeading>
       </FadeIn>
 
       {isLoading && <p className="mt-10 text-muted-foreground">{t('loading')}</p>}

@@ -4,7 +4,10 @@ import { ContactRepository } from './contact.repository';
 
 describe('ContactRetentionTask', () => {
   it('deletes messages older than 12 months', async () => {
-    const contactRepository = { deleteOlderThan: jest.fn().mockResolvedValue(2) };
+    const deleteOlderThan = jest
+      .fn<Promise<number>, [Date]>()
+      .mockResolvedValue(2);
+    const contactRepository = { deleteOlderThan };
     const moduleRef = await Test.createTestingModule({
       providers: [
         ContactRetentionTask,
@@ -14,7 +17,7 @@ describe('ContactRetentionTask', () => {
 
     await moduleRef.get(ContactRetentionTask).purgeExpiredMessages();
 
-    const cutoff: Date = contactRepository.deleteOlderThan.mock.calls[0][0];
+    const [cutoff] = deleteOlderThan.mock.calls[0];
     const monthsAgo =
       (Date.now() - cutoff.getTime()) / (1000 * 60 * 60 * 24 * 30);
     expect(monthsAgo).toBeGreaterThan(11.5);

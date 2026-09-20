@@ -17,6 +17,8 @@ export class ContactRetentionTask {
     cutoff.setMonth(cutoff.getMonth() - CONTACT_MESSAGE_RETENTION_MONTHS);
 
     const deleted = await this.contactRepository.deleteOlderThan(cutoff);
-    this.logger.log(`Purged ${deleted} contact messages older than ${cutoff.toISOString()}`);
+    this.logger.log(
+      `Purged ${deleted} contact messages older than ${cutoff.toISOString()}`,
+    );
   }
 }

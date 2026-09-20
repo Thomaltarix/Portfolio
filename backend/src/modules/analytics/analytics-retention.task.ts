@@ -18,6 +18,8 @@ export class AnalyticsRetentionTask {
     cutoff.setMonth(cutoff.getMonth() - PAGE_VIEW_RETENTION_MONTHS);
 
     const deleted = await this.analyticsRepository.deleteOlderThan(cutoff);
-    this.logger.log(`Purged ${deleted} page views older than ${cutoff.toISOString()}`);
+    this.logger.log(
+      `Purged ${deleted} page views older than ${cutoff.toISOString()}`,
+    );
   }
 }

@@ -1,6 +1,8 @@
 import { RootLayout } from '@/components/layout/RootLayout';
 import { AdminLayout } from '@/features/admin/components/AdminLayout';
 import { ProtectedRoute } from '@/features/admin/components/ProtectedRoute';
+import { LegalNoticePage } from '@/features/legal/components/LegalNoticePage';
+import { PrivacyPolicyPage } from '@/features/legal/components/PrivacyPolicyPage';
 import { PageViewTracker } from '@/features/analytics/components/PageViewTracker';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { HelmetProvider } from 'react-helmet-async';
@@ -26,6 +28,8 @@ export function App() {
               <Route element={<RootLayout />}>
                 <Route index element={<HomePage />} />
                 <Route path="projects/:slug" element={<ProjectDetailPage />} />
+                <Route path="mentions-legales" element={<LegalNoticePage />} />
+                <Route path="confidentialite" element={<PrivacyPolicyPage />} />
                 <Route path="*" element={<NotFoundPage />} />
               </Route>
 

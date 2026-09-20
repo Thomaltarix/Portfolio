@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
+import { ScheduleModule } from '@nestjs/schedule';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import configuration from './config/configuration';
 import { validateEnv } from './config/env.validation';
@@ -23,6 +24,7 @@ import { PrismaModule } from './prisma/prisma.module';
     // Baseline limit applied to every route; POST /contact and
     // GET /github/activity tighten this further with @Throttle().
     ThrottlerModule.forRoot([{ ttl: 60_000, limit: 60 }]),
+    ScheduleModule.forRoot(),
     PrismaModule,
     MailModule,
     HealthModule,

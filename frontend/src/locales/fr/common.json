@@ -15,7 +15,10 @@
   "comingSoon": "Bientôt disponible",
   "footer": {
     "copyright": "© {{year}} Thomas Boué. Développé avec React, NestJS et PostgreSQL.",
-    "backToTop": "Retour en haut"
+    "backToTop": "Retour en haut",
+    "legalNotice": "Mentions légales",
+    "privacy": "Politique de confidentialité",
+    "legalNavigation": "Informations légales"
   },
   "meta": {
     "title": "Thomas Boué — Ingénieur Backend & Logiciel",
@@ -34,5 +37,6 @@
     "lightTheme": "Passer en thème clair",
     "darkTheme": "Passer en thème sombre",
     "downloadResume": "Télécharger le CV"
-  }
+  },
+  "skipToContent": "Aller au contenu"
 }

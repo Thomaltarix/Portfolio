@@ -95,25 +95,25 @@ export function ProjectForm({ project, onSaved, onCancel }: ProjectFormProps) {
         <div className="space-y-2">
           <Label htmlFor="slug">Slug</Label>
           <Input id="slug" {...register('slug')} />
-          {errors.slug && <p className="text-sm text-red-400">{errors.slug.message}</p>}
+          {errors.slug && <p className="text-sm text-red-700 dark:text-red-400">{errors.slug.message}</p>}
         </div>
         <div className="space-y-2">
           <Label htmlFor="title">Titre</Label>
           <Input id="title" {...register('title')} />
-          {errors.title && <p className="text-sm text-red-400">{errors.title.message}</p>}
+          {errors.title && <p className="text-sm text-red-700 dark:text-red-400">{errors.title.message}</p>}
         </div>
       </div>
 
       <div className="space-y-2">
         <Label htmlFor="summary">Résumé</Label>
         <Textarea id="summary" className="min-h-20" {...register('summary')} />
-        {errors.summary && <p className="text-sm text-red-400">{errors.summary.message}</p>}
+        {errors.summary && <p className="text-sm text-red-700 dark:text-red-400">{errors.summary.message}</p>}
       </div>
 
       <div className="space-y-2">
         <Label htmlFor="content">Contenu (markdown)</Label>
         <Textarea id="content" className="min-h-64 font-mono text-xs" {...register('content')} />
-        {errors.content && <p className="text-sm text-red-400">{errors.content.message}</p>}
+        {errors.content && <p className="text-sm text-red-700 dark:text-red-400">{errors.content.message}</p>}
       </div>
 
       <div className="space-y-2">
@@ -126,13 +126,13 @@ export function ProjectForm({ project, onSaved, onCancel }: ProjectFormProps) {
           <Label htmlFor="githubUrl">Lien GitHub</Label>
           <Input id="githubUrl" {...register('githubUrl')} />
           {errors.githubUrl && (
-            <p className="text-sm text-red-400">{errors.githubUrl.message}</p>
+            <p className="text-sm text-red-700 dark:text-red-400">{errors.githubUrl.message}</p>
           )}
         </div>
         <div className="space-y-2">
           <Label htmlFor="liveUrl">Lien démo</Label>
           <Input id="liveUrl" {...register('liveUrl')} />
-          {errors.liveUrl && <p className="text-sm text-red-400">{errors.liveUrl.message}</p>}
+          {errors.liveUrl && <p className="text-sm text-red-700 dark:text-red-400">{errors.liveUrl.message}</p>}
         </div>
       </div>
 
@@ -151,7 +151,7 @@ export function ProjectForm({ project, onSaved, onCancel }: ProjectFormProps) {
       </div>
 
       {mutationError && (
-        <p className="text-sm text-red-400">
+        <p className="text-sm text-red-700 dark:text-red-400">
           {mutationError instanceof Error ? mutationError.message : 'Une erreur est survenue.'}
         </p>
       )}

@@ -31,4 +31,11 @@ export class ContactRepository {
   delete(id: string): Promise<ContactMessage> {
     return this.prisma.contactMessage.delete({ where: { id } });
   }
+
+  async deleteOlderThan(cutoff: Date): Promise<number> {
+    const { count } = await this.prisma.contactMessage.deleteMany({
+      where: { createdAt: { lt: cutoff } },
+    });
+    return count;
+  }
 }

@@ -1,0 +1,23 @@
+# Thomas Boué — portfolio
+
+> Personal portfolio of Thomas Boué, a software engineering student at Epitech specialised in backend development, cloud infrastructure and distributed systems. Bilingual site (English / French). Currently looking for two internships: part-time (Mon/Wed) September–February, then full-time March–August.
+
+Main stack: Go, TypeScript, NestJS, PostgreSQL, Docker. The site itself is a React + NestJS + PostgreSQL project, deployed with Docker and GitHub Actions.
+
+## Pages
+
+- [Home](https://thomasboue.com/): about, experience, skills, projects, playground and contact form, on a single page.
+- [Legal notice](https://thomasboue.com/mentions-legales): publisher and host information.
+- [Privacy policy](https://thomasboue.com/confidentialite): personal data processing and rights.
+
+## Other resources
+
+- [Résumé (English)](https://thomasboue.com/resume-en.pdf)
+- [Résumé (French)](https://thomasboue.com/resume-fr.pdf)
+- [GitHub](https://github.com/Thomaltarix)
+- [LinkedIn](https://www.linkedin.com/in/thomasboue)
+- Email: bouethomaspro@gmail.com
+
+## Notes for AI agents
+
+Content of this site may be read, summarised and cited with attribution. Project pages live under /projects/{slug} and are loaded dynamically.

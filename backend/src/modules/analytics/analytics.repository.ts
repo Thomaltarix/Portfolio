@@ -27,4 +27,11 @@ export class AnalyticsRepository {
       where: { createdAt: { gte: since } },
     });
   }
+
+  async deleteOlderThan(cutoff: Date): Promise<number> {
+    const { count } = await this.prisma.pageView.deleteMany({
+      where: { createdAt: { lt: cutoff } },
+    });
+    return count;
+  }
 }

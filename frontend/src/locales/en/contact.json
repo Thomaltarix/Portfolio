@@ -16,5 +16,8 @@
     "emailInvalid": "Please enter a valid email address.",
     "messageMin": "Message must be at least 10 characters.",
     "messageMax": "Message must be at most 2000 characters."
-  }
+  },
+  "allRequired": "All fields are required.",
+  "privacyNotice": "This data is used only to reply to your message and is kept for 12 months. Details and how to exercise your rights are in the ",
+  "privacyLink": "privacy policy"
 }

@@ -15,7 +15,10 @@
   "comingSoon": "Coming soon",
   "footer": {
     "copyright": "© {{year}} Thomas Boué. Built with React, NestJS and PostgreSQL.",
-    "backToTop": "Back to top"
+    "backToTop": "Back to top",
+    "legalNotice": "Legal notice",
+    "privacy": "Privacy policy",
+    "legalNavigation": "Legal information"
   },
   "meta": {
     "title": "Thomas Boué — Backend & Software Engineer",
@@ -34,5 +37,6 @@
     "lightTheme": "Switch to light theme",
     "darkTheme": "Switch to dark theme",
     "downloadResume": "Download résumé"
-  }
+  },
+  "skipToContent": "Skip to content"
 }

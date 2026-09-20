@@ -7,6 +7,7 @@ import enCommon from '@/locales/en/common.json';
 import enContact from '@/locales/en/contact.json';
 import enExperience from '@/locales/en/experience.json';
 import enGithubActivity from '@/locales/en/github-activity.json';
+import enLegal from '@/locales/en/legal.json';
 import enNotFound from '@/locales/en/not-found.json';
 import enPlayground from '@/locales/en/playground.json';
 import enProjects from '@/locales/en/projects.json';
@@ -18,6 +19,7 @@ import frCommon from '@/locales/fr/common.json';
 import frContact from '@/locales/fr/contact.json';
 import frExperience from '@/locales/fr/experience.json';
 import frGithubActivity from '@/locales/fr/github-activity.json';
+import frLegal from '@/locales/fr/legal.json';
 import frNotFound from '@/locales/fr/not-found.json';
 import frPlayground from '@/locales/fr/playground.json';
 import frProjects from '@/locales/fr/projects.json';
@@ -38,6 +40,7 @@ const resources = {
     contact: enContact,
     playground: enPlayground,
     'github-activity': enGithubActivity,
+    legal: enLegal,
     'not-found': enNotFound,
   },
   fr: {
@@ -50,6 +53,7 @@ const resources = {
     contact: frContact,
     playground: frPlayground,
     'github-activity': frGithubActivity,
+    legal: frLegal,
     'not-found': frNotFound,
   },
 };

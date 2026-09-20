@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Replace https://example.com with the deployed domain. Per-project entries are
-     deferred (see claude/roadmap.md) since generating them requires a build-time
-     API call or a backend-served sitemap. -->
+<!-- Per-project entries are deferred (see claude/roadmap.md) since generating them
+     requires a build-time API call or a backend-served sitemap. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://example.com/</loc>
+    <loc>https://thomasboue.com/</loc>
+  </url>
+  <url>
+    <loc>https://thomasboue.com/mentions-legales</loc>
+  </url>
+  <url>
+    <loc>https://thomasboue.com/confidentialite</loc>
   </url>
 </urlset>

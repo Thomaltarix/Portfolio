@@ -16,5 +16,8 @@
     "emailInvalid": "Merci de saisir une adresse email valide.",
     "messageMin": "Le message doit contenir au moins 10 caractères.",
     "messageMax": "Le message doit contenir au maximum 2000 caractères."
-  }
+  },
+  "allRequired": "Tous les champs sont obligatoires.",
+  "privacyNotice": "Ces données servent uniquement à répondre à votre message ; elles sont conservées 12 mois. Détails et exercice de vos droits dans la ",
+  "privacyLink": "politique de confidentialité"
 }

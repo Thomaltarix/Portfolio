@@ -1,0 +1,117 @@
+{
+  "updated": "Last updated: {{date}}",
+  "optOut": {
+    "heading": "Your choice: audience measurement",
+    "label": "Do not count my visits in the site's traffic statistics (this choice is remembered in this browser)."
+  },
+  "legalNotice": {
+    "title": "Legal notice",
+    "description": "Publisher, host and legal information for thomasboue.com.",
+    "sections": [
+      {
+        "heading": "Publisher",
+        "paragraphs": [
+          "{{siteUrl}} is a personal, non-commercial portfolio published by {{publisherName}}, a private individual.",
+          "As allowed by article 6, III, 2° of French law no. 2004-575 of 21 June 2004 (LCEN), the publisher's home address is not published: it has been provided to the hosting company."
+        ]
+      },
+      {
+        "heading": "Publication director",
+        "paragraphs": [
+          "{{publisherName}}."
+        ]
+      },
+      {
+        "heading": "Contact",
+        "paragraphs": [
+          "Email: {{contactEmail}}",
+          "You can also write through the contact form on the home page."
+        ]
+      },
+      {
+        "heading": "Hosting",
+        "paragraphs": [
+          "{{hostName}}, {{hostAddress}}.",
+          "Phone: {{hostPhone}}. Website: {{hostWebsite}}."
+        ]
+      },
+      {
+        "heading": "Intellectual property",
+        "paragraphs": [
+          "Unless stated otherwise, the texts, code and graphics of this site belong to {{publisherName}}. Reproduction without permission is prohibited. Open-source projects linked from this site remain under their own licenses."
+        ]
+      },
+      {
+        "heading": "Personal data",
+        "paragraphs": [
+          "How personal data is processed is described in the privacy policy, linked in the footer."
+        ]
+      },
+      {
+        "heading": "Credits",
+        "paragraphs": [
+          "This site uses GeoLite data created by MaxMind, available from https://www.maxmind.com, to derive a country from an IP address in its traffic statistics."
+        ]
+      }
+    ]
+  },
+  "privacy": {
+    "title": "Privacy policy",
+    "description": "What personal data thomasboue.com collects, why, for how long, and how to exercise your rights.",
+    "sections": [
+      {
+        "heading": "Data controller",
+        "paragraphs": [
+          "The data controller is {{publisherName}}, publisher of {{siteUrl}}. Contact for any question about personal data: {{contactEmail}}."
+        ]
+      },
+      {
+        "heading": "Contact form",
+        "paragraphs": [
+          "Data: the name, email address and message you enter.",
+          "Purpose: replying to your request (job, project, question).",
+          "Legal basis: legitimate interest in answering messages received through the site (GDPR article 6.1.f).",
+          "Retention: 12 months after receipt, then automatic deletion.",
+          "Recipients: {{publisherName}}; the host {{hostName}} (database storage); and the email provider Resend, which forwards the message notification to the publisher."
+        ]
+      },
+      {
+        "heading": "Audience measurement",
+        "paragraphs": [
+          "Data: page viewed, referring site, country (derived from the IP address), device type, browser, and an anonymous identifier computed from the IP address and browser with a salt that changes every day. The IP address is never stored, and the identifier cannot follow you from one day to the next.",
+          "Purpose: knowing how much the site is visited, without profiling or advertising. These statistics are produced by the site itself, with no third-party tool, and are not combined with other data.",
+          "Legal basis: legitimate interest (GDPR article 6.1.f). This measurement uses no cookie or tracker and falls under the consent exemption for strictly statistical audience measurement.",
+          "Retention: 13 months at most, then automatic deletion.",
+          "Right to object: you can opt out at any time with the checkbox at the bottom of this page."
+        ]
+      },
+      {
+        "heading": "Server logs",
+        "paragraphs": [
+          "Data: IP address, date and requested URL, recorded by the servers to keep the site secure and running.",
+          "Legal basis: legitimate interest (service security). Retention: 12 months at most. Access: the publisher and the host {{hostName}}."
+        ]
+      },
+      {
+        "heading": "Cookies and local storage",
+        "paragraphs": [
+          "This site sets no cookie or tracker that requires consent: no advertising, no social network widget, no third-party analytics, no font or video loaded from another domain. That is why no consent banner is shown.",
+          "It only uses your browser's local storage (localStorage) to remember your language, your light or dark theme and, if you chose it, your opt-out from audience measurement. This information stays in your browser and is never sent to a server."
+        ]
+      },
+      {
+        "heading": "Transfers outside the European Union",
+        "paragraphs": [
+          "The site is hosted by {{hostName}} within the European Union. The email provider Resend is based in the United States, so the content of a contact message may be transferred to it, under the safeguards provided by the GDPR (standard contractual clauses)."
+        ]
+      },
+      {
+        "heading": "Your rights",
+        "paragraphs": [
+          "You have the rights of access, rectification, erasure, objection, restriction and portability over your data. To exercise them, write to {{contactEmail}}; you will get an answer within one month.",
+          "If you believe your rights are not respected, you can lodge a complaint with the CNIL, the French data protection authority: https://www.cnil.fr/en/make-a-complaint."
+        ]
+      }
+    ]
+  }
+}

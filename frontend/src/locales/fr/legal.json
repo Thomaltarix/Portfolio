@@ -1,0 +1,117 @@
+{
+  "updated": "Dernière mise à jour : {{date}}",
+  "optOut": {
+    "heading": "Votre choix : mesure d'audience",
+    "label": "Ne pas compter mes visites dans les statistiques de fréquentation (ce choix est mémorisé dans ce navigateur)."
+  },
+  "legalNotice": {
+    "title": "Mentions légales",
+    "description": "Éditeur, hébergeur et informations légales du site thomasboue.com.",
+    "sections": [
+      {
+        "heading": "Éditeur du site",
+        "paragraphs": [
+          "Le site {{siteUrl}} est un portfolio personnel à caractère non professionnel, édité par {{publisherName}}, personne physique.",
+          "Conformément à l'article 6, III, 2° de la loi n° 2004-575 du 21 juin 2004 (LCEN), l'adresse personnelle de l'éditeur n'est pas publiée : elle a été communiquée à l'hébergeur."
+        ]
+      },
+      {
+        "heading": "Directeur de la publication",
+        "paragraphs": [
+          "{{publisherName}}."
+        ]
+      },
+      {
+        "heading": "Contact",
+        "paragraphs": [
+          "Email : {{contactEmail}}",
+          "Vous pouvez également écrire via le formulaire de contact de la page d'accueil."
+        ]
+      },
+      {
+        "heading": "Hébergeur",
+        "paragraphs": [
+          "{{hostName}}, {{hostAddress}}.",
+          "Téléphone : {{hostPhone}}. Site : {{hostWebsite}}."
+        ]
+      },
+      {
+        "heading": "Propriété intellectuelle",
+        "paragraphs": [
+          "Les textes, le code et les éléments graphiques de ce site sont la propriété de {{publisherName}}, sauf mention contraire. Toute reproduction sans autorisation est interdite. Les projets open source liés depuis ce site restent soumis à leur propre licence."
+        ]
+      },
+      {
+        "heading": "Données personnelles",
+        "paragraphs": [
+          "Le traitement des données personnelles est détaillé dans la politique de confidentialité, accessible depuis le pied de page."
+        ]
+      },
+      {
+        "heading": "Crédits",
+        "paragraphs": [
+          "Ce site utilise les données GeoLite créées par MaxMind, disponibles sur https://www.maxmind.com, pour déduire un pays à partir d'une adresse IP dans les statistiques de fréquentation."
+        ]
+      }
+    ]
+  },
+  "privacy": {
+    "title": "Politique de confidentialité",
+    "description": "Quelles données personnelles thomasboue.com collecte, pourquoi, combien de temps, et comment exercer vos droits.",
+    "sections": [
+      {
+        "heading": "Responsable du traitement",
+        "paragraphs": [
+          "Le responsable du traitement est {{publisherName}}, éditeur du site {{siteUrl}}. Contact pour toute question relative aux données personnelles : {{contactEmail}}."
+        ]
+      },
+      {
+        "heading": "Formulaire de contact",
+        "paragraphs": [
+          "Données : nom, adresse email et contenu du message que vous saisissez.",
+          "Finalité : répondre à votre demande (poste, projet, question).",
+          "Base légale : intérêt légitime à répondre aux sollicitations reçues via le site (article 6.1.f du RGPD).",
+          "Durée de conservation : 12 mois après réception, puis suppression automatique.",
+          "Destinataires : {{publisherName}} ; l'hébergeur {{hostName}} (stockage de la base de données) ; le prestataire d'envoi d'emails Resend, qui transmet la notification du message à l'éditeur."
+        ]
+      },
+      {
+        "heading": "Mesure d'audience",
+        "paragraphs": [
+          "Données : page consultée, site référent, pays (déduit de l'adresse IP), type d'appareil, navigateur, et un identifiant anonyme calculé à partir de l'adresse IP et du navigateur avec un sel qui change chaque jour. L'adresse IP n'est jamais enregistrée et l'identifiant ne permet pas de vous suivre d'un jour à l'autre.",
+          "Finalité : connaître la fréquentation du site, sans profilage ni publicité. Ces statistiques sont produites par le site lui-même, sans outil tiers, et ne sont pas croisées avec d'autres données.",
+          "Base légale : intérêt légitime (article 6.1.f du RGPD). Cette mesure n'utilise aucun cookie ni traceur et relève de l'exemption de consentement prévue pour la mesure d'audience strictement statistique.",
+          "Durée de conservation : 13 mois maximum, puis suppression automatique.",
+          "Droit d'opposition : vous pouvez refuser à tout moment cette mesure avec la case en bas de cette page."
+        ]
+      },
+      {
+        "heading": "Journaux techniques du serveur",
+        "paragraphs": [
+          "Données : adresse IP, date et URL demandée, enregistrées par les serveurs pour assurer la sécurité et le bon fonctionnement du site.",
+          "Base légale : intérêt légitime (sécurité du service). Durée de conservation : 12 mois maximum. Accès : l'éditeur et l'hébergeur {{hostName}}."
+        ]
+      },
+      {
+        "heading": "Cookies et stockage local",
+        "paragraphs": [
+          "Ce site ne dépose aucun cookie ni traceur soumis au consentement : pas de publicité, pas de réseau social, pas d'outil d'analyse tiers, pas de police ou de vidéo chargée depuis un autre domaine. C'est pourquoi aucun bandeau de consentement n'est affiché.",
+          "Il utilise uniquement le stockage local de votre navigateur (localStorage) pour mémoriser votre langue, votre thème clair ou sombre et, le cas échéant, votre refus de la mesure d'audience. Ces informations restent dans votre navigateur et ne sont jamais envoyées à un serveur."
+        ]
+      },
+      {
+        "heading": "Transferts hors de l'Union européenne",
+        "paragraphs": [
+          "Le site est hébergé par {{hostName}} dans l'Union européenne. Le prestataire d'envoi d'emails Resend est établi aux États-Unis : le contenu d'un message de contact peut donc lui être transmis, dans le cadre des garanties prévues par le RGPD (clauses contractuelles types)."
+        ]
+      },
+      {
+        "heading": "Vos droits",
+        "paragraphs": [
+          "Vous disposez des droits d'accès, de rectification, d'effacement, d'opposition, de limitation et de portabilité sur vos données. Pour les exercer, écrivez à {{contactEmail}} ; une réponse vous sera apportée dans un délai d'un mois.",
+          "Si vous estimez que vos droits ne sont pas respectés, vous pouvez introduire une réclamation auprès de la CNIL : https://www.cnil.fr/fr/plaintes."
+        ]
+      }
+    ]
+  }
+}

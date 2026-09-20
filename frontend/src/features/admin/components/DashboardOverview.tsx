@@ -32,7 +32,7 @@ export function DashboardOverview() {
       </div>
 
       {isError && (
-        <p className="text-sm text-red-400">Impossible de charger les statistiques.</p>
+        <p className="text-sm text-red-700 dark:text-red-400">Impossible de charger les statistiques.</p>
       )}
 
       {!isError && (

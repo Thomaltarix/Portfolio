@@ -12,7 +12,7 @@ export function ProjectsTable({ onEdit }: ProjectsTableProps) {
   const deleteProject = useDeleteProject();
 
   if (isLoading) return <p className="text-sm text-muted-foreground">Chargement...</p>;
-  if (isError) return <p className="text-sm text-red-400">Impossible de charger les projets.</p>;
+  if (isError) return <p className="text-sm text-red-700 dark:text-red-400">Impossible de charger les projets.</p>;
   if (!projects || projects.length === 0) {
     return <p className="text-sm text-muted-foreground">Aucun projet pour le moment.</p>;
   }

@@ -36,7 +36,7 @@ export function LoginForm() {
       <div className="space-y-2">
         <Label htmlFor="email">E-mail</Label>
         <Input id="email" type="email" autoComplete="username" {...register('email')} />
-        {errors.email && <p className="text-sm text-red-400">{errors.email.message}</p>}
+        {errors.email && <p className="text-sm text-red-700 dark:text-red-400">{errors.email.message}</p>}
       </div>
 
       <div className="space-y-2">
@@ -47,14 +47,14 @@ export function LoginForm() {
           autoComplete="current-password"
           {...register('password')}
         />
-        {errors.password && <p className="text-sm text-red-400">{errors.password.message}</p>}
+        {errors.password && <p className="text-sm text-red-700 dark:text-red-400">{errors.password.message}</p>}
       </div>
 
       <Button type="submit" className="w-full" disabled={login.isPending}>
         {login.isPending ? 'Connexion...' : 'Se connecter'}
       </Button>
 
-      {login.isError && <p className="text-sm text-red-400">Identifiants invalides.</p>}
+      {login.isError && <p className="text-sm text-red-700 dark:text-red-400">Identifiants invalides.</p>}
     </form>
   );
 }

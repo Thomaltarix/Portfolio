@@ -11,7 +11,7 @@ export function ContactMessagesTable() {
   const deleteMessage = useDeleteMessage();
 
   if (isLoading) return <p className="text-sm text-muted-foreground">Chargement...</p>;
-  if (isError) return <p className="text-sm text-red-400">Impossible de charger les messages.</p>;
+  if (isError) return <p className="text-sm text-red-700 dark:text-red-400">Impossible de charger les messages.</p>;
   if (!messages || messages.length === 0) {
     return <p className="text-sm text-muted-foreground">Aucun message pour le moment.</p>;
   }

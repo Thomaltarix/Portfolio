@@ -1,7 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
 import { useDeleteProjectTranslation } from '@/features/projects/hooks/use-delete-project-translation';
 import { useProject } from '@/features/projects/hooks/use-project';
 import { useSaveProjectTranslation } from '@/features/projects/hooks/use-save-project-translation';
@@ -9,6 +8,7 @@ import type { ProjectDetail, TranslationLanguage } from '@/features/projects/typ
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { ProjectTextFields } from './ProjectTextFields';
 
 const translationSchema = z.object({
   title: z.string().min(1, 'Titre requis'),
@@ -82,26 +82,16 @@ export function ProjectTranslationForm({ project, language }: ProjectTranslation
       )}
 
       <div className="space-y-2">
-        <Label htmlFor={`title-${language}`}>Titre</Label>
-        <Input id={`title-${language}`} {...register('title')} />
-        {errors.title && <p className="text-sm text-red-700 dark:text-red-400">{errors.title.message}</p>}
+        <Label htmlFor={`slug-${language}`}>Slug</Label>
+        <Input id={`slug-${language}`} value={project.slug} disabled readOnly />
+        <p className="text-sm text-muted-foreground">Commun à toutes les langues, à modifier dans l'onglet Anglais.</p>
       </div>
 
-      <div className="space-y-2">
-        <Label htmlFor={`summary-${language}`}>Résumé</Label>
-        <Textarea id={`summary-${language}`} className="min-h-24" {...register('summary')} />
-        {errors.summary && <p className="text-sm text-red-700 dark:text-red-400">{errors.summary.message}</p>}
-      </div>
-
-      <div className="space-y-2">
-        <Label htmlFor={`content-${language}`}>Contenu (markdown)</Label>
-        <Textarea
-          id={`content-${language}`}
-          className="min-h-64 font-mono text-sm sm:text-xs"
-          {...register('content')}
-        />
-        {errors.content && <p className="text-sm text-red-700 dark:text-red-400">{errors.content.message}</p>}
-      </div>
+      <ProjectTextFields
+        idPrefix={language}
+        fields={{ title: register('title'), summary: register('summary'), content: register('content') }}
+        errors={{ title: errors.title?.message, summary: errors.summary?.message, content: errors.content?.message }}
+      />
 
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
         <Button type="submit" disabled={saveTranslation.isPending} className="w-full sm:w-auto">

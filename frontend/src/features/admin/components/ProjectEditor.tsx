@@ -34,7 +34,7 @@ export function ProjectEditor({ project, onSaved, onClose }: ProjectEditorProps)
         </Button>
       </div>
 
-      {project && (
+      <div className="space-y-2">
         <div role="tablist" aria-label="Langue" className="grid grid-cols-2 gap-1 rounded-full border border-border p-1 sm:inline-grid sm:w-72">
           {TABS.map((tab) => (
             <button
@@ -44,9 +44,11 @@ export function ProjectEditor({ project, onSaved, onClose }: ProjectEditorProps)
               id={`tab-${tab.id}`}
               aria-selected={activeTab === tab.id}
               aria-controls={`panel-${tab.id}`}
+              // A translation needs an existing project to attach to.
+              disabled={tab.id !== 'en' && !project}
               onClick={() => setActiveTab(tab.id)}
               className={cn(
-                'h-10 rounded-full text-sm font-medium transition-colors duration-150',
+                'h-10 rounded-full text-sm font-medium transition-colors duration-150 disabled:pointer-events-none disabled:opacity-50',
                 activeTab === tab.id
                   ? 'bg-accent text-accent-foreground'
                   : 'text-muted-foreground [@media(hover:hover)]:hover:text-foreground',
@@ -56,7 +58,12 @@ export function ProjectEditor({ project, onSaved, onClose }: ProjectEditorProps)
             </button>
           ))}
         </div>
-      )}
+        {!project && (
+          <p className="text-sm text-muted-foreground">
+            Enregistre d'abord le projet en anglais : l'onglet Français s'ouvre ensuite.
+          </p>
+        )}
+      </div>
 
       {/* Both panes stay mounted so switching tabs never loses unsaved edits. */}
       <div role="tabpanel" id="panel-en" aria-labelledby="tab-en" hidden={activeTab !== 'en'}>

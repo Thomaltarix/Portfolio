@@ -1,10 +1,10 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
 import { useCreateProject } from '@/features/projects/hooks/use-create-project';
 import { useUpdateProject } from '@/features/projects/hooks/use-update-project';
 import type { ProjectDetail } from '@/features/projects/types/project.types';
+import { ProjectTextFields } from './ProjectTextFields';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -91,30 +91,17 @@ export function ProjectForm({ project, onSaved, onCancel }: ProjectFormProps) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="max-w-2xl space-y-5">
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <div className="space-y-2">
-          <Label htmlFor="slug">Slug</Label>
-          <Input id="slug" {...register('slug')} />
-          {errors.slug && <p className="text-sm text-red-700 dark:text-red-400">{errors.slug.message}</p>}
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="title">Titre</Label>
-          <Input id="title" {...register('title')} />
-          {errors.title && <p className="text-sm text-red-700 dark:text-red-400">{errors.title.message}</p>}
-        </div>
+      <div className="space-y-2">
+        <Label htmlFor="slug">Slug</Label>
+        <Input id="slug" {...register('slug')} />
+        {errors.slug && <p className="text-sm text-red-700 dark:text-red-400">{errors.slug.message}</p>}
       </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="summary">Résumé</Label>
-        <Textarea id="summary" className="min-h-20" {...register('summary')} />
-        {errors.summary && <p className="text-sm text-red-700 dark:text-red-400">{errors.summary.message}</p>}
-      </div>
-
-      <div className="space-y-2">
-        <Label htmlFor="content">Contenu (markdown)</Label>
-        <Textarea id="content" className="min-h-64 font-mono text-sm sm:text-xs" {...register('content')} />
-        {errors.content && <p className="text-sm text-red-700 dark:text-red-400">{errors.content.message}</p>}
-      </div>
+      <ProjectTextFields
+        idPrefix="en"
+        fields={{ title: register('title'), summary: register('summary'), content: register('content') }}
+        errors={{ title: errors.title?.message, summary: errors.summary?.message, content: errors.content?.message }}
+      />
 
       <div className="space-y-2">
         <Label htmlFor="techStack">Stack technique (séparée par des virgules)</Label>

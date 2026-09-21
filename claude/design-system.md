@@ -8,6 +8,8 @@ The site is a climb. It opens on a full-bleed photograph of Mount Fuji at dawn (
 
 The test for any visual addition: does it belong to the climb, or is it decoration? If decoration, cut it.
 
+The dark theme is not the light theme with dark tokens: it has its own photograph. `fuji-night-{1600,2560,3840}.webp` is a blue-hour grading of the same picture (mean luminance about 0.09 against 0.58 for the dawn photo: the sky is near-black at the top, the snow stays luminous, a faint glow sits behind the summit, the outer thirds are dimmed so the horizon never glares). `HeroSection` picks the photo from the theme, and the title turns light on it. The Contact scrim is 88% in the dark theme (75% in the light one) to match.
+
 Photos live in `frontend/public/images/`, exported from the full-resolution originals (colour-managed to sRGB, light contrast/clarity pass, sharpened after downscale) as `fuji-dawn-{1600,2560,3840}.webp` and `fuji-reflection-{1600,2560}.webp`, served through `srcSet`. Both are the owner's own; nobody appears in them. Any other image must also be the owner's own or licensed.
 
 History of what was explored and rejected (don't re-propose without new information):

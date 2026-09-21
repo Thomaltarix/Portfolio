@@ -30,6 +30,15 @@ describe('ProjectsService', () => {
     updatedAt: new Date(),
   };
 
+  const frenchTranslation = {
+    id: 'translation-id',
+    projectId: project.id,
+    locale: 'fr',
+    title: 'Plateforme de chat en temps réel',
+    summary: 'Une plateforme de chat.',
+    content: '# Plateforme de chat\n\nPrésentation détaillée.',
+  };
+
   beforeEach(async () => {
     const moduleRef = await Test.createTestingModule({
       providers: [
@@ -54,7 +63,9 @@ describe('ProjectsService', () => {
 
   describe('findAll', () => {
     it('maps projects to summary DTOs, omitting the markdown content', async () => {
-      projectsRepository.findAll.mockResolvedValue([project]);
+      projectsRepository.findAll.mockResolvedValue([
+        { ...project, translations: [] },
+      ]);
 
       const result = await service.findAll();
 
@@ -72,16 +83,69 @@ describe('ProjectsService', () => {
       ]);
       expect(result[0]).not.toHaveProperty('content');
     });
+
+    it('asks the repository for the default language when none is given', async () => {
+      projectsRepository.findAll.mockResolvedValue([]);
+
+      await service.findAll();
+
+      expect(projectsRepository.findAll).toHaveBeenCalledWith('en');
+    });
+
+    it('returns the translated title and summary when a translation exists', async () => {
+      projectsRepository.findAll.mockResolvedValue([
+        { ...project, translations: [frenchTranslation] },
+      ]);
+
+      const [result] = await service.findAll('fr');
+
+      expect(projectsRepository.findAll).toHaveBeenCalledWith('fr');
+      expect(result.title).toBe(frenchTranslation.title);
+      expect(result.summary).toBe(frenchTranslation.summary);
+    });
+
+    it('falls back to the default language when there is no translation', async () => {
+      projectsRepository.findAll.mockResolvedValue([
+        { ...project, translations: [] },
+      ]);
+
+      const [result] = await service.findAll('fr');
+
+      expect(result.title).toBe(project.title);
+      expect(result.summary).toBe(project.summary);
+    });
   });
 
   describe('findBySlug', () => {
     it('maps the project to a detail DTO including its content', async () => {
-      projectsRepository.findBySlug.mockResolvedValue(project);
+      projectsRepository.findBySlug.mockResolvedValue({
+        ...project,
+        translations: [],
+      });
 
       const result = await service.findBySlug(project.slug);
 
-      expect(projectsRepository.findBySlug).toHaveBeenCalledWith(project.slug);
+      expect(projectsRepository.findBySlug).toHaveBeenCalledWith(
+        project.slug,
+        'en',
+      );
       expect(result.content).toBe(project.content);
+    });
+
+    it('returns the translated content when a translation exists', async () => {
+      projectsRepository.findBySlug.mockResolvedValue({
+        ...project,
+        translations: [frenchTranslation],
+      });
+
+      const result = await service.findBySlug(project.slug, 'fr');
+
+      expect(projectsRepository.findBySlug).toHaveBeenCalledWith(
+        project.slug,
+        'fr',
+      );
+      expect(result.content).toBe(frenchTranslation.content);
+      expect(result.title).toBe(frenchTranslation.title);
     });
 
     it('throws NotFoundException when no project matches the slug', async () => {

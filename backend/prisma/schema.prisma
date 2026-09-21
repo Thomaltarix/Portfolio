@@ -18,6 +18,22 @@ model Project {
   featured  Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  translations ProjectTranslation[]
+}
+
+// The columns on Project hold the default language (English). Each row here is
+// one complete translation of a project into another language.
+model ProjectTranslation {
+  id        String   @id @default(uuid())
+  projectId String
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  locale    String
+  title     String
+  summary   String
+  content   String   @db.Text
+
+  @@unique([projectId, locale])
 }
 
 model ContactMessage {

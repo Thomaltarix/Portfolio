@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { useProject } from '@/features/projects/hooks/use-project';
+import { DEFAULT_LANGUAGE } from '@/lib/use-site-language';
 import { useState } from 'react';
 import { ProjectForm } from './ProjectForm';
 import { ProjectsTable } from './ProjectsTable';
@@ -9,7 +10,7 @@ type Mode = { type: 'list' } | { type: 'create' } | { type: 'edit'; slug: string
 export function ProjectsAdmin() {
   const [mode, setMode] = useState<Mode>({ type: 'list' });
   const editingSlug = mode.type === 'edit' ? mode.slug : undefined;
-  const { data: editingProject, isLoading } = useProject(editingSlug);
+  const { data: editingProject, isLoading } = useProject(editingSlug, DEFAULT_LANGUAGE);
 
   if (mode.type === 'create') {
     return (

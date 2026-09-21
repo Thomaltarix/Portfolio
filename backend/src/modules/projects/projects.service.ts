@@ -8,7 +8,11 @@ import { CreateProjectDto } from './dto/create-project.dto';
 import { ProjectDetailDto } from './dto/project-detail.dto';
 import { ProjectSummaryDto } from './dto/project-summary.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
-import { ProjectsRepository } from './projects.repository';
+import { DEFAULT_PROJECT_LOCALE, ProjectLocale } from './project-locale';
+import {
+  ProjectsRepository,
+  ProjectWithTranslations,
+} from './projects.repository';
 
 const UNIQUE_CONSTRAINT_VIOLATION = 'P2002';
 
@@ -16,13 +20,18 @@ const UNIQUE_CONSTRAINT_VIOLATION = 'P2002';
 export class ProjectsService {
   constructor(private readonly projectsRepository: ProjectsRepository) {}
 
-  async findAll(): Promise<ProjectSummaryDto[]> {
-    const projects = await this.projectsRepository.findAll();
+  async findAll(
+    locale: ProjectLocale = DEFAULT_PROJECT_LOCALE,
+  ): Promise<ProjectSummaryDto[]> {
+    const projects = await this.projectsRepository.findAll(locale);
     return projects.map(toSummaryDto);
   }
 
-  async findBySlug(slug: string): Promise<ProjectDetailDto> {
-    const project = await this.projectsRepository.findBySlug(slug);
+  async findBySlug(
+    slug: string,
+    locale: ProjectLocale = DEFAULT_PROJECT_LOCALE,
+  ): Promise<ProjectDetailDto> {
+    const project = await this.projectsRepository.findBySlug(slug, locale);
     if (!project) {
       throw new NotFoundException(`Project with slug "${slug}" not found`);
     }
@@ -71,12 +80,19 @@ export class ProjectsService {
   }
 }
 
-function toSummaryDto(project: Project): ProjectSummaryDto {
+// A project's text fields, in the requested language when a translation exists
+// and in the default language otherwise. Writes always target the default language.
+type LocalisableProject = Project & {
+  readonly translations?: ProjectWithTranslations['translations'];
+};
+
+function toSummaryDto(project: LocalisableProject): ProjectSummaryDto {
+  const translation = project.translations?.[0];
   return {
     id: project.id,
     slug: project.slug,
-    title: project.title,
-    summary: project.summary,
+    title: translation?.title ?? project.title,
+    summary: translation?.summary ?? project.summary,
     techStack: project.techStack,
     githubUrl: project.githubUrl,
     liveUrl: project.liveUrl,
@@ -84,9 +100,9 @@ function toSummaryDto(project: Project): ProjectSummaryDto {
   };
 }
 
-function toDetailDto(project: Project): ProjectDetailDto {
+function toDetailDto(project: LocalisableProject): ProjectDetailDto {
   return {
     ...toSummaryDto(project),
-    content: project.content,
+    content: project.translations?.[0]?.content ?? project.content,
   };
 }

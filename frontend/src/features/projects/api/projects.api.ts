@@ -1,12 +1,13 @@
 import { apiFetch } from '@/lib/api-client';
+import type { SupportedLanguage } from '@/lib/i18n';
 import type { ProjectDetail, ProjectInput, ProjectSummary } from '../types/project.types';
 
-export function fetchProjects(): Promise<ProjectSummary[]> {
-  return apiFetch<ProjectSummary[]>('/projects');
+export function fetchProjects(language: SupportedLanguage): Promise<ProjectSummary[]> {
+  return apiFetch<ProjectSummary[]>(`/projects?lang=${language}`);
 }
 
-export function fetchProjectBySlug(slug: string): Promise<ProjectDetail> {
-  return apiFetch<ProjectDetail>(`/projects/${slug}`);
+export function fetchProjectBySlug(slug: string, language: SupportedLanguage): Promise<ProjectDetail> {
+  return apiFetch<ProjectDetail>(`/projects/${slug}?lang=${language}`);
 }
 
 export function createProject(input: ProjectInput): Promise<ProjectDetail> {

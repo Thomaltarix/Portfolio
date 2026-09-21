@@ -1,17 +1,32 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma, Project } from '@prisma/client';
+import { ProjectLocale } from './project-locale';
 import { PrismaService } from '../../prisma/prisma.service';
+
+export type ProjectWithTranslations = Prisma.ProjectGetPayload<{
+  include: { translations: true };
+}>;
 
 @Injectable()
 export class ProjectsRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  findAll(): Promise<Project[]> {
-    return this.prisma.project.findMany({ orderBy: { createdAt: 'desc' } });
+  findAll(locale: ProjectLocale): Promise<ProjectWithTranslations[]> {
+    // Featured projects lead the list; the rest follow from newest to oldest.
+    return this.prisma.project.findMany({
+      orderBy: [{ featured: 'desc' }, { createdAt: 'desc' }],
+      include: { translations: { where: { locale } } },
+    });
   }
 
-  findBySlug(slug: string): Promise<Project | null> {
-    return this.prisma.project.findUnique({ where: { slug } });
+  findBySlug(
+    slug: string,
+    locale: ProjectLocale,
+  ): Promise<ProjectWithTranslations | null> {
+    return this.prisma.project.findUnique({
+      where: { slug },
+      include: { translations: { where: { locale } } },
+    });
   }
 
   findById(id: string): Promise<Project | null> {

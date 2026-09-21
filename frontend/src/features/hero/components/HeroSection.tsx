@@ -10,14 +10,14 @@ const NOW_ITEMS = ['role', 'studying', 'stack'] as const;
 
 const EASE_OUT_STRONG = [0.23, 1, 0.32, 1] as const;
 
-// The headline sits on the photo's sky, which does not follow the theme tokens: the pale dawn sky takes
-// fixed ink, and the dark theme swaps to the night photo, where the title turns light.
-const SKY_INK = 'text-[#0d1116] dark:text-foreground';
+// The headline sits on the photo's sky, which does not follow the theme tokens: the warm sunrise sky takes
+// fixed warm ink, and the dark theme swaps to the night photo, where the title turns light.
+const SKY_INK = 'text-[#201a17] dark:text-foreground';
 
-// Two gradings of the same photograph. The dark theme gets a real night version (about six times darker),
-// not the daylight photo dimmed, so the top of the page is dark too rather than a pale sky under a dark bottom.
+// Two gradings of the same photograph: a warm sunrise for the light theme, and a real night version (about
+// seven times darker) for the dark one, rather than one photo dimmed, so each theme has its own light.
 const PHOTO_WIDTHS = [1600, 2560, 3840] as const;
-function photoSources(photo: 'fuji-dawn' | 'fuji-night') {
+function photoSources(photo: 'fuji-sunrise' | 'fuji-night') {
   return {
     src: `/images/${photo}-2560.webp`,
     srcSet: PHOTO_WIDTHS.map((width) => `/images/${photo}-${width}.webp ${width}w`).join(', '),
@@ -28,7 +28,7 @@ export function HeroSection() {
   const { t } = useTranslation('hero');
   const shouldReduceMotion = useReducedMotion();
   const { theme } = useTheme();
-  const photo = photoSources(theme === 'dark' ? 'fuji-night' : 'fuji-dawn');
+  const photo = photoSources(theme === 'dark' ? 'fuji-night' : 'fuji-sunrise');
   // The scroll drift moves the photo down, which on a phone slides its bottom edge out from under the
   // fade and shows a strip of raw photo. It is a desktop effect only.
   const isDrifting = useMediaQuery('(min-width: 640px)') && !shouldReduceMotion;

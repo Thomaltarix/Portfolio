@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Outlet, useLocation } from 'react-router-dom';
 import { Footer } from './Footer';
 import { Header } from './Header';
+import { LookSwitch } from './LookSwitch';
 
 export function RootLayout() {
   const { t } = useTranslation('common');
@@ -30,6 +31,7 @@ export function RootLayout() {
         </Suspense>
       </main>
       <Footer />
+      <LookSwitch />
     </div>
   );
 }

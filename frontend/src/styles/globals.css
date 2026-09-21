@@ -5,20 +5,35 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /*
- * "Ascension" tokens, drawn from the hero photograph: dawn slate, snow white,
- * and one sunrise-vermilion accent. Accent contrast (WCAG AA): dark #f0906a on
- * #0d1116 is 8.4:1, light #b8431f on #f4f3ef is 5.4:1.
+ * "Ascension" tokens. Light theme: a white page, warm ink and a terracotta accent, with the colour carried by
+ * the sunrise photograph. Accent contrast (WCAG AA): #b0402f on #fffdfb is 5.8:1, on the blush surface 5.1:1.
  * Shape rule: interactive controls are pills (rounded-full), containers use --radius-lg.
  */
 :root {
-  --background: #f4f3ef;
-  --foreground: #10141a;
-  --surface: #eae8e2;
-  --border: #d6d3cb;
-  --muted-foreground: #5a6470;
-  --accent: #b8431f;
-  --accent-foreground: #fff8f4;
+  --background: #fffdfb;
+  --foreground: #201a17;
+  --surface: #f7f0eb;
+  --border: #e8dcd5;
+  --muted-foreground: #6a605a;
+  --accent: #b0402f;
+  --accent-foreground: #fffaf7;
   --radius: 1.25rem;
+}
+
+/* Light theme, "bold" look: blush surfaces and tinted bands on two sections. A development preview to
+   compare against the default (see lib/look.ts); the production site never sets data-look="bold". */
+:root[data-look='bold']:not(.dark) {
+  --surface: #f3e3da;
+  --border: #e3cfc4;
+  --band: #fbeee7;
+}
+
+:root[data-look='bold']:not(.dark) :where(#experience, #projects) {
+  background-color: var(--band);
+  /* The sections are a centred column, so extend the band to the full width of the page. The clip keeps the
+     shadow from ever creating a horizontal scrollbar. */
+  box-shadow: 0 0 0 100vmax var(--band);
+  clip-path: inset(0 -100vmax);
 }
 
 .dark {

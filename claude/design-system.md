@@ -8,9 +8,9 @@ The site is a climb. It opens on a full-bleed photograph of Mount Fuji at dawn (
 
 The test for any visual addition: does it belong to the climb, or is it decoration? If decoration, cut it.
 
-The dark theme is not the light theme with dark tokens: it has its own photograph. `fuji-night-{1600,2560,3840}.webp` is a blue-hour grading of the same picture (mean luminance about 0.09 against 0.58 for the dawn photo: the sky is near-black at the top, the snow stays luminous, a faint glow sits behind the summit, the outer thirds are dimmed so the horizon never glares). `HeroSection` picks the photo from the theme, and the title turns light on it. The Contact scrim is 88% in the dark theme (75% in the light one) to match.
+The dark theme is not the light theme with dark tokens: it has its own photograph. `fuji-night-{1600,2560,3840}.webp` is a blue-hour grading of the same picture (mean luminance about 0.09 against 0.58 for the original photo: the sky is near-black at the top, the snow stays luminous, a faint glow sits behind the summit, the outer thirds are dimmed so the horizon never glares). `HeroSection` picks the photo from the theme, and the title turns light on it. The Contact scrim is 88% in the dark theme (75% in the light one) to match.
 
-Photos live in `frontend/public/images/`, exported from the full-resolution originals (colour-managed to sRGB, light contrast/clarity pass, sharpened after downscale) as `fuji-dawn-{1600,2560,3840}.webp` and `fuji-reflection-{1600,2560}.webp`, served through `srcSet`. Both are the owner's own; nobody appears in them. Any other image must also be the owner's own or licensed.
+Photos live in `frontend/public/images/`, exported from the full-resolution originals (colour-managed to sRGB, light contrast/clarity pass, sharpened after downscale) as `fuji-sunrise-{1600,2560,3840}.webp` (light theme), `fuji-night-{1600,2560,3840}.webp` (dark theme) and `fuji-reflection-{1600,2560}.webp` (Contact), served through `srcset`. All are the owner's own; nobody appears in them. Any other image must also be the owner's own or licensed.
 
 History of what was explored and rejected (don't re-propose without new information):
 - "Premium SaaS" (Linear/Vercel/Raycast/Supabase/Stripe) — too generic.
@@ -39,16 +39,20 @@ Tokens live in `frontend/src/styles/globals.css`; this doc describes intent. Dar
 
 | Token | Dark | Light |
 | --- | --- | --- |
-| `--background` | `#0d1116` | `#f4f3ef` |
-| `--surface` | `#141a21` | `#eae8e2` |
-| `--border` | `#232c36` | `#d6d3cb` |
-| `--foreground` | `#eceae4` | `#10141a` |
-| `--muted-foreground` | `#97a1ad` | `#5a6470` |
-| `--accent` | `#f0906a` | `#b8431f` |
-| `--accent-foreground` | `#1a0c06` | `#fff8f4` |
+| `--background` | `#0d1116` | `#fffdfb` |
+| `--surface` | `#141a21` | `#f7f0eb` |
+| `--border` | `#232c36` | `#e8dcd5` |
+| `--foreground` | `#eceae4` | `#201a17` |
+| `--muted-foreground` | `#97a1ad` | `#6a605a` |
+| `--accent` | `#f0906a` | `#b0402f` |
+| `--accent-foreground` | `#1a0c06` | `#fffaf7` |
 
-- Accent (sunrise vermilion): primary buttons, the trail line and its dots, job roles, link hovers. Nothing else.
-- Accent contrast is WCAG AA (dark ~8.4:1, light ~5.4:1). Re-check when changing values.
+The two themes are two lights on the same picture, each with its own photograph and its own family: the dark theme is slate and navy with a peach accent (night photo); the light theme is a white page with warm ink and a terracotta accent, and the colour comes from the warm sunrise photo (`fuji-sunrise-*`: peach sky, lavender top, mauve mountain, cream snow). The palette was checked against a friend's swatches taken from the site: peach `#efa270`, cream `#ddd0c9` and slate greys in the dark, terracotta, blush `#e2d5ce` and warm greys in the light.
+
+**Light theme looks.** `discreet` is the default: white, warm ink, terracotta, sunrise photo. `bold` adds blush surfaces (`--surface` `#f3e3da`) and full-bleed blush bands (`--band` `#fbeee7`) behind Experience and Projects. The two were built to be compared: in development a `Discret / Franc` switch (`LookSwitch`, bottom-left, light theme only) sets `data-look` on `<html>`. It is stripped from production builds and `readStoredLook` ignores storage there, so visitors always get `discreet`. Once one is chosen, delete `lib/look.ts`, `LookSwitch` and the other look's CSS block.
+
+- Accent (peach in the dark theme, terracotta in the light one): primary buttons, the trail line and its dots, job roles, link hovers. Nothing else.
+- Accent contrast is WCAG AA (dark ~8.4:1, light ~5.8:1 on the page, ~5.1:1 on the blush surface). Re-check when changing values.
 - Text that sits on a photograph uses fixed colours, not tokens (the hero headline is ink `#0d1116` on the sky; the Contact copy is light on a 75% dark scrim), because the photo does not change with the theme. The bottom of the hero fades into `--background` so the theme still owns everything below the mountain.
 
 ## Typography

@@ -3,11 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-
-const RESUME_FILES = {
-  en: '/resume-en.pdf',
-  fr: '/resume-fr.pdf',
-} as const;
+import { RESUME_FILES } from './resume-files';
 
 export function ResumeMenu() {
   const { t } = useTranslation('common');

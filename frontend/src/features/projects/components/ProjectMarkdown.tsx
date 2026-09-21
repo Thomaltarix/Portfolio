@@ -7,7 +7,7 @@ interface ProjectMarkdownProps {
 export function ProjectMarkdown({ content }: ProjectMarkdownProps) {
   return (
     <div
-      className="max-w-none space-y-4 text-muted-foreground
+      className="max-w-none space-y-4 break-words text-muted-foreground [&_pre]:overflow-x-auto [&_table]:block [&_table]:overflow-x-auto
         [&_a]:text-accent [&_a]:underline [&_a]:underline-offset-2
         [&_h2]:mt-8 [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:tracking-tight [&_h2]:text-foreground
         [&_h3]:mt-6 [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:text-foreground

@@ -78,6 +78,18 @@ Interactive controls are pills (`rounded-full`); containers use `rounded-lg` (`-
 - `prefers-reduced-motion`: the hero entrance and drift and the trail animation are skipped entirely (the trail shows fully drawn), and view transitions are disabled.
 - Nothing animates on keyboard-driven actions (the ⌘K palette stays instant).
 
+## Mobile
+
+The site is designed phone-first at 360–390px and scales up; the breakpoint that matters is `md` (768px).
+
+- **Navigation**: below `md` the header pill keeps only the name and a menu button. The button opens a sheet under the pill (`MobileMenu`) with the five sections as 56px rows, the résumé downloads (48px), and the language and theme toggles. It closes on link click, Escape, outside tap and route change. From `md` up the pill shows the inline nav and controls as before.
+- **Touch targets**: at least 44px. Buttons grow on coarse pointers (`[@media(pointer:coarse)]`), and text links get vertical padding (`py-3`) rather than a bigger font. Hover styles are gated to real pointers.
+- **Forms**: inputs and textareas are 16px on phones (below that iOS zooms the page on focus) and 48px tall; the desktop 14px / 40px applies from `sm` up.
+- **Hero**: the two calls to action are full width and stacked below `sm`; the title steps 28px → 32px (≥ 400px) → 44px (`sm`) → 52px (`lg`).
+- **Rhythm**: sections use `py-20` on phones and `py-32` from `md`; cards use `p-6` on phones and `p-8` from `sm`.
+- **Overflow**: no page may scroll horizontally at 360px. Markdown tables and code blocks scroll inside their own box.
+- **How to test**: Chrome will not go below about 500px, so load the site in an `<iframe width="360">` (same origin) and compare `scrollWidth` with `innerWidth`.
+
 ## Accessibility
 
 - WCAG AA contrast in both themes, visible `:focus-visible` outline in the accent color, selection color themed from the palette.

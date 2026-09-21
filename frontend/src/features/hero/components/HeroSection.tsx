@@ -46,12 +46,12 @@ export function HeroSection() {
       {/* Fades the photo into the page ground so the hero has no hard edge. */}
       <div className="absolute inset-x-0 bottom-0 -z-10 h-2/3 bg-gradient-to-t from-background from-25% via-background/85 to-transparent max-sm:h-4/5 max-sm:from-30% max-sm:via-background/90" />
 
-      <div className="mx-auto w-full max-w-6xl px-6 pt-48 sm:pt-52">
+      <div className="mx-auto w-full max-w-6xl px-6 pt-40 sm:pt-52">
         <motion.h1
           {...rise(0)}
           className={cn(
             // 54rem is the width where both locales wrap onto three lines (measured: FR needs >= 800px, EN stays on three up to 920px).
-            'max-w-[54rem] text-[2rem] font-semibold leading-[1.1] tracking-[-0.03em] sm:text-[2.75rem] lg:text-[3.25rem]',
+            'max-w-[54rem] text-[1.75rem] font-semibold leading-[1.12] tracking-[-0.03em] min-[400px]:text-[2rem] sm:text-[2.75rem] lg:text-[3.25rem]',
             SKY_INK,
           )}
         >
@@ -59,24 +59,24 @@ export function HeroSection() {
         </motion.h1>
       </div>
 
-      <div className="mx-auto mt-auto flex w-full max-w-6xl flex-col gap-10 px-6 pb-14 pt-24">
+      <div className="mx-auto mt-auto flex w-full max-w-6xl flex-col gap-8 px-6 pb-10 pt-16 sm:gap-10 sm:pb-14 sm:pt-24">
         <div className="flex flex-col items-start gap-6">
           <motion.p {...rise(0.1)} className={cn(
-            'max-w-xl text-lg font-medium text-foreground',
+            'max-w-xl text-base font-medium text-foreground sm:text-lg',
             // Halo in the page-background colour: keeps the copy legible where the photo behind it is pale.
             '[text-shadow:0_0_16px_var(--background),0_1px_3px_var(--background)]',
           )}>
             {t('subtitle')}
           </motion.p>
-          <motion.div {...rise(0.18)} className="flex flex-wrap gap-3">
-            <a href="#contact" className={cn(buttonVariants({ size: 'xl' }), 'font-semibold')}>
+          <motion.div {...rise(0.18)} className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
+            <a href="#contact" className={cn(buttonVariants({ size: 'xl' }), 'w-full font-semibold sm:w-auto')}>
               {t('getInTouch')}
             </a>
             <a
               href="#projects"
               className={cn(
                 buttonVariants({ variant: 'outline', size: 'xl' }),
-                'border-2 font-semibold',
+                'w-full border-2 font-semibold sm:w-auto',
                 // The default outline colour is nearly the page colour in the light theme, so give it real contrast there.
                 '[html.light_&]:border-foreground/50 [html.light_&]:[@media(hover:hover)]:hover:border-foreground',
               )}

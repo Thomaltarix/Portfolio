@@ -9,7 +9,7 @@ export function SkillsSection() {
   const groups = t('groups', { returnObjects: true }) as readonly SkillGroup[];
 
   return (
-    <section id="skills" className="mx-auto max-w-6xl px-6 py-32">
+    <section id="skills" className="mx-auto max-w-6xl px-6 py-20 md:py-32">
       <FadeIn>
         <SectionHeading>{t('heading')}</SectionHeading>
       </FadeIn>

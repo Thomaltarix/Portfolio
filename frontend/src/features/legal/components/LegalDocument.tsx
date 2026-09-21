@@ -14,7 +14,7 @@ interface LegalDocumentProps {
 
 export function LegalDocument({ title, updatedLabel, sections, children }: LegalDocumentProps) {
   return (
-    <article className="mx-auto max-w-3xl px-6 py-24">
+    <article className="mx-auto max-w-3xl px-6 py-16 sm:py-24">
       <h1 className="text-3xl font-semibold tracking-tight">{title}</h1>
       <p className="mt-2 font-mono text-xs text-muted-foreground">{updatedLabel}</p>
 

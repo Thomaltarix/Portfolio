@@ -38,5 +38,10 @@
     "darkTheme": "Passer en thème sombre",
     "downloadResume": "Télécharger le CV"
   },
-  "skipToContent": "Aller au contenu"
+  "skipToContent": "Aller au contenu",
+  "mobileMenu": {
+    "open": "Ouvrir le menu",
+    "close": "Fermer le menu",
+    "navigation": "Navigation principale"
+  }
 }

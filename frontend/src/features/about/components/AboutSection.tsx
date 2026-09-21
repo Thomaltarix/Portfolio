@@ -1,6 +1,5 @@
 import { FadeIn } from '@/components/motion/FadeIn';
 import { SectionHeading } from '@/components/ui/section-heading';
-import { GithubActivityWidget } from '@/features/github-activity/components/GithubActivityWidget';
 import { useTranslation } from 'react-i18next';
 
 export function AboutSection() {
@@ -29,10 +28,6 @@ export function AboutSection() {
                 <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
-          </FadeIn>
-
-          <FadeIn delay={0.15} className="mt-14">
-            <GithubActivityWidget />
           </FadeIn>
         </div>
       </div>

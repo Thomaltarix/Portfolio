@@ -20,7 +20,7 @@ export function RankedList({ items, emptyLabel = 'Aucune donnée' }: RankedListP
       {items.map((item) => (
         <li key={item.label} className="flex items-center gap-3">
           <span
-            className="w-36 shrink-0 truncate text-sm text-muted-foreground"
+            className="w-28 shrink-0 truncate text-sm text-muted-foreground sm:w-36"
             title={item.label}
           >
             {item.label}

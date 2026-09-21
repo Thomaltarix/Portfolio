@@ -125,38 +125,6 @@ A calendar synchronisation platform that brings events from several calendar sou
     featured: false,
   },
   {
-    slug: 'train-collection',
-    title: 'Train Collection',
-    summary:
-      'A quick side project to catalogue a model train collection, built for my dad.',
-    content: `## What it is
-
-A small side project, built quickly, to manage a collection of model trains: metadata, categories and photos.
-
-## Features
-
-- Sign up and sign in with a personal account; models and images are restricted to their owner.
-- Create a model with its metadata and upload one to three images to a private storage bucket.
-- Filter the collection by category and type.
-
-## Engineering
-
-- **Layered architecture** kept deliberately simple: repositories handle database access only, services hold business logic (image upload, signed URL generation), and the app and component layers only render.
-- Only storage paths are stored in PostgreSQL; signed image URLs are generated on the server.
-- Zod validation on input.`,
-    techStack: [
-      'Next.js',
-      'TypeScript',
-      'Tailwind CSS',
-      'Supabase',
-      'PostgreSQL',
-      'Zod',
-    ],
-    githubUrl: 'https://github.com/Thomaltarix/Train-classification',
-    liveUrl: 'https://train-classification.vercel.app',
-    featured: false,
-  },
-  {
     slug: 'momentum',
     title: 'Momentum',
     summary:
@@ -256,26 +224,6 @@ Une application Android d'habitudes quotidiennes, pensée pour un usage personne
 - Flutter avec Riverpod pour l'état et go_router pour la navigation.
 - Local d'abord : les données vivent sur l'appareil dans une base Drift (SQLite), sans backend ni compte.
 - Les données quotidiennes de Health Connect sont mises en cache localement, pour que l'historique survive aux échecs de requête du système ou à une permission révoquée.`,
-  },
-  'train-collection': {
-    title: 'Collection de trains',
-    summary:
-      'Un petit projet perso réalisé rapidement pour cataloguer une collection de trains miniatures, pour mon père.',
-    content: `## De quoi s'agit-il
-
-Un petit projet perso, réalisé rapidement, pour gérer une collection de trains miniatures : métadonnées, catégories et photos.
-
-## Fonctionnalités
-
-- Inscription et connexion avec un compte personnel ; les modèles et les images sont réservés à leur propriétaire.
-- Création d'un modèle avec ses métadonnées et envoi d'une à trois images vers un espace de stockage privé.
-- Filtrage de la collection par catégorie et par type.
-
-## Ingénierie
-
-- **Architecture en couches** volontairement simple : les repositories gèrent uniquement l'accès aux données, les services portent la logique métier (envoi d'images, génération d'URL signées) et les couches d'application et de composants ne font que l'affichage.
-- Seuls les chemins de stockage sont enregistrés dans PostgreSQL ; les URL signées des images sont générées côté serveur.
-- Validation des entrées avec Zod.`,
   },
   'unified-calendar': {
     title: 'UnifiedCalendar',

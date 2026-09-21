@@ -35,16 +35,18 @@ export function ContactSection() {
   };
 
   return (
-    <section id="contact" className="relative isolate overflow-hidden">
+    <section id="contact" className="relative isolate overflow-hidden bg-[#0d1116]">
       <img
         src="/images/fuji-reflection-1600.webp"
         srcSet="/images/fuji-reflection-1600.webp 1600w, /images/fuji-reflection-2560.webp 2560w"
         sizes="100vw"
         alt=""
         loading="lazy"
-        className="absolute inset-0 -z-20 h-full w-full object-cover"
+        className="absolute inset-x-0 top-0 -z-20 h-[130vw] w-full object-cover md:inset-0 md:h-full"
       />
-      <div className="absolute inset-0 -z-10 bg-[#0d1116]/75" />
+      <div className="absolute inset-x-0 top-0 -z-10 h-[130vw] bg-[#0d1116]/75 md:inset-0 md:h-full" />
+      {/* Phones only: closes the photo's bottom edge into the section's dark ground, above the form. */}
+      <div className="absolute inset-x-0 top-[70vw] -z-10 h-[calc(60vw+2px)] bg-gradient-to-t from-[#0d1116] to-transparent md:hidden" />
 
       <div className="mx-auto grid max-w-6xl gap-14 px-6 py-20 md:py-32 lg:grid-cols-[1fr_1.1fr] lg:items-center lg:gap-20">
         <FadeIn className="text-[#eceae4]">

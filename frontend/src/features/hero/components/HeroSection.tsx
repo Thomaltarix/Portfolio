@@ -1,6 +1,7 @@
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/cn';
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
+import { useMediaQuery } from '@/lib/use-media-query';
 import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -15,6 +16,9 @@ const SKY_INK = 'text-[#0d1116]';
 export function HeroSection() {
   const { t } = useTranslation('hero');
   const shouldReduceMotion = useReducedMotion();
+  // The scroll drift moves the photo down, which on a phone slides its bottom edge out from under the
+  // fade and shows a strip of raw photo. It is a desktop effect only.
+  const isDrifting = useMediaQuery('(min-width: 640px)') && !shouldReduceMotion;
   // One line per internship, so each has its own dates.
   const roleLines = t('now.role', { returnObjects: true }) as readonly string[];
   const sectionRef = useRef<HTMLElement>(null);
@@ -40,15 +44,14 @@ export function HeroSection() {
         sizes="100vw"
         alt=""
         fetchPriority="high"
-        style={shouldReduceMotion ? undefined : { y: imageY, scale: imageScale }}
+        style={isDrifting ? { y: imageY, scale: imageScale } : undefined}
         // Phones: the photo keeps its own height (tied to the screen width) and is aligned to the top, so the mountain
         // sits between the title and the copy instead of being stretched behind everything. From sm up it fills the hero.
-        // The scroll drift is a desktop effect; it would only open a gap above the photo on a phone.
-        className="absolute inset-x-0 top-0 -z-20 h-[150vw] w-full object-cover object-[50%_46%] max-sm:[transform:none!important] sm:inset-0 sm:h-full"
+        className="absolute inset-x-0 top-0 -z-20 h-[150vw] w-full object-cover object-[50%_46%] sm:inset-0 sm:h-full"
       />
       {/* Fades the photo into the page ground so the hero has no hard edge. On phones it closes the photo's own
           bottom edge (the photo is 150vw tall, so the fade spans 80vw to 150vw); from sm up it sits at the hero's bottom. */}
-      <div className="absolute inset-x-0 top-[80vw] -z-10 h-[70vw] bg-gradient-to-t from-background from-20% via-background/85 to-transparent sm:top-auto sm:bottom-0 sm:h-2/3 sm:from-25%" />
+      <div className="absolute inset-x-0 top-[80vw] -z-10 h-[calc(70vw+2px)] bg-gradient-to-t from-background from-20% via-background/85 to-transparent sm:top-auto sm:bottom-0 sm:h-2/3 sm:from-25%" />
 
       <div className="mx-auto w-full max-w-6xl px-6 pt-40 max-sm:min-h-[135vw] sm:pt-52">
         <motion.h1

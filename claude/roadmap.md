@@ -74,15 +74,19 @@ Scope of this phase:
 
 - **Request-lifecycle + Docker topology demo** in `PlaygroundSection` — built, iterated on through several rounds (traveling indicator, user-supplied input, typed data display, JSON panel, arrow-based diagram), then pulled entirely: the owner didn't like the result on either the visual design or the underlying concept, not just the execution. Fully reverted — no `playground` backend module, no `PlaygroundSection` changes, back to the Phase 2 "coming soon" placeholder. Worth remembering before re-attempting something similar: a single interactive diagram trying to explain the request lifecycle turned into a lot of surface area (speed controls, live-typed payloads, arrows) without ever landing on a design the owner wanted — the next concept should probably be simpler to build *and* simpler to judge quickly, so a miss costs less.
 
+### Done
+
+- **Command-palette navigation (Cmd+K)** — global ⌘K/Ctrl+K shortcut + header trigger, hand-rolled (no `cmdk` dependency). Commands mirror real actions only (the five nav anchors, theme toggle, language toggle, résumé download, back-to-top). Accent-insensitive search. See `frontend/src/components/command-palette/CommandPalette.tsx`.
+- **The "Schematic" visual direction** — see `design-system.md` for the full story (explored two rounds of alternatives — a light editorial/serif direction and literal document-cosplay (fake datasheet/patent) — before landing here). Applied site-wide: indigo-slate + copper tokens, sharp corners, mono-uppercase labels, the Hero's blueprint-grid background and stacked "right now" panel, the segmented mono nav bar.
+
 ### Candidate concepts (not yet decided)
 
 - **Live system status strip** — small persistent widget (header/footer) reading the real `/health` endpoint: API/DB status, uptime. Not decorative — it breaks if the backend is actually down.
 - **Public API explorer** — an embedded "try it" panel for a safe read-only slice of the API (e.g. `GET /projects`), showing real request/response next to the Swagger docs instead of just linking out to them.
 - **CI/CD as content** — extend the existing GitHub activity widget to surface the latest GitHub Actions run status/link for this repo, tying the "production-ready" claim to a live, checkable artifact.
 - **Public analytics ticker** — a thin, anonymized slice of the Phase 5 analytics dashboard (visits today, avg response time) exposed as transparency/proof-of-work rather than vanity numbers.
-- **Command-palette navigation (Cmd+K)** — CLI-flavored site navigation, consistent with the existing Raycast inspiration in `design-system.md`, distinct from a conventional nav bar. Owner expressed interest in this one back when Playground was first discussed.
 
-Next step: owner picks a candidate (or proposes a new one) to try next; `design-system.md` stays as-is until a concept actually lands.
+Next step: working through these one at a time, simplest/lowest-risk first per the lesson above — status strip, then reassess.
 
 ## Explicitly not planned unless requirements change
 

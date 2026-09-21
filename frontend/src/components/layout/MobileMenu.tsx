@@ -23,7 +23,7 @@ interface MobileMenuProps {
 
 const MENU_ID = 'mobile-menu';
 
-// Below the md breakpoint the header pill has no room for the section links and the
+// Below the lg breakpoint the header pill has no room for the section links and the
 // four utility controls, so they move into a sheet that opens under the pill.
 export function MobileMenu({ links, activeId }: MobileMenuProps) {
   const { t } = useTranslation('common');
@@ -52,7 +52,7 @@ export function MobileMenu({ links, activeId }: MobileMenuProps) {
   }, [isOpen]);
 
   return (
-    <div ref={containerRef} className="contents md:hidden">
+    <div ref={containerRef} className="contents lg:hidden">
       <button
         type="button"
         aria-expanded={isOpen}

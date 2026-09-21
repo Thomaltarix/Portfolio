@@ -8,7 +8,9 @@ The site is a climb. It opens on a full-bleed photograph of Mount Fuji at dawn (
 
 The test for any visual addition: does it belong to the climb, or is it decoration? If decoration, cut it.
 
-Photos live in `frontend/public/images/`, exported from the full-resolution originals (colour-managed to sRGB, light contrast/clarity pass, sharpened after downscale) as `fuji-dawn-{1600,2560,3840}.webp` and `fuji-reflection-{1600,2560}.webp`, served through `srcSet`. Both are the owner's own; nobody appears in them. Any other image must also be the owner's own or licensed.
+The dark theme is not the light theme with dark tokens: it has its own photograph. `fuji-night-{1600,2560,3840}.webp` is a blue-hour grading of the same picture (mean luminance about 0.13 against 0.58 for the original photo: the sky is near-black at the top, a faint glow sits behind the summit, the outer thirds are dimmed so the horizon never glares, and the dark rock of the mountain is lifted to a slate blue so it keeps its slopes and the lakeside village instead of reading as a black triangle; the lift is limited to dark pixels so the sky glow does not grow with it). `HeroSection` picks the photo from the theme, and the title turns light on it. The Contact scrim is 88% in the dark theme (75% in the light one) to match.
+
+Photos live in `frontend/public/images/`, exported from the full-resolution originals (colour-managed to sRGB, light contrast/clarity pass, sharpened after downscale) as `fuji-sunrise-{1600,2560,3840}.webp` (light theme), `fuji-night-{1600,2560,3840}.webp` (dark theme) and `fuji-reflection-{1600,2560}.webp` (Contact), served through `srcset`. All are the owner's own; nobody appears in them. Any other image must also be the owner's own or licensed.
 
 History of what was explored and rejected (don't re-propose without new information):
 - "Premium SaaS" (Linear/Vercel/Raycast/Supabase/Stripe) — too generic.
@@ -37,16 +39,20 @@ Tokens live in `frontend/src/styles/globals.css`; this doc describes intent. Dar
 
 | Token | Dark | Light |
 | --- | --- | --- |
-| `--background` | `#0d1116` | `#f4f3ef` |
-| `--surface` | `#141a21` | `#eae8e2` |
-| `--border` | `#232c36` | `#d6d3cb` |
-| `--foreground` | `#eceae4` | `#10141a` |
-| `--muted-foreground` | `#97a1ad` | `#5a6470` |
-| `--accent` | `#f0906a` | `#b8431f` |
-| `--accent-foreground` | `#1a0c06` | `#fff8f4` |
+| `--background` | `#0d1116` | `#fdf4ee` |
+| `--surface` | `#141a21` | `#f6e2d7` |
+| `--border` | `#232c36` | `#ecd3c5` |
+| `--foreground` | `#eceae4` | `#201a17` |
+| `--muted-foreground` | `#97a1ad` | `#6a605a` |
+| `--accent` | `#f0906a` | `#b0402f` |
+| `--accent-foreground` | `#1a0c06` | `#fffaf7` |
 
-- Accent (sunrise vermilion): primary buttons, the trail line and its dots, job roles, link hovers. Nothing else.
-- Accent contrast is WCAG AA (dark ~8.4:1, light ~5.4:1). Re-check when changing values.
+The two themes are two lights on the same picture, each with its own photograph and its own family: the dark theme is slate and navy with a peach accent (night photo); the light theme is a peach-tinted page with warm ink and a terracotta accent, and the colour comes from the warm sunrise photo (`fuji-sunrise-*`: peach sky, lavender top, mauve mountain, cream snow). The palette was checked against a friend's swatches taken from the site: peach `#efa270`, cream `#ddd0c9` and slate greys in the dark, terracotta, blush `#e2d5ce` and warm greys in the light.
+
+**Light theme.** The page itself is tinted peach (`--background` `#fdf4ee`, `--surface` `#f6e2d7`, `--border` `#ecd3c5`), section titles and hero labels are terracotta (Contact keeps its light title), and Experience and Projects sit on full-bleed blush bands (`--band` `#f8e6db`). Chosen over a plainer white variant (near-white page, ink titles, no bands), which read as too discreet next to the dark theme: the two were compared side by side and the owner preferred this one.
+
+- Accent (peach in the dark theme, terracotta in the light one): primary buttons, the trail line and its dots, job roles, link hovers. Nothing else.
+- Accent contrast is WCAG AA (dark ~8.4:1, light ~5.4:1 on the page). Re-check when changing values.
 - Text that sits on a photograph uses fixed colours, not tokens (the hero headline is ink `#0d1116` on the sky; the Contact copy is light on a 75% dark scrim), because the photo does not change with the theme. The bottom of the hero fades into `--background` so the theme still owns everything below the mountain.
 
 ## Typography
@@ -80,12 +86,12 @@ Interactive controls are pills (`rounded-full`); containers use `rounded-lg` (`-
 
 ## Mobile
 
-The site is designed phone-first at 360–390px and scales up; the breakpoint that matters is `md` (768px).
+The site is designed phone-first at 360–390px and scales up; the breakpoints that matter are `sm` (640px, layout) and `lg` (1024px, header navigation).
 
-- **Navigation**: below `md` the header pill keeps only the name and a menu button. The button opens a sheet under the pill (`MobileMenu`) with the five sections as 56px rows, the résumé downloads (48px), and the language and theme toggles. It closes on link click, Escape, outside tap and route change. From `md` up the pill shows the inline nav and controls as before.
+- **Navigation**: below `lg` (1024px) the header pill keeps only the name and a menu button; the full inline nav needs about 840px, which overflowed an iPad mini in portrait (768px). The button opens a sheet under the pill (`MobileMenu`) with the five sections as 56px rows, the résumé downloads (48px), and the language and theme toggles. It closes on link click, Escape, outside tap and route change. From `lg` up the pill shows the inline nav and controls.
 - **Touch targets**: at least 44px. Buttons grow on coarse pointers (`[@media(pointer:coarse)]`), and text links get vertical padding (`py-3`) rather than a bigger font. Hover styles are gated to real pointers.
 - **Forms**: inputs and textareas are 16px on phones (below that iOS zooms the page on focus) and 48px tall; the desktop 14px / 40px applies from `sm` up.
-- **Hero**: the two calls to action are full width and stacked below `sm`; the title steps 28px → 32px (≥ 400px) → 44px (`sm`) → 52px (`lg`). The photo is not stretched over the whole (tall) hero on phones: it is `150vw` tall, aligned to the top, with its own fade at the bottom (`80vw`–`150vw`), and the title block reserves `135vw` so the mountain sits between the title and the copy. The scroll drift is disabled there in code (`useMediaQuery`), not with CSS: it would slide the photo's bottom edge out from under the fade and show a strip of raw photo, and the fade also extends 2px past the photo for the same reason. From `sm` up the photo fills the hero as before. The Contact photo follows the same rule (`130vw`, top-aligned, fading into the section's dark ground `#0d1116` just above the form) up to `md`.
+- **Hero**: the two calls to action are full width and stacked below `sm`; the title steps 28px → 32px (≥ 400px) → 44px (`sm`) → 52px (`lg`). The photo is not stretched over the whole (tall) hero on phones: it is at least `150vw` tall, aligned to the top, with its own fade over its last `70vw`, and the title block reserves 90% of the photo height so the mountain sits between the title and the copy. The title gets taller on narrow screens (six lines at 320px, four from 375px), so `usePhonePhotoHeight` measures it and grows the photo until the summit (48.7% down the image) is 28px below the last line; the height reaches the layout through the `--photo-height` custom property. The scroll drift is disabled there in code (`useMediaQuery`), not with CSS: it would slide the photo's bottom edge out from under the fade and show a strip of raw photo, and the fade also extends 2px past the photo for the same reason. From `sm` up the photo fills the hero as before. The Contact photo follows the same rule (`130vw`, top-aligned, fading into the section's dark ground `#0d1116` just above the form) up to `md`.
 - **Rhythm**: sections use `py-20` on phones and `py-32` from `md`; cards use `p-6` on phones and `p-8` from `sm`.
 - **Overflow**: no page may scroll horizontally at 360px. Markdown tables and code blocks scroll inside their own box.
 - **How to test**: Chrome will not go below about 500px, so load the site in an `<iframe width="360">` (same origin) and compare `scrollWidth` with `innerWidth`.

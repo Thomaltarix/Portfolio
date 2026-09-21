@@ -5,20 +5,35 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /*
- * "Ascension" tokens, drawn from the hero photograph: dawn slate, snow white,
- * and one sunrise-vermilion accent. Accent contrast (WCAG AA): dark #f0906a on
- * #0d1116 is 8.4:1, light #b8431f on #f4f3ef is 5.4:1.
+ * "Ascension" tokens. Light theme: a peach-tinted page, warm ink and a terracotta accent, with the colour
+ * carried by the sunrise photograph. Contrast (WCAG AA): terracotta #b0402f is 5.4:1 on the page and muted
+ * text is 5.2:1 on the section bands.
  * Shape rule: interactive controls are pills (rounded-full), containers use --radius-lg.
  */
 :root {
-  --background: #f4f3ef;
-  --foreground: #10141a;
-  --surface: #eae8e2;
-  --border: #d6d3cb;
-  --muted-foreground: #5a6470;
-  --accent: #b8431f;
-  --accent-foreground: #fff8f4;
+  --background: #fdf4ee;
+  --foreground: #201a17;
+  --surface: #f6e2d7;
+  --border: #ecd3c5;
+  --band: #f8e6db;
+  --muted-foreground: #6a605a;
+  --accent: #b0402f;
+  --accent-foreground: #fffaf7;
   --radius: 1.25rem;
+}
+
+:root:not(.dark) :where(#experience, #projects) {
+  background-color: var(--band);
+  /* The sections are a centred column, so extend the band to the full width of the page. The clip keeps the
+     shadow from ever creating a horizontal scrollbar. */
+  box-shadow: 0 0 0 100vmax var(--band);
+  clip-path: inset(0 -100vmax);
+}
+
+/* Contact is a dark section in every theme, so it keeps its own light title. */
+:root:not(.dark) main section:not(#contact) h2,
+:root:not(.dark) main section:first-of-type dt {
+  color: var(--accent);
 }
 
 .dark {

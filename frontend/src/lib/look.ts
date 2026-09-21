@@ -1,6 +1,6 @@
 // The light theme has two candidate looks, compared side by side while developing:
 //   discreet: white page, warm ink, terracotta accent, sunrise photo
-//   bold:     the same plus blush surfaces and tinted section bands
+//   bold:     the same on a peach-tinted page, with terracotta titles and tinted section bands
 // Only the development build can switch (see LookSwitch). The production site always uses the
 // default, so no stored value can change what visitors see.
 export const LOOKS = ['discreet', 'bold'] as const;

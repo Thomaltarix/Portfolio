@@ -20,12 +20,15 @@
   --radius: 1.25rem;
 }
 
-/* Light theme, "bold" look: blush surfaces and tinted bands on two sections. A development preview to
-   compare against the default (see lib/look.ts); the production site never sets data-look="bold". */
+/* Light theme, "bold" look: a peach-tinted page, blush surfaces, terracotta section titles and hero labels,
+   and tinted full-bleed bands behind two sections. A development preview to compare against the default
+   (see lib/look.ts); the production site never sets data-look="bold". Contrast: muted text 5.2:1 on the band,
+   terracotta 5.4:1 on the tinted page. */
 :root[data-look='bold']:not(.dark) {
-  --surface: #f3e3da;
-  --border: #e3cfc4;
-  --band: #fbeee7;
+  --background: #fdf4ee;
+  --surface: #f6e2d7;
+  --border: #ecd3c5;
+  --band: #f8e6db;
 }
 
 :root[data-look='bold']:not(.dark) :where(#experience, #projects) {
@@ -34,6 +37,12 @@
      shadow from ever creating a horizontal scrollbar. */
   box-shadow: 0 0 0 100vmax var(--band);
   clip-path: inset(0 -100vmax);
+}
+
+/* Contact is a dark section in every theme, so it keeps its own light title. */
+:root[data-look='bold']:not(.dark) main section:not(#contact) h2,
+:root[data-look='bold']:not(.dark) main section:first-of-type dt {
+  color: var(--accent);
 }
 
 .dark {

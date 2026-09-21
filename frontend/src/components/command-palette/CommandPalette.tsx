@@ -83,12 +83,7 @@ export function CommandPalette() {
     () => [
       { id: 'about', label: t('nav.about'), onSelect: () => goToHash('about') },
       { id: 'experience', label: t('nav.experience'), onSelect: () => goToHash('experience') },
-      {
-        id: 'projects',
-        label: t('nav.projects'),
-        hint: t('comingSoon'),
-        onSelect: () => goToHash('projects'),
-      },
+      { id: 'projects', label: t('nav.projects'), onSelect: () => goToHash('projects') },
       {
         id: 'playground',
         label: t('nav.playground'),

@@ -9,7 +9,7 @@ export function AboutSection() {
   }) as readonly string[];
 
   return (
-    <section id="about" className="mx-auto max-w-6xl px-6 py-32">
+    <section id="about" className="mx-auto max-w-6xl px-6 py-20 md:py-32">
       <div className="grid gap-12 lg:grid-cols-[1fr_2fr] lg:gap-20">
         <FadeIn>
           <SectionHeading>{t('heading')}</SectionHeading>

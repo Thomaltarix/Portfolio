@@ -1,6 +1,12 @@
 import { apiFetch } from '@/lib/api-client';
 import type { SupportedLanguage } from '@/lib/i18n';
-import type { ProjectDetail, ProjectInput, ProjectSummary } from '../types/project.types';
+import type {
+  ProjectDetail,
+  ProjectInput,
+  ProjectSummary,
+  ProjectTranslationInput,
+  TranslationLanguage,
+} from '../types/project.types';
 
 export function fetchProjects(language: SupportedLanguage): Promise<ProjectSummary[]> {
   return apiFetch<ProjectSummary[]>(`/projects?lang=${language}`);
@@ -29,4 +35,19 @@ export function updateProject(
 
 export function deleteProject(id: string): Promise<void> {
   return apiFetch<void>(`/projects/${id}`, { method: 'DELETE' });
+}
+
+export function upsertProjectTranslation(
+  id: string,
+  language: TranslationLanguage,
+  input: ProjectTranslationInput,
+): Promise<ProjectDetail> {
+  return apiFetch<ProjectDetail>(`/projects/${id}/translations/${language}`, {
+    method: 'PUT',
+    body: JSON.stringify(input),
+  });
+}
+
+export function deleteProjectTranslation(id: string, language: TranslationLanguage): Promise<void> {
+  return apiFetch<void>(`/projects/${id}/translations/${language}`, { method: 'DELETE' });
 }

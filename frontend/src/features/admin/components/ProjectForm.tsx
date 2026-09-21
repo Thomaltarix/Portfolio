@@ -1,10 +1,10 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
 import { useCreateProject } from '@/features/projects/hooks/use-create-project';
 import { useUpdateProject } from '@/features/projects/hooks/use-update-project';
 import type { ProjectDetail } from '@/features/projects/types/project.types';
+import { ProjectTextFields } from './ProjectTextFields';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -34,7 +34,7 @@ type ProjectFormValues = z.infer<typeof projectFormSchema>;
 
 interface ProjectFormProps {
   project?: ProjectDetail;
-  onSaved: () => void;
+  onSaved: (project: ProjectDetail) => void;
   onCancel: () => void;
 }
 
@@ -82,7 +82,7 @@ export function ProjectForm({ project, onSaved, onCancel }: ProjectFormProps) {
       ? updateProject.mutateAsync({ id: project.id, input })
       : createProject.mutateAsync(input);
 
-    mutation.then(onSaved).catch(() => {
+    mutation.then((saved) => onSaved(saved)).catch(() => {
       // Error state is surfaced below via isError — nothing more to do here.
     });
   };
@@ -91,37 +91,24 @@ export function ProjectForm({ project, onSaved, onCancel }: ProjectFormProps) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="max-w-2xl space-y-5">
-      <div className="grid grid-cols-2 gap-4">
-        <div className="space-y-2">
-          <Label htmlFor="slug">Slug</Label>
-          <Input id="slug" {...register('slug')} />
-          {errors.slug && <p className="text-sm text-red-700 dark:text-red-400">{errors.slug.message}</p>}
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="title">Titre</Label>
-          <Input id="title" {...register('title')} />
-          {errors.title && <p className="text-sm text-red-700 dark:text-red-400">{errors.title.message}</p>}
-        </div>
+      <div className="space-y-2">
+        <Label htmlFor="slug">Slug</Label>
+        <Input id="slug" {...register('slug')} />
+        {errors.slug && <p className="text-sm text-red-700 dark:text-red-400">{errors.slug.message}</p>}
       </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="summary">Résumé</Label>
-        <Textarea id="summary" className="min-h-20" {...register('summary')} />
-        {errors.summary && <p className="text-sm text-red-700 dark:text-red-400">{errors.summary.message}</p>}
-      </div>
-
-      <div className="space-y-2">
-        <Label htmlFor="content">Contenu (markdown)</Label>
-        <Textarea id="content" className="min-h-64 font-mono text-xs" {...register('content')} />
-        {errors.content && <p className="text-sm text-red-700 dark:text-red-400">{errors.content.message}</p>}
-      </div>
+      <ProjectTextFields
+        idPrefix="en"
+        fields={{ title: register('title'), summary: register('summary'), content: register('content') }}
+        errors={{ title: errors.title?.message, summary: errors.summary?.message, content: errors.content?.message }}
+      />
 
       <div className="space-y-2">
         <Label htmlFor="techStack">Stack technique (séparée par des virgules)</Label>
         <Input id="techStack" placeholder="NestJS, React, PostgreSQL" {...register('techStack')} />
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div className="space-y-2">
           <Label htmlFor="githubUrl">Lien GitHub</Label>
           <Input id="githubUrl" {...register('githubUrl')} />
@@ -136,22 +123,27 @@ export function ProjectForm({ project, onSaved, onCancel }: ProjectFormProps) {
         </div>
       </div>
 
-      <label className="flex items-center gap-2 text-sm">
-        <input type="checkbox" className="h-4 w-4 rounded border-border" {...register('featured')} />
+      <label className="flex min-h-11 items-center gap-3 text-sm">
+        <input type="checkbox" className="size-5 rounded border-border accent-[var(--accent)]" {...register('featured')} />
         Mettre en avant
       </label>
 
-      <div className="flex items-center gap-3">
-        <Button type="submit" disabled={isSaving}>
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+        <Button type="submit" disabled={isSaving} className="w-full sm:w-auto">
           {isSaving ? 'Enregistrement...' : 'Enregistrer'}
         </Button>
-        <Button type="button" variant="outline" onClick={onCancel}>
+        <Button type="button" variant="outline" onClick={onCancel} className="w-full sm:w-auto">
           Annuler
         </Button>
       </div>
 
+      {project && updateProject.isSuccess && (
+        <p role="status" className="text-sm text-muted-foreground">
+          Projet enregistré.
+        </p>
+      )}
       {mutationError && (
-        <p className="text-sm text-red-700 dark:text-red-400">
+        <p role="alert" className="text-sm text-red-700 dark:text-red-400">
           {mutationError instanceof Error ? mutationError.message : 'Une erreur est survenue.'}
         </p>
       )}

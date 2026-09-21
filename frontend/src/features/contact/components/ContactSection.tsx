@@ -15,7 +15,9 @@ import { buildContactFormSchema, type ContactFormValues } from '../schema';
 
 // The summit: the copy sits on a dark scrim over the photo, so it uses fixed light
 // colours in both themes; the form lives in a themed panel where inputs stay legible.
-const LINK_CLASS = 'underline decoration-white/40 hover:text-[#f0906a] hover:decoration-[#f0906a]';
+// inline-block + vertical padding gives the link a 44px-tall touch target without changing how it looks.
+const LINK_CLASS =
+  'inline-block py-3 underline decoration-white/40 hover:text-[#f0906a] hover:decoration-[#f0906a]';
 
 export function ContactSection() {
   const { t } = useTranslation('contact');
@@ -33,23 +35,25 @@ export function ContactSection() {
   };
 
   return (
-    <section id="contact" className="relative isolate overflow-hidden">
+    <section id="contact" className="relative isolate overflow-hidden bg-[#0d1116]">
       <img
         src="/images/fuji-reflection-1600.webp"
         srcSet="/images/fuji-reflection-1600.webp 1600w, /images/fuji-reflection-2560.webp 2560w"
         sizes="100vw"
         alt=""
         loading="lazy"
-        className="absolute inset-0 -z-20 h-full w-full object-cover"
+        className="absolute inset-x-0 top-0 -z-20 h-[130vw] w-full object-cover md:inset-0 md:h-full"
       />
-      <div className="absolute inset-0 -z-10 bg-[#0d1116]/75" />
+      <div className="absolute inset-x-0 top-0 -z-10 h-[130vw] bg-[#0d1116]/75 md:inset-0 md:h-full" />
+      {/* Phones only: closes the photo's bottom edge into the section's dark ground, above the form. */}
+      <div className="absolute inset-x-0 top-[70vw] -z-10 h-[calc(60vw+2px)] bg-gradient-to-t from-[#0d1116] to-transparent md:hidden" />
 
-      <div className="mx-auto grid max-w-6xl gap-14 px-6 py-32 lg:grid-cols-[1fr_1.1fr] lg:items-center lg:gap-20">
+      <div className="mx-auto grid max-w-6xl gap-14 px-6 py-20 md:py-32 lg:grid-cols-[1fr_1.1fr] lg:items-center lg:gap-20">
         <FadeIn className="text-[#eceae4]">
           <SectionHeading>{t('heading')}</SectionHeading>
           <p className="mt-6 max-w-md text-lg text-[#d3d8df]">{t('description')}</p>
 
-          <ul className="mt-8 flex flex-col gap-3 font-mono text-sm">
+          <ul className="mt-6 flex flex-col font-mono text-sm md:mt-8">
             <li>
               <a href={`mailto:${CONTACT_LINKS.email}`} className={LINK_CLASS}>
                 {CONTACT_LINKS.email}
@@ -71,7 +75,7 @@ export function ContactSection() {
         <FadeIn delay={0.1}>
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="space-y-5 rounded-lg border border-border bg-background p-8 text-foreground"
+            className="space-y-5 rounded-lg border border-border bg-background p-5 text-foreground sm:p-8"
           >
             <p className="text-sm text-muted-foreground">{t('allRequired')}</p>
 

@@ -5,6 +5,7 @@ import { motion, useReducedMotion, useScroll } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { LanguageToggle } from './LanguageToggle';
+import { MobileMenu } from './MobileMenu';
 import { ResumeMenu } from './ResumeMenu';
 import { ThemeToggle } from './ThemeToggle';
 import { useActiveSection } from './use-active-section';
@@ -29,7 +30,7 @@ export function Header() {
 
   return (
     <header className="pointer-events-none sticky top-0 z-50 px-4 pt-4">
-      <div className="pointer-events-auto relative mx-auto flex h-14 max-w-6xl items-center justify-between gap-4 rounded-full border border-border bg-background/85 pl-6 pr-2 backdrop-blur-md">
+      <div className="pointer-events-auto relative mx-auto flex h-14 max-w-6xl items-center justify-between gap-4 rounded-full border border-border bg-background/85 pl-5 pr-1 backdrop-blur-md md:pl-6 md:pr-2">
         <Link to="/" className="text-sm font-semibold tracking-tight">
           {t('brand')}
         </Link>
@@ -65,7 +66,9 @@ export function Header() {
           })}
         </nav>
 
-        <div className="flex items-center gap-1">
+        <MobileMenu links={NAV_LINKS} activeId={activeId} />
+
+        <div className="hidden items-center gap-1 md:flex">
           <CommandPalette />
           <ResumeMenu />
           <LanguageToggle />

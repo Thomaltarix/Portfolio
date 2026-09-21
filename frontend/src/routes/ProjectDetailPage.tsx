@@ -14,7 +14,7 @@ export function ProjectDetailPage() {
   const { data: project, isLoading, isError } = useProject(slug);
 
   return (
-    <section className="mx-auto max-w-3xl px-6 py-24">
+    <section className="mx-auto max-w-3xl px-6 py-16 sm:py-24">
       {project && (
         <Helmet>
           <title>{project.title} — Portfolio</title>
@@ -22,7 +22,7 @@ export function ProjectDetailPage() {
         </Helmet>
       )}
 
-      <Link to="/#projects" className="text-sm text-muted-foreground hover:text-foreground">
+      <Link to="/#projects" className="inline-block py-2 text-sm text-muted-foreground hover:text-foreground">
         {t('detail.backToProjects')}
       </Link>
 
@@ -33,7 +33,7 @@ export function ProjectDetailPage() {
         <FadeIn className="mt-6">
           <h1
             style={{ viewTransitionName: `project-${project.slug}` }}
-            className="text-3xl font-semibold tracking-tight"
+            className="text-3xl font-semibold tracking-tight sm:text-4xl"
           >
             {project.title}
           </h1>
@@ -45,7 +45,7 @@ export function ProjectDetailPage() {
             ))}
           </div>
 
-          <div className="mt-6 flex gap-3">
+          <div className="mt-6 flex flex-wrap gap-3">
             {project.githubUrl && (
               <a
                 href={project.githubUrl}

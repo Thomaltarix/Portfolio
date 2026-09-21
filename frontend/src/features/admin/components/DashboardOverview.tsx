@@ -15,7 +15,7 @@ export function DashboardOverview() {
 
   return (
     <div className="space-y-8">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <h1 className="text-xl font-semibold tracking-tight">Dashboard</h1>
         <div className="flex gap-1">
           {PERIODS.map((period) => (
@@ -37,7 +37,7 @@ export function DashboardOverview() {
 
       {!isError && (
         <>
-          <div className={cn('grid grid-cols-2 gap-4 sm:grid-cols-2', isLoading && 'opacity-50')}>
+          <div className={cn('grid grid-cols-1 gap-4 min-[420px]:grid-cols-2', isLoading && 'opacity-50')}>
             <StatTile label="Vues" value={data?.totalViews ?? '—'} />
             <StatTile label="Visiteurs uniques (approx.)" value={data?.uniqueVisitors ?? '—'} />
           </div>

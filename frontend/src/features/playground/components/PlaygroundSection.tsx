@@ -7,7 +7,7 @@ export function PlaygroundSection() {
   const { t } = useTranslation('playground');
 
   return (
-    <section id="playground" className="mx-auto max-w-6xl px-6 py-32">
+    <section id="playground" className="mx-auto max-w-6xl px-6 py-20 md:py-32">
       <FadeIn>
         <SectionHeading>{t('heading')}</SectionHeading>
         <Card className="mt-16 p-10">

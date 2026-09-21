@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Outlet, useLocation } from 'react-router-dom';
 import { Footer } from './Footer';
@@ -24,7 +24,10 @@ export function RootLayout() {
       </a>
       <Header />
       <main id="main" className="flex-1">
-        <Outlet />
+        {/* Reserves the height while a lazy page loads, so the footer does not jump up. */}
+        <Suspense fallback={<div className="min-h-[70vh]" aria-busy="true" />}>
+          <Outlet />
+        </Suspense>
       </main>
       <Footer />
     </div>

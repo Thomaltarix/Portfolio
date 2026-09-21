@@ -10,7 +10,7 @@ export function ProjectsSection() {
   const { data: projects, isLoading, isError } = useProjects();
 
   return (
-    <section id="projects" className="mx-auto max-w-6xl px-6 py-32">
+    <section id="projects" className="mx-auto max-w-6xl px-6 py-20 md:py-32">
       <FadeIn>
         <SectionHeading>{t('heading')}</SectionHeading>
       </FadeIn>
@@ -28,7 +28,7 @@ export function ProjectsSection() {
       )}
 
       {projects && projects.length > 0 && (
-        <div className="mt-16 grid gap-6 md:grid-cols-2">
+        <div className="mt-12 grid gap-4 md:mt-16 md:grid-cols-2 md:gap-6">
           {projects.map((project, index) => (
             <FadeIn key={project.id} delay={index * 0.05}>
               <ProjectCard project={project} />

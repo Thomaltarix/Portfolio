@@ -15,8 +15,8 @@ export const buttonVariants = cva(
         ghost: 'bg-transparent [@media(hover:hover)]:hover:bg-surface',
       },
       size: {
-        default: 'h-10 px-5',
-        sm: 'h-9 px-4',
+        default: 'h-10 px-5 [@media(pointer:coarse)]:h-12',
+        sm: 'h-9 px-4 [@media(pointer:coarse)]:h-11',
         lg: 'h-12 px-7 text-base',
         xl: 'h-14 px-9 text-lg',
       },

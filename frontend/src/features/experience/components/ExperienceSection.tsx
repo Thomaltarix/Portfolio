@@ -15,12 +15,12 @@ export function ExperienceSection() {
   const { scrollYProgress } = useScroll({ target: trailRef, offset: ['start 0.7', 'end 0.6'] });
 
   return (
-    <section id="experience" className="mx-auto max-w-6xl px-6 py-32">
+    <section id="experience" className="mx-auto max-w-6xl px-6 py-20 md:py-32">
       <FadeIn>
         <SectionHeading>{t('heading')}</SectionHeading>
       </FadeIn>
 
-      <div ref={trailRef} className="relative mt-20 pl-10 sm:pl-16">
+      <div ref={trailRef} className="relative mt-12 pl-10 sm:pl-16 md:mt-20">
         <div className="absolute bottom-0 left-3 top-0 w-px bg-border sm:left-5" aria-hidden="true" />
         <motion.div
           style={{ scaleY: shouldReduceMotion ? 1 : scrollYProgress }}
@@ -29,7 +29,7 @@ export function ExperienceSection() {
         />
 
         {entries.map((entry, index) => (
-          <FadeIn key={entry.company} delay={index * 0.04} className="pb-20 last:pb-0">
+          <FadeIn key={entry.company} delay={index * 0.04} className="pb-14 last:pb-0 md:pb-20">
             <article className="relative">
               <span
                 className="absolute -left-[2.1rem] top-3 size-3 rounded-full border-2 border-accent bg-background sm:-left-[3.1rem]"

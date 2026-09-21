@@ -12,7 +12,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
     <Link
       to={`/projects/${project.slug}`}
       viewTransition
-      className="group flex h-full min-h-72 flex-col justify-between gap-12 rounded-lg border border-border bg-surface p-8 transition-colors duration-200 [@media(hover:hover)]:hover:border-accent"
+      className="group flex h-full min-h-56 flex-col justify-between gap-10 rounded-lg border border-border bg-surface p-6 sm:min-h-72 sm:gap-12 sm:p-8 transition-colors duration-200 [@media(hover:hover)]:hover:border-accent"
     >
       <div>
         <h3

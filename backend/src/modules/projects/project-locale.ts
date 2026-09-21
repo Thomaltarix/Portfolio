@@ -3,3 +3,7 @@
 export const PROJECT_LOCALES = ['en', 'fr'] as const;
 export type ProjectLocale = (typeof PROJECT_LOCALES)[number];
 export const DEFAULT_PROJECT_LOCALE: ProjectLocale = 'en';
+
+// Locales stored as ProjectTranslation rows, i.e. every locale except the default one.
+export const TRANSLATION_LOCALES = ['fr'] as const;
+export type TranslationLocale = (typeof TRANSLATION_LOCALES)[number];

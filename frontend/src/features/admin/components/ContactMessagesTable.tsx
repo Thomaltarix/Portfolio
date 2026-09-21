@@ -52,7 +52,7 @@ export function ContactMessagesTable() {
 
           <p className="whitespace-pre-wrap text-sm text-foreground">{message.message}</p>
 
-          <div className="flex gap-2 pt-1">
+          <div className="flex flex-wrap gap-2 pt-1">
             {!message.read && (
               <Button size="sm" variant="outline" onClick={() => markRead.mutate(message.id)}>
                 Marquer comme lu

@@ -26,7 +26,7 @@ export function ProjectsTable({ onEdit }: ProjectsTableProps) {
   return (
     <div className="space-y-3">
       {projects.map((project) => (
-        <Card key={project.id} className="flex items-center justify-between gap-4 p-4">
+        <Card key={project.id} className="flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
           <div className="min-w-0">
             <p className="truncate font-medium">
               {project.title}
@@ -39,13 +39,14 @@ export function ProjectsTable({ onEdit }: ProjectsTableProps) {
             <p className="truncate text-sm text-muted-foreground">{project.slug}</p>
           </div>
           <div className="flex shrink-0 gap-2">
-            <Button size="sm" variant="outline" onClick={() => onEdit(project.slug)}>
+            <Button size="sm" variant="outline" onClick={() => onEdit(project.slug)} className="flex-1 sm:flex-none">
               Modifier
             </Button>
             <Button
               size="sm"
               variant="outline"
               onClick={() => handleDelete(project.id, project.title)}
+              className="flex-1 sm:flex-none"
             >
               Supprimer
             </Button>

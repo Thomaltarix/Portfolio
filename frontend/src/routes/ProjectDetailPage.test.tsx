@@ -24,6 +24,7 @@ const project: ProjectDetail = {
   liveUrl: 'https://chat.example.com',
   featured: true,
   content: '## Overview\n\nBuilt with NestJS and React.',
+  locale: 'en',
 };
 
 function renderPage(slug: string) {

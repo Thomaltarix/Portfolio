@@ -72,7 +72,6 @@ A portfolio built like a real product rather than a template. The site you are r
 - **Admin dashboard**: JWT-protected area to manage projects, read contact messages and view analytics.
 - **Contact form**: validated server-side and delivered by email through Resend.
 - **Privacy-first analytics**: first-party page-view stats with an opt-out, no third-party trackers.
-- **GitHub activity**: a small server-side proxy with an in-memory cache, so the client never talks to GitHub directly.
 - **Delivery**: Docker Compose with production and staging profiles, and GitHub Actions workflows for CI, releases and deployment.`,
     techStack: [
       'NestJS',
@@ -201,7 +200,6 @@ Un portfolio construit comme un vrai produit plutôt que comme un modèle. Le si
 - **Tableau de bord admin** : espace protégé par JWT pour gérer les projets, lire les messages de contact et consulter les statistiques.
 - **Formulaire de contact** : validé côté serveur et envoyé par e-mail via Resend.
 - **Statistiques respectueuses de la vie privée** : mesure d'audience maison avec possibilité de refus, sans traceur tiers.
-- **Activité GitHub** : un petit proxy côté serveur avec cache en mémoire, pour que le client ne contacte jamais GitHub directement.
 - **Livraison** : Docker Compose avec profils production et staging, et workflows GitHub Actions pour la CI, les releases et le déploiement.`,
   },
   momentum: {

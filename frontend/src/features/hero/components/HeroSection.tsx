@@ -1,114 +1,117 @@
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/cn';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
 const NOW_ITEMS = ['role', 'studying', 'stack'] as const;
 
-// Sparse via-dots at grid intersections — closer to a PCB silkscreen than
-// plain graph paper. Positions are hand-picked, not generated, so they read
-// as placed rather than random noise.
-const VIAS = [
-  { cx: '14%', cy: '18%' },
-  { cx: '38%', cy: '10%' },
-  { cx: '8%', cy: '44%' },
-  { cx: '30%', cy: '58%' },
-  { cx: '20%', cy: '82%' },
-] as const;
+const EASE_OUT_STRONG = [0.23, 1, 0.32, 1] as const;
+
+// The headline sits on the photo's sky, which stays mid-grey in both themes,
+// so it uses a fixed ink colour instead of the theme tokens.
+const SKY_INK = 'text-[#0d1116]';
 
 export function HeroSection() {
   const { t } = useTranslation('hero');
+  const shouldReduceMotion = useReducedMotion();
+  // One line per internship, so each has its own dates.
+  const roleLines = t('now.role', { returnObjects: true }) as readonly string[];
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start start', 'end start'] });
+  // The mountain drifts down and grows slightly as you leave it: the page "climbs" away.
+  const imageY = useTransform(scrollYProgress, [0, 1], ['0%', '14%']);
+  const imageScale = useTransform(scrollYProgress, [0, 1], [1, 1.06]);
+
+  const rise = (delay: number) =>
+    shouldReduceMotion
+      ? {}
+      : {
+          initial: { opacity: 0, y: 16 },
+          animate: { opacity: 1, y: 0 },
+          transition: { duration: 0.7, delay, ease: EASE_OUT_STRONG },
+        };
 
   return (
-    <section className="relative overflow-hidden">
-      <div
-        className="pointer-events-none absolute inset-0"
-        style={{
-          backgroundImage:
-            'linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px)',
-          backgroundSize: '46px 46px',
-          opacity: 0.5,
-          maskImage: 'radial-gradient(ellipse 80% 60% at 25% 15%, black 40%, transparent 85%)',
-          WebkitMaskImage: 'radial-gradient(ellipse 80% 60% at 25% 15%, black 40%, transparent 85%)',
-        }}
-        aria-hidden="true"
+    <section ref={sectionRef} className="relative isolate -mt-[4.5rem] flex min-h-svh flex-col overflow-hidden">
+      <motion.img
+        src="/images/fuji-dawn-2560.webp"
+        srcSet="/images/fuji-dawn-1600.webp 1600w, /images/fuji-dawn-2560.webp 2560w, /images/fuji-dawn-3840.webp 3840w"
+        sizes="100vw"
+        alt=""
+        fetchPriority="high"
+        style={shouldReduceMotion ? undefined : { y: imageY, scale: imageScale }}
+        className="absolute inset-0 -z-20 h-full w-full object-cover object-[50%_46%]"
       />
-      <svg className="pointer-events-none absolute inset-0 h-full w-full" aria-hidden="true">
-        {VIAS.map((via) => (
-          <circle key={via.cx + via.cy} cx={via.cx} cy={via.cy} r="2" className="fill-border" />
-        ))}
-      </svg>
+      {/* Fades the photo into the page ground so the hero has no hard edge. */}
+      <div className="absolute inset-x-0 bottom-0 -z-10 h-2/3 bg-gradient-to-t from-background from-25% via-background/85 to-transparent max-sm:h-4/5 max-sm:from-30% max-sm:via-background/90" />
 
-      <div className="relative mx-auto grid max-w-6xl gap-12 px-6 py-20 sm:py-28 lg:grid-cols-[1.3fr_1fr] lg:items-start">
+      <div className="mx-auto w-full max-w-6xl px-6 pt-48 sm:pt-52">
+        <motion.h1
+          {...rise(0)}
+          className={cn(
+            // 54rem is the width where both locales wrap onto three lines (measured: FR needs >= 800px, EN stays on three up to 920px).
+            'max-w-[54rem] text-[2rem] font-semibold leading-[1.1] tracking-[-0.03em] sm:text-[2.75rem] lg:text-[3.25rem]',
+            SKY_INK,
+          )}
+        >
+          {t('title')}
+        </motion.h1>
+      </div>
+
+      <div className="mx-auto mt-auto flex w-full max-w-6xl flex-col gap-10 px-6 pb-14 pt-24">
         <div className="flex flex-col items-start gap-6">
-          <motion.p
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-            className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-accent"
-          >
-            <span className="h-px w-5 bg-accent" aria-hidden="true" />
-            {t('eyebrow')}
-          </motion.p>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.05 }}
-            className="max-w-3xl text-4xl font-semibold leading-[1.05] tracking-tighter sm:text-5xl lg:text-6xl"
-          >
-            {t('title')}
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.1 }}
-            className="max-w-lg text-lg text-muted-foreground"
-          >
+          <motion.p {...rise(0.1)} className={cn(
+            'max-w-xl text-lg font-medium text-foreground',
+            // Halo in the page-background colour: keeps the copy legible where the photo behind it is pale.
+            '[text-shadow:0_0_16px_var(--background),0_1px_3px_var(--background)]',
+          )}>
             {t('subtitle')}
           </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.15 }}
-            className="flex gap-3 pt-2"
-          >
-            <a href="#projects" className={cn(buttonVariants({ size: 'lg' }))}>
-              {t('viewProjects')}
-            </a>
-            <a href="#contact" className={cn(buttonVariants({ variant: 'outline', size: 'lg' }))}>
+          <motion.div {...rise(0.18)} className="flex flex-wrap gap-3">
+            <a href="#contact" className={cn(buttonVariants({ size: 'xl' }), 'font-semibold')}>
               {t('getInTouch')}
+            </a>
+            <a
+              href="#projects"
+              className={cn(
+                buttonVariants({ variant: 'outline', size: 'xl' }),
+                'border-2 font-semibold',
+                // The default outline colour is nearly the page colour in the light theme, so give it real contrast there.
+                '[html.light_&]:border-foreground/50 [html.light_&]:[@media(hover:hover)]:hover:border-foreground',
+              )}
+            >
+              {t('viewProjects')}
             </a>
           </motion.div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.2 }}
+        <motion.dl
+          {...rise(0.3)}
+          aria-label={t('now.label')}
+          className="grid gap-x-10 gap-y-6 border-t border-foreground/15 pt-8 md:grid-cols-3"
         >
-          <p className="mb-3 font-mono text-xs uppercase tracking-widest text-muted-foreground">
-            {t('now.label')}
-          </p>
-          <div className="flex flex-col">
-            {NOW_ITEMS.map((item) => (
-              <div
-                key={item}
-                className="relative border border-border bg-surface px-5 py-4 [&:not(:first-child)]:border-t-0"
-              >
-                <span className="absolute inset-y-0 -left-px w-0.5 bg-accent/60" aria-hidden="true" />
-                <div className="flex items-baseline justify-between gap-4">
-                  <span className="font-mono text-[0.65rem] uppercase tracking-widest text-muted-foreground">
-                    {t(`now.${item}Label`)}
-                  </span>
-                  <span className="text-right text-sm text-foreground">{t(`now.${item}`)}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </motion.div>
+          {NOW_ITEMS.map((item) => (
+            <div key={item} className="flex flex-col gap-1.5">
+              <dt className="text-sm text-muted-foreground">{t(`now.${item}Label`)}</dt>
+              {item === 'role' ? (
+                <dd>
+                  <ul className="flex flex-col gap-1 text-base text-foreground">
+                    {roleLines.map((line) => (
+                      <li key={line}>{line}</li>
+                    ))}
+                  </ul>
+                </dd>
+              ) : (
+                <dd className={cn('text-base text-foreground', item === 'stack' && 'font-mono text-sm')}>
+                  {t(`now.${item}`)}
+                </dd>
+              )}
+            </div>
+          ))}
+        </motion.dl>
+
+        <p className="text-xs text-muted-foreground md:text-right">{t('photoCaption')}</p>
       </div>
     </section>
   );

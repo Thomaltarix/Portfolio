@@ -1,4 +1,6 @@
+import { act } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
+import i18n from '@/lib/i18n';
 import { renderWithProviders, screen, waitFor } from '@/test/render';
 import type { ProjectSummary } from '../types/project.types';
 import { ProjectsSection } from './ProjectsSection';
@@ -35,8 +37,9 @@ const projects: ProjectSummary[] = [
 ];
 
 describe('ProjectsSection', () => {
-  afterEach(() => {
+  afterEach(async () => {
     fetchProjectsMock.mockReset();
+    await act(() => i18n.changeLanguage('en'));
   });
 
   it('shows a loading state while the projects are being fetched', () => {
@@ -79,5 +82,16 @@ describe('ProjectsSection', () => {
     });
     expect(screen.getByText('Realtime Chat Platform')).toBeInTheDocument();
     expect(screen.getByText('Portfolio Site')).toBeInTheDocument();
+  });
+
+  it('requests the projects in the site language and reloads them when it changes', async () => {
+    fetchProjectsMock.mockResolvedValue(projects);
+
+    renderWithProviders(<ProjectsSection />);
+    await waitFor(() => expect(fetchProjectsMock).toHaveBeenCalledWith('en'));
+
+    await act(() => i18n.changeLanguage('fr'));
+
+    await waitFor(() => expect(fetchProjectsMock).toHaveBeenCalledWith('fr'));
   });
 });

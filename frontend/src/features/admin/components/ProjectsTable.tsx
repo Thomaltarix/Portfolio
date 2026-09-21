@@ -2,13 +2,14 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { useDeleteProject } from '@/features/projects/hooks/use-delete-project';
 import { useProjects } from '@/features/projects/hooks/use-projects';
+import { DEFAULT_LANGUAGE } from '@/lib/use-site-language';
 
 interface ProjectsTableProps {
   onEdit: (slug: string) => void;
 }
 
 export function ProjectsTable({ onEdit }: ProjectsTableProps) {
-  const { data: projects, isLoading, isError } = useProjects();
+  const { data: projects, isLoading, isError } = useProjects(DEFAULT_LANGUAGE);
   const deleteProject = useDeleteProject();
 
   if (isLoading) return <p className="text-sm text-muted-foreground">Chargement...</p>;

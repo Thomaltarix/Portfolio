@@ -8,16 +8,29 @@ Prisma + PostgreSQL. Schema source of truth: `backend/prisma/schema.prisma`.
 |---|---|---|
 | `id` | `String @id @default(uuid())` | |
 | `slug` | `String @unique` | URL identifier, used by `GET /projects/:slug`. |
-| `title` | `String` | |
-| `summary` | `String` | Short description, shown on `ProjectCard`. |
-| `content` | `String` (`@db.Text`) | Long-form markdown, rendered on the detail page only. |
+| `title` | `String` | Default language (English). |
+| `summary` | `String` | Short description, shown on `ProjectCard`. Default language (English). |
+| `content` | `String` (`@db.Text`) | Long-form markdown, rendered on the detail page only. Default language (English). |
 | `techStack` | `String[]` | Rendered as badges. |
 | `githubUrl` | `String?` | Optional — not every project has a public repo. |
 | `liveUrl` | `String?` | Optional. |
-| `featured` | `Boolean @default(false)` | Reserved for future sorting/highlighting; not yet used to filter the list endpoint. |
+| `featured` | `Boolean @default(false)` | Featured projects are listed first by `GET /projects`, then the rest newest first. |
 | `createdAt` / `updatedAt` | `DateTime` | Standard timestamps. |
 
 The list endpoint (`GET /projects`) returns everything except `content` (kept out of the summary DTO to keep the list payload light); the detail endpoint (`GET /projects/:slug`) returns the full row.
+
+## `ProjectTranslation`
+
+One complete translation of a project into a non-default language. The `Project` columns hold English; a row here overrides `title`, `summary` and `content` for its `locale`.
+
+| Field | Type | Notes |
+|---|---|---|
+| `id` | `String @id @default(uuid())` | |
+| `projectId` | `String` | Foreign key to `Project`, `onDelete: Cascade`. |
+| `locale` | `String` | A value from `PROJECT_LOCALES` (`backend/src/modules/projects/project-locale.ts`), currently `fr`. |
+| `title` / `summary` / `content` | `String` | Same meaning as on `Project`; a translation is all three or nothing. |
+
+`@@unique([projectId, locale])`. Both read endpoints take `?lang=en|fr` (validated, default `en`) and fall back to the `Project` columns when no translation exists for that language. Translations are currently managed through `prisma/seed.ts`; the admin form edits the default language only, and the admin UI always requests `lang=en` so that saving can never overwrite English with a translation. Adding a language means adding it to `PROJECT_LOCALES` and the frontend's `SUPPORTED_LANGUAGES`, then seeding its translations.
 
 ## `ContactMessage`
 

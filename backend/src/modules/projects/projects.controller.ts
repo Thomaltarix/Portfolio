@@ -9,6 +9,7 @@ import {
   ParseUUIDPipe,
   Patch,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import {
@@ -20,6 +21,7 @@ import {
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { ProjectDetailDto } from './dto/project-detail.dto';
+import { ProjectLocaleQueryDto } from './dto/project-locale-query.dto';
 import { ProjectSummaryDto } from './dto/project-summary.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { ProjectsService } from './projects.service';
@@ -31,15 +33,18 @@ export class ProjectsController {
 
   @Get()
   @ApiOperation({ summary: 'List all projects' })
-  findAll(): Promise<ProjectSummaryDto[]> {
-    return this.projectsService.findAll();
+  findAll(@Query() query: ProjectLocaleQueryDto): Promise<ProjectSummaryDto[]> {
+    return this.projectsService.findAll(query.lang);
   }
 
   @Get(':slug')
   @ApiOperation({ summary: 'Get a single project by slug' })
   @ApiParam({ name: 'slug', example: 'realtime-chat-platform' })
-  findBySlug(@Param('slug') slug: string): Promise<ProjectDetailDto> {
-    return this.projectsService.findBySlug(slug);
+  findBySlug(
+    @Param('slug') slug: string,
+    @Query() query: ProjectLocaleQueryDto,
+  ): Promise<ProjectDetailDto> {
+    return this.projectsService.findBySlug(slug, query.lang);
   }
 
   @Post()

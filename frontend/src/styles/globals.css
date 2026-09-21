@@ -1,26 +1,34 @@
 @import 'tailwindcss';
+@import '@fontsource-variable/geist';
+@import '@fontsource-variable/geist-mono';
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/*
+ * "Ascension" tokens, drawn from the hero photograph: dawn slate, snow white,
+ * and one sunrise-vermilion accent. Accent contrast (WCAG AA): dark #f0906a on
+ * #0d1116 is 8.4:1, light #b8431f on #f4f3ef is 5.4:1.
+ * Shape rule: interactive controls are pills (rounded-full), containers use --radius-lg.
+ */
 :root {
-  --background: #f3f0e7;
-  --foreground: #1c1f24;
-  --surface: #e8e3d6;
-  --border: #d6d0bf;
-  --muted-foreground: #62666e;
-  --accent: #8f5218;
-  --accent-foreground: #fdf6ec;
-  --radius: 0.25rem;
+  --background: #f4f3ef;
+  --foreground: #10141a;
+  --surface: #eae8e2;
+  --border: #d6d3cb;
+  --muted-foreground: #5a6470;
+  --accent: #b8431f;
+  --accent-foreground: #fff8f4;
+  --radius: 1.25rem;
 }
 
 .dark {
-  --background: #10141a;
-  --foreground: #e9e5da;
-  --surface: #171c23;
-  --border: #232a33;
-  --muted-foreground: #8a92a0;
-  --accent: #d98a3d;
-  --accent-foreground: #1a1408;
+  --background: #0d1116;
+  --foreground: #eceae4;
+  --surface: #141a21;
+  --border: #232c36;
+  --muted-foreground: #97a1ad;
+  --accent: #f0906a;
+  --accent-foreground: #1a0c06;
 }
 
 @theme inline {
@@ -32,10 +40,11 @@
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --radius-lg: var(--radius);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-sm: calc(var(--radius) - 4px);
-  --font-sans:
-    'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --radius-md: calc(var(--radius) - 0.375rem);
+  --radius-sm: calc(var(--radius) - 0.75rem);
+  --font-sans: 'Geist Variable', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: 'Geist Mono Variable', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 @layer base {
@@ -45,6 +54,8 @@
 
   html {
     color-scheme: dark;
+    /* Room for the floating header when jumping to a section anchor. */
+    scroll-padding-top: 6rem;
   }
 
   html.light {
@@ -55,5 +66,46 @@
     background-color: var(--background);
     color: var(--foreground);
     font-family: var(--font-sans);
+    font-feature-settings: 'ss01', 'cv11';
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background-color: var(--accent);
+    color: var(--accent-foreground);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  a {
+    text-underline-offset: 0.25em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Shared-element transition to a project page; skipped for reduced-motion visitors. */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none;
   }
 }

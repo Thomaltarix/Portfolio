@@ -7,10 +7,14 @@
   "now": {
     "label": "The stack — right now",
     "roleLabel": "Looking for",
-    "role": "Two internships — part-time (Mon/Wed) Sep–Feb, full-time Mar–Aug",
+    "role": [
+      "Part-time internship: Sep–Feb (Mon/Wed)",
+      "Full-time internship: Mar–Aug"
+    ],
     "studyingLabel": "Education",
-    "studying": "Software engineering at Epitech",
+    "studying": "Software engineering at Epitech, 5th year",
     "stackLabel": "Stack",
     "stack": "Go · TS · NestJS · Postgres · Docker"
-  }
+  },
+  "photoCaption": "Mount Fuji from Lake Kawaguchi, 1 January 2026, 830 m above sea level."
 }

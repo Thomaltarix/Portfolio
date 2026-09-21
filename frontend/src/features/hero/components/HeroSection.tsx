@@ -41,12 +41,16 @@ export function HeroSection() {
         alt=""
         fetchPriority="high"
         style={shouldReduceMotion ? undefined : { y: imageY, scale: imageScale }}
-        className="absolute inset-0 -z-20 h-full w-full object-cover object-[50%_46%]"
+        // Phones: the photo keeps its own height (tied to the screen width) and is aligned to the top, so the mountain
+        // sits between the title and the copy instead of being stretched behind everything. From sm up it fills the hero.
+        // The scroll drift is a desktop effect; it would only open a gap above the photo on a phone.
+        className="absolute inset-x-0 top-0 -z-20 h-[150vw] w-full object-cover object-[50%_46%] max-sm:[transform:none!important] sm:inset-0 sm:h-full"
       />
-      {/* Fades the photo into the page ground so the hero has no hard edge. */}
-      <div className="absolute inset-x-0 bottom-0 -z-10 h-2/3 bg-gradient-to-t from-background from-25% via-background/85 to-transparent max-sm:h-4/5 max-sm:from-30% max-sm:via-background/90" />
+      {/* Fades the photo into the page ground so the hero has no hard edge. On phones it closes the photo's own
+          bottom edge (the photo is 150vw tall, so the fade spans 80vw to 150vw); from sm up it sits at the hero's bottom. */}
+      <div className="absolute inset-x-0 top-[80vw] -z-10 h-[70vw] bg-gradient-to-t from-background from-20% via-background/85 to-transparent sm:top-auto sm:bottom-0 sm:h-2/3 sm:from-25%" />
 
-      <div className="mx-auto w-full max-w-6xl px-6 pt-40 sm:pt-52">
+      <div className="mx-auto w-full max-w-6xl px-6 pt-40 max-sm:min-h-[135vw] sm:pt-52">
         <motion.h1
           {...rise(0)}
           className={cn(
@@ -59,7 +63,7 @@ export function HeroSection() {
         </motion.h1>
       </div>
 
-      <div className="mx-auto mt-auto flex w-full max-w-6xl flex-col gap-8 px-6 pb-10 pt-16 sm:gap-10 sm:pb-14 sm:pt-24">
+      <div className="mx-auto mt-auto flex w-full max-w-6xl flex-col gap-8 px-6 pb-10 pt-6 sm:gap-10 sm:pb-14 sm:pt-24">
         <div className="flex flex-col items-start gap-6">
           <motion.p {...rise(0.1)} className={cn(
             'max-w-xl text-base font-medium text-foreground sm:text-lg',

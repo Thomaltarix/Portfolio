@@ -5,33 +5,24 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /*
- * "Ascension" tokens. Light theme: a white page, warm ink and a terracotta accent, with the colour carried by
- * the sunrise photograph. Accent contrast (WCAG AA): #b0402f on #fffdfb is 5.8:1, on the blush surface 5.1:1.
+ * "Ascension" tokens. Light theme: a peach-tinted page, warm ink and a terracotta accent, with the colour
+ * carried by the sunrise photograph. Contrast (WCAG AA): terracotta #b0402f is 5.4:1 on the page and muted
+ * text is 5.2:1 on the section bands.
  * Shape rule: interactive controls are pills (rounded-full), containers use --radius-lg.
  */
 :root {
-  --background: #fffdfb;
+  --background: #fdf4ee;
   --foreground: #201a17;
-  --surface: #f7f0eb;
-  --border: #e8dcd5;
+  --surface: #f6e2d7;
+  --border: #ecd3c5;
+  --band: #f8e6db;
   --muted-foreground: #6a605a;
   --accent: #b0402f;
   --accent-foreground: #fffaf7;
   --radius: 1.25rem;
 }
 
-/* Light theme, "bold" look: a peach-tinted page, blush surfaces, terracotta section titles and hero labels,
-   and tinted full-bleed bands behind two sections. A development preview to compare against the default
-   (see lib/look.ts); the production site never sets data-look="bold". Contrast: muted text 5.2:1 on the band,
-   terracotta 5.4:1 on the tinted page. */
-:root[data-look='bold']:not(.dark) {
-  --background: #fdf4ee;
-  --surface: #f6e2d7;
-  --border: #ecd3c5;
-  --band: #f8e6db;
-}
-
-:root[data-look='bold']:not(.dark) :where(#experience, #projects) {
+:root:not(.dark) :where(#experience, #projects) {
   background-color: var(--band);
   /* The sections are a centred column, so extend the band to the full width of the page. The clip keeps the
      shadow from ever creating a horizontal scrollbar. */
@@ -40,8 +31,8 @@
 }
 
 /* Contact is a dark section in every theme, so it keeps its own light title. */
-:root[data-look='bold']:not(.dark) main section:not(#contact) h2,
-:root[data-look='bold']:not(.dark) main section:first-of-type dt {
+:root:not(.dark) main section:not(#contact) h2,
+:root:not(.dark) main section:first-of-type dt {
   color: var(--accent);
 }
 

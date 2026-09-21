@@ -39,20 +39,20 @@ Tokens live in `frontend/src/styles/globals.css`; this doc describes intent. Dar
 
 | Token | Dark | Light |
 | --- | --- | --- |
-| `--background` | `#0d1116` | `#fffdfb` |
-| `--surface` | `#141a21` | `#f7f0eb` |
-| `--border` | `#232c36` | `#e8dcd5` |
+| `--background` | `#0d1116` | `#fdf4ee` |
+| `--surface` | `#141a21` | `#f6e2d7` |
+| `--border` | `#232c36` | `#ecd3c5` |
 | `--foreground` | `#eceae4` | `#201a17` |
 | `--muted-foreground` | `#97a1ad` | `#6a605a` |
 | `--accent` | `#f0906a` | `#b0402f` |
 | `--accent-foreground` | `#1a0c06` | `#fffaf7` |
 
-The two themes are two lights on the same picture, each with its own photograph and its own family: the dark theme is slate and navy with a peach accent (night photo); the light theme is a white page with warm ink and a terracotta accent, and the colour comes from the warm sunrise photo (`fuji-sunrise-*`: peach sky, lavender top, mauve mountain, cream snow). The palette was checked against a friend's swatches taken from the site: peach `#efa270`, cream `#ddd0c9` and slate greys in the dark, terracotta, blush `#e2d5ce` and warm greys in the light.
+The two themes are two lights on the same picture, each with its own photograph and its own family: the dark theme is slate and navy with a peach accent (night photo); the light theme is a peach-tinted page with warm ink and a terracotta accent, and the colour comes from the warm sunrise photo (`fuji-sunrise-*`: peach sky, lavender top, mauve mountain, cream snow). The palette was checked against a friend's swatches taken from the site: peach `#efa270`, cream `#ddd0c9` and slate greys in the dark, terracotta, blush `#e2d5ce` and warm greys in the light.
 
-**Light theme looks.** `discreet` is the default: white, warm ink, terracotta, sunrise photo. `bold` tints the page itself (`--background` `#fdf4ee`, `--surface` `#f6e2d7`, `--border` `#ecd3c5`), sets the section titles and the hero labels in terracotta (Contact keeps its light title), and adds full-bleed blush bands (`--band` `#f8e6db`) behind Experience and Projects. The two were built to be compared: in development a `Discret / Franc` switch (`LookSwitch`, bottom-left, light theme only) sets `data-look` on `<html>`. It is stripped from production builds and `readStoredLook` ignores storage there, so visitors always get `discreet`. Once one is chosen, delete `lib/look.ts`, `LookSwitch` and the other look's CSS block.
+**Light theme.** The page itself is tinted peach (`--background` `#fdf4ee`, `--surface` `#f6e2d7`, `--border` `#ecd3c5`), section titles and hero labels are terracotta (Contact keeps its light title), and Experience and Projects sit on full-bleed blush bands (`--band` `#f8e6db`). Chosen over a plainer white variant (near-white page, ink titles, no bands), which read as too discreet next to the dark theme: the two were compared side by side and the owner preferred this one.
 
 - Accent (peach in the dark theme, terracotta in the light one): primary buttons, the trail line and its dots, job roles, link hovers. Nothing else.
-- Accent contrast is WCAG AA (dark ~8.4:1, light ~5.8:1 on the page, ~5.1:1 on the blush surface). Re-check when changing values.
+- Accent contrast is WCAG AA (dark ~8.4:1, light ~5.4:1 on the page). Re-check when changing values.
 - Text that sits on a photograph uses fixed colours, not tokens (the hero headline is ink `#0d1116` on the sky; the Contact copy is light on a 75% dark scrim), because the photo does not change with the theme. The bottom of the hero fades into `--background` so the theme still owns everything below the mountain.
 
 ## Typography

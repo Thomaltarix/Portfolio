@@ -52,7 +52,7 @@ Tokens live in `frontend/src/styles/globals.css`; this doc describes intent. Dar
 ## Typography
 
 - **Geist Variable** for all text, **Geist Mono Variable** for data only (dates, the stack line, contact addresses), self-hosted through `@fontsource-variable/*` (no third-party font CDN; the privacy policy relies on that).
-- Display headings use weight **300**, `tracking-[-0.03em]` (never tighter than -0.04em), `leading-[1.08]`. Hero headline `text-4xl` → `lg:text-6xl` and must fit three lines in French, the longer locale. Section headings `text-4xl` → `lg:text-6xl`.
+- Section headings use weight **300**, `tracking-[-0.03em]` (never tighter than -0.04em), `leading-[1.08]`. The hero headline is the exception: **semibold (600)**, 2rem → 2.75rem → `lg:` 3.25rem, in a `54rem` column: measured, that is the width range where both French and English wrap onto exactly three lines. Copy set directly on the photo (the hero subtitle) uses a soft halo in the page-background colour (`text-shadow` with `var(--background)`) so it stays legible where the photo is pale. Section headings `text-4xl` → `lg:text-6xl`.
 - Body `text-lg`/`text-base`, muted color for secondary text, measure around 65ch. `text-wrap: balance` on headings and `pretty` on paragraphs (global).
 
 ## Shape
@@ -64,7 +64,7 @@ Interactive controls are pills (`rounded-full`); containers use `rounded-lg` (`-
 - Content column `max-w-6xl`, `px-6`, sections `py-32`.
 - **Header**: the floating pill, sticky, with a reading-progress accent line on its bottom edge and the active section highlighted (`useActiveSection`). The hero is pulled up under it (`-mt-[4.5rem]`) so the photo runs behind the pill.
 - **Hero**: full-viewport photo, headline in the sky, then subtitle, two CTAs and a three-column facts list, with a one-line photo caption. A parallax drift on the photo as you leave.
-- **About**: a large light-weight statement (first paragraph) beside the heading, supporting paragraphs and the GitHub activity underneath.
+- **About**: a large light-weight statement (first paragraph) beside the heading, the supporting paragraphs in two columns underneath.
 - **Experience**: a vertical trail; the accent line is scroll-linked (`useScroll`) and each entry has a dot on it.
 - **Skills**: a definition list, one row per group; the lead item is bright, the others muted.
 - **Projects**: two-column grid of large cards (`ProjectCard`), title in light weight, stack badges at the bottom, a View Transition to the detail page (`view-transition-name: project-<slug>` on both pages).

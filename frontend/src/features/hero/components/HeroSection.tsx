@@ -15,6 +15,8 @@ const SKY_INK = 'text-[#0d1116]';
 export function HeroSection() {
   const { t } = useTranslation('hero');
   const shouldReduceMotion = useReducedMotion();
+  // One line per internship, so each has its own dates.
+  const roleLines = t('now.role', { returnObjects: true }) as readonly string[];
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start start', 'end start'] });
   // The mountain drifts down and grows slightly as you leave it: the page "climbs" away.
@@ -39,16 +41,17 @@ export function HeroSection() {
         alt=""
         fetchPriority="high"
         style={shouldReduceMotion ? undefined : { y: imageY, scale: imageScale }}
-        className="absolute inset-0 -z-20 h-full w-full object-cover object-[50%_72%]"
+        className="absolute inset-0 -z-20 h-full w-full object-cover object-[50%_46%]"
       />
       {/* Fades the photo into the page ground so the hero has no hard edge. */}
-      <div className="absolute inset-x-0 bottom-0 -z-10 h-3/5 bg-gradient-to-t from-background from-15% via-background/75 to-transparent max-sm:h-4/5 max-sm:from-30% max-sm:via-background/90" />
+      <div className="absolute inset-x-0 bottom-0 -z-10 h-2/3 bg-gradient-to-t from-background from-25% via-background/85 to-transparent max-sm:h-4/5 max-sm:from-30% max-sm:via-background/90" />
 
       <div className="mx-auto w-full max-w-6xl px-6 pt-48 sm:pt-52">
         <motion.h1
           {...rise(0)}
           className={cn(
-            'max-w-4xl text-4xl font-light leading-[1.08] tracking-[-0.03em] sm:text-5xl lg:text-6xl',
+            // 54rem is the width where both locales wrap onto three lines (measured: FR needs >= 800px, EN stays on three up to 920px).
+            'max-w-[54rem] text-[2rem] font-semibold leading-[1.1] tracking-[-0.03em] sm:text-[2.75rem] lg:text-[3.25rem]',
             SKY_INK,
           )}
         >
@@ -58,15 +61,27 @@ export function HeroSection() {
 
       <div className="mx-auto mt-auto flex w-full max-w-6xl flex-col gap-10 px-6 pb-14 pt-24">
         <div className="flex flex-col items-start gap-6">
-          <motion.p {...rise(0.1)} className="max-w-xl text-lg text-foreground/80">
+          <motion.p {...rise(0.1)} className={cn(
+            'max-w-xl text-lg font-medium text-foreground',
+            // Halo in the page-background colour: keeps the copy legible where the photo behind it is pale.
+            '[text-shadow:0_0_16px_var(--background),0_1px_3px_var(--background)]',
+          )}>
             {t('subtitle')}
           </motion.p>
           <motion.div {...rise(0.18)} className="flex flex-wrap gap-3">
-            <a href="#projects" className={cn(buttonVariants({ size: 'lg' }))}>
-              {t('viewProjects')}
-            </a>
-            <a href="#contact" className={cn(buttonVariants({ variant: 'outline', size: 'lg' }))}>
+            <a href="#contact" className={cn(buttonVariants({ size: 'xl' }), 'font-semibold')}>
               {t('getInTouch')}
+            </a>
+            <a
+              href="#projects"
+              className={cn(
+                buttonVariants({ variant: 'outline', size: 'xl' }),
+                'border-2 font-semibold',
+                // The default outline colour is nearly the page colour in the light theme, so give it real contrast there.
+                '[html.light_&]:border-foreground/50 [html.light_&]:[@media(hover:hover)]:hover:border-foreground',
+              )}
+            >
+              {t('viewProjects')}
             </a>
           </motion.div>
         </div>
@@ -79,9 +94,19 @@ export function HeroSection() {
           {NOW_ITEMS.map((item) => (
             <div key={item} className="flex flex-col gap-1.5">
               <dt className="text-sm text-muted-foreground">{t(`now.${item}Label`)}</dt>
-              <dd className={cn('text-base text-foreground', item === 'stack' && 'font-mono text-sm')}>
-                {t(`now.${item}`)}
-              </dd>
+              {item === 'role' ? (
+                <dd>
+                  <ul className="flex flex-col gap-1 text-base text-foreground">
+                    {roleLines.map((line) => (
+                      <li key={line}>{line}</li>
+                    ))}
+                  </ul>
+                </dd>
+              ) : (
+                <dd className={cn('text-base text-foreground', item === 'stack' && 'font-mono text-sm')}>
+                  {t(`now.${item}`)}
+                </dd>
+              )}
             </div>
           ))}
         </motion.dl>

@@ -7,9 +7,12 @@
   "now": {
     "label": "La stack — en ce moment",
     "roleLabel": "Recherche",
-    "role": "Deux stages — temps partiel (lun/mer) sept.–févr., temps plein mars–août",
+    "role": [
+      "Stage à temps partiel : sept.–févr. (lun/mer)",
+      "Stage à temps plein : mars–août"
+    ],
     "studyingLabel": "Formation",
-    "studying": "Ingénierie logicielle à Epitech",
+    "studying": "Ingénierie logicielle à Epitech, 5e année",
     "stackLabel": "Stack",
     "stack": "Go · TS · NestJS · Postgres · Docker"
   },

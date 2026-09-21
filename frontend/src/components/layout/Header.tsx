@@ -30,12 +30,12 @@ export function Header() {
 
   return (
     <header className="pointer-events-none sticky top-0 z-50 px-4 pt-4">
-      <div className="pointer-events-auto relative mx-auto flex h-14 max-w-6xl items-center justify-between gap-4 rounded-full border border-border bg-background/85 pl-5 pr-1 backdrop-blur-md md:pl-6 md:pr-2">
+      <div className="pointer-events-auto relative mx-auto flex h-14 max-w-6xl items-center justify-between gap-4 rounded-full border border-border bg-background/85 pl-5 pr-1 backdrop-blur-md lg:pl-6 lg:pr-2">
         <Link to="/" className="text-sm font-semibold tracking-tight">
           {t('brand')}
         </Link>
 
-        <nav className="hidden items-center gap-1 md:flex">
+        <nav className="hidden items-center gap-1 lg:flex">
           {NAV_LINKS.map((link) => {
             const isActive = link.id === activeId;
             return (
@@ -68,7 +68,7 @@ export function Header() {
 
         <MobileMenu links={NAV_LINKS} activeId={activeId} />
 
-        <div className="hidden items-center gap-1 md:flex">
+        <div className="hidden items-center gap-1 lg:flex">
           <CommandPalette />
           <ResumeMenu />
           <LanguageToggle />

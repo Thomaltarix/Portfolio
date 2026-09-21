@@ -10,25 +10,25 @@ export function ProjectsSection() {
   const { data: projects, isLoading, isError } = useProjects();
 
   return (
-    <section id="projects" className="mx-auto max-w-5xl px-6 py-24">
+    <section id="projects" className="mx-auto max-w-6xl px-6 py-32">
       <FadeIn>
         <SectionHeading>{t('heading')}</SectionHeading>
       </FadeIn>
 
-      {isLoading && <p className="mt-10 text-muted-foreground">{t('loading')}</p>}
-      {isError && <p className="mt-10 text-muted-foreground">{t('loadError')}</p>}
+      {isLoading && <p className="mt-16 text-muted-foreground">{t('loading')}</p>}
+      {isError && <p className="mt-16 text-muted-foreground">{t('loadError')}</p>}
 
       {projects && projects.length === 0 && (
         <FadeIn>
-          <Card className="mt-10">
-            <CardTitle>{t('comingSoonTitle')}</CardTitle>
+          <Card className="mt-16 p-10">
+            <CardTitle className="text-3xl font-light tracking-tight sm:text-4xl">{t('comingSoonTitle')}</CardTitle>
             <CardDescription className="mt-2">{t('comingSoonDescription')}</CardDescription>
           </Card>
         </FadeIn>
       )}
 
       {projects && projects.length > 0 && (
-        <div className="mt-10 grid gap-6 sm:grid-cols-2">
+        <div className="mt-16 grid gap-6 md:grid-cols-2">
           {projects.map((project, index) => (
             <FadeIn key={project.id} delay={index * 0.05}>
               <ProjectCard project={project} />

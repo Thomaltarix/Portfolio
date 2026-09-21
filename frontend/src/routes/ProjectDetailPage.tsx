@@ -31,7 +31,12 @@ export function ProjectDetailPage() {
 
       {project && (
         <FadeIn className="mt-6">
-          <h1 className="text-3xl font-semibold tracking-tight">{project.title}</h1>
+          <h1
+            style={{ viewTransitionName: `project-${project.slug}` }}
+            className="text-3xl font-semibold tracking-tight"
+          >
+            {project.title}
+          </h1>
           <p className="mt-3 text-lg text-muted-foreground">{project.summary}</p>
 
           <div className="mt-4 flex flex-wrap gap-2">

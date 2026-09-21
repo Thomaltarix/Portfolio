@@ -9,6 +9,7 @@ import {
   ParseUUIDPipe,
   Patch,
   Post,
+  Put,
   Query,
   UseGuards,
 } from '@nestjs/common';
@@ -22,6 +23,8 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { ProjectDetailDto } from './dto/project-detail.dto';
 import { ProjectLocaleQueryDto } from './dto/project-locale-query.dto';
+import { ProjectTranslationParamsDto } from './dto/project-translation-params.dto';
+import { UpsertProjectTranslationDto } from './dto/upsert-project-translation.dto';
 import { ProjectSummaryDto } from './dto/project-summary.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { ProjectsService } from './projects.service';
@@ -64,6 +67,34 @@ export class ProjectsController {
     @Body() dto: UpdateProjectDto,
   ): Promise<ProjectDetailDto> {
     return this.projectsService.update(id, dto);
+  }
+
+  @Put(':id/translations/:locale')
+  @UseGuards(JwtAuthGuard)
+  @ApiCookieAuth()
+  @ApiOperation({
+    summary: 'Create or replace one translation of a project (admin only)',
+  })
+  upsertTranslation(
+    @Param() params: ProjectTranslationParamsDto,
+    @Body() dto: UpsertProjectTranslationDto,
+  ): Promise<ProjectDetailDto> {
+    return this.projectsService.upsertTranslation(
+      params.id,
+      params.locale,
+      dto,
+    );
+  }
+
+  @Delete(':id/translations/:locale')
+  @UseGuards(JwtAuthGuard)
+  @ApiCookieAuth()
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiOperation({ summary: 'Delete one translation of a project (admin only)' })
+  removeTranslation(
+    @Param() params: ProjectTranslationParamsDto,
+  ): Promise<void> {
+    return this.projectsService.deleteTranslation(params.id, params.locale);
   }
 
   @Delete(':id')

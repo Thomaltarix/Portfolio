@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { Prisma, Project } from '@prisma/client';
-import { ProjectLocale } from './project-locale';
+import { Prisma, Project, ProjectTranslation } from '@prisma/client';
+import { ProjectLocale, TranslationLocale } from './project-locale';
 import { PrismaService } from '../../prisma/prisma.service';
 
 export type ProjectWithTranslations = Prisma.ProjectGetPayload<{
@@ -39,6 +39,28 @@ export class ProjectsRepository {
 
   update(id: string, data: Prisma.ProjectUpdateInput): Promise<Project> {
     return this.prisma.project.update({ where: { id }, data });
+  }
+
+  upsertTranslation(
+    projectId: string,
+    locale: TranslationLocale,
+    data: { title: string; summary: string; content: string },
+  ): Promise<ProjectTranslation> {
+    return this.prisma.projectTranslation.upsert({
+      where: { projectId_locale: { projectId, locale } },
+      update: data,
+      create: { projectId, locale, ...data },
+    });
+  }
+
+  // deleteMany rather than delete: removing a translation that does not exist is not an error.
+  async deleteTranslation(
+    projectId: string,
+    locale: TranslationLocale,
+  ): Promise<void> {
+    await this.prisma.projectTranslation.deleteMany({
+      where: { projectId, locale },
+    });
   }
 
   delete(id: string): Promise<Project> {

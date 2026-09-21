@@ -52,6 +52,8 @@ describe('ProjectsService', () => {
             create: jest.fn(),
             update: jest.fn(),
             delete: jest.fn(),
+            upsertTranslation: jest.fn(),
+            deleteTranslation: jest.fn(),
           },
         },
       ],
@@ -130,6 +132,7 @@ describe('ProjectsService', () => {
         'en',
       );
       expect(result.content).toBe(project.content);
+      expect(result.locale).toBe('en');
     });
 
     it('returns the translated content when a translation exists', async () => {
@@ -146,6 +149,7 @@ describe('ProjectsService', () => {
       );
       expect(result.content).toBe(frenchTranslation.content);
       expect(result.title).toBe(frenchTranslation.title);
+      expect(result.locale).toBe('fr');
     });
 
     it('throws NotFoundException when no project matches the slug', async () => {
@@ -233,6 +237,58 @@ describe('ProjectsService', () => {
       await service.remove(project.id);
 
       expect(projectsRepository.delete).toHaveBeenCalledWith(project.id);
+    });
+  });
+  describe('translations', () => {
+    const dto = {
+      title: frenchTranslation.title,
+      summary: frenchTranslation.summary,
+      content: frenchTranslation.content,
+    };
+
+    it('stores the translation and returns the project in that language', async () => {
+      projectsRepository.findById.mockResolvedValue(project);
+      projectsRepository.upsertTranslation.mockResolvedValue(frenchTranslation);
+
+      const result = await service.upsertTranslation(project.id, 'fr', dto);
+
+      expect(projectsRepository.upsertTranslation).toHaveBeenCalledWith(
+        project.id,
+        'fr',
+        dto,
+      );
+      expect(result.title).toBe(dto.title);
+      expect(result.locale).toBe('fr');
+    });
+
+    it('throws NotFoundException instead of writing a translation for a missing project', async () => {
+      projectsRepository.findById.mockResolvedValue(null);
+
+      await expect(
+        service.upsertTranslation('missing', 'fr', dto),
+      ).rejects.toThrow(NotFoundException);
+      expect(projectsRepository.upsertTranslation).not.toHaveBeenCalled();
+    });
+
+    it('deletes a translation of an existing project', async () => {
+      projectsRepository.findById.mockResolvedValue(project);
+      projectsRepository.deleteTranslation.mockResolvedValue(undefined);
+
+      await service.deleteTranslation(project.id, 'fr');
+
+      expect(projectsRepository.deleteTranslation).toHaveBeenCalledWith(
+        project.id,
+        'fr',
+      );
+    });
+
+    it('throws NotFoundException when deleting a translation of a missing project', async () => {
+      projectsRepository.findById.mockResolvedValue(null);
+
+      await expect(service.deleteTranslation('missing', 'fr')).rejects.toThrow(
+        NotFoundException,
+      );
+      expect(projectsRepository.deleteTranslation).not.toHaveBeenCalled();
     });
   });
 });

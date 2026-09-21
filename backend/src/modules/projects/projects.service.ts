@@ -8,7 +8,12 @@ import { CreateProjectDto } from './dto/create-project.dto';
 import { ProjectDetailDto } from './dto/project-detail.dto';
 import { ProjectSummaryDto } from './dto/project-summary.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
-import { DEFAULT_PROJECT_LOCALE, ProjectLocale } from './project-locale';
+import { UpsertProjectTranslationDto } from './dto/upsert-project-translation.dto';
+import {
+  DEFAULT_PROJECT_LOCALE,
+  ProjectLocale,
+  TranslationLocale,
+} from './project-locale';
 import {
   ProjectsRepository,
   ProjectWithTranslations,
@@ -57,6 +62,28 @@ export class ProjectsService {
     }
   }
 
+  async upsertTranslation(
+    id: string,
+    locale: TranslationLocale,
+    dto: UpsertProjectTranslationDto,
+  ): Promise<ProjectDetailDto> {
+    const project = await this.getOrThrow(id);
+    const translation = await this.projectsRepository.upsertTranslation(
+      id,
+      locale,
+      dto,
+    );
+    return toDetailDto({ ...project, translations: [translation] });
+  }
+
+  async deleteTranslation(
+    id: string,
+    locale: TranslationLocale,
+  ): Promise<void> {
+    await this.getOrThrow(id);
+    await this.projectsRepository.deleteTranslation(id, locale);
+  }
+
   async remove(id: string): Promise<void> {
     await this.getOrThrow(id);
     await this.projectsRepository.delete(id);
@@ -101,8 +128,12 @@ function toSummaryDto(project: LocalisableProject): ProjectSummaryDto {
 }
 
 function toDetailDto(project: LocalisableProject): ProjectDetailDto {
+  const translation = project.translations?.[0];
   return {
     ...toSummaryDto(project),
-    content: project.translations?.[0]?.content ?? project.content,
+    content: translation?.content ?? project.content,
+    locale: translation
+      ? (translation.locale as ProjectLocale)
+      : DEFAULT_PROJECT_LOCALE,
   };
 }

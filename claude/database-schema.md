@@ -30,7 +30,7 @@ One complete translation of a project into a non-default language. The `Project`
 | `locale` | `String` | A value from `PROJECT_LOCALES` (`backend/src/modules/projects/project-locale.ts`), currently `fr`. |
 | `title` / `summary` / `content` | `String` | Same meaning as on `Project`; a translation is all three or nothing. |
 
-`@@unique([projectId, locale])`. Both read endpoints take `?lang=en|fr` (validated, default `en`) and fall back to the `Project` columns when no translation exists for that language. Translations are currently managed through `prisma/seed.ts`; the admin form edits the default language only, and the admin UI always requests `lang=en` so that saving can never overwrite English with a translation. Adding a language means adding it to `PROJECT_LOCALES` and the frontend's `SUPPORTED_LANGUAGES`, then seeding its translations.
+`@@unique([projectId, locale])`. Both read endpoints take `?lang=en|fr` (validated, default `en`) and fall back to the `Project` columns when no translation exists for that language. Translations are written through the admin (`PUT` / `DELETE /projects/:id/translations/:locale`, JWT-protected, the language tabs of the project editor) or through `prisma/seed.ts`. The main admin form edits the default language and always requests `lang=en`, so saving it can never overwrite English with a translation. Detail responses carry a `locale` field with the language actually served, which is how the admin tells "no translation yet" from "translated". Adding a language means adding it to `PROJECT_LOCALES` and the frontend's `SUPPORTED_LANGUAGES`, then seeding its translations.
 
 ## `ContactMessage`
 

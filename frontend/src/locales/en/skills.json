@@ -3,7 +3,7 @@
   "groups": [
     {
       "category": "Languages",
-      "items": ["Go", "C++", "C", "Python", "Java", "TypeScript", "Bash", "SQL"]
+      "items": ["Go", "C++", "Python", "Java", "TypeScript", "C"]
     },
     {
       "category": "Backend",

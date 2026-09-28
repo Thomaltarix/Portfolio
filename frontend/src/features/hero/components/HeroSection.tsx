@@ -68,7 +68,8 @@ export function HeroSection() {
         style={isDrifting ? { y: imageY, scale: imageScale, willChange: 'transform' } : undefined}
         // Phones: the photo keeps its own height (tied to the screen width) and is aligned to the top, so the mountain
         // sits between the title and the copy instead of being stretched behind everything. From sm up it fills the hero.
-        className="absolute inset-x-0 top-0 -z-20 max-sm:h-[var(--photo-height,150vw)] h-[150vw] w-full object-cover object-[50%_46%] sm:inset-0 sm:h-full"
+        // Decorative, so never selectable: a select-all would otherwise paint the selection tint over the whole photo.
+        className="pointer-events-none absolute inset-x-0 top-0 -z-20 select-none max-sm:h-[var(--photo-height,150vw)] h-[150vw] w-full object-cover object-[50%_46%] sm:inset-0 sm:h-full"
       />
       {/* Fades the photo into the page ground so the hero has no hard edge. On phones it closes the photo's own
           bottom edge (the photo is --photo-height tall, 150vw by default, so the fade spans its last 70vw); from sm up it sits at the hero's bottom. */}

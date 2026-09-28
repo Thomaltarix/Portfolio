@@ -42,7 +42,7 @@ export function ContactSection() {
         sizes="100vw"
         alt=""
         loading="lazy"
-        className="absolute inset-x-0 top-0 -z-20 h-[130vw] w-full object-cover md:inset-0 md:h-full"
+        className="pointer-events-none absolute inset-x-0 top-0 -z-20 h-[130vw] select-none w-full object-cover md:inset-0 md:h-full"
       />
       <div className="absolute inset-x-0 top-0 -z-10 h-[130vw] bg-[#0d1116]/75 md:inset-0 md:h-full dark:bg-[#0d1116]/88" />
       {/* Phones only: closes the photo's bottom edge into the section's dark ground, above the form. */}

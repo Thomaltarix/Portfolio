@@ -3,23 +3,23 @@
   "groups": [
     {
       "category": "Langages",
-      "items": ["Go", "TypeScript", "C++", "Java", "Python", "C", "Bash", "SQL"]
+      "items": ["Go", "C++", "Python", "Java", "TypeScript", "C"]
     },
     {
       "category": "Backend",
-      "items": ["NestJS", "Node.js", "REST", "GraphQL", "Prisma", "WebSockets"]
+      "items": ["API REST", "NestJS", "Node.js"]
     },
     {
       "category": "Bases de données",
-      "items": ["PostgreSQL", "SQL"]
+      "items": ["PostgreSQL", "Prisma"]
     },
     {
       "category": "Cloud & DevOps",
-      "items": ["Docker", "GitHub Actions", "Linux", "Cloudflare", "Nginx", "CI/CD", "Ansible"]
+      "items": ["Docker", "GitHub Actions", "CI/CD", "Linux", "Ansible", "Cloudflare"]
     },
     {
-      "category": "Frontend & Mobile",
-      "items": ["React", "Vue.js", "Flutter", "TailwindCSS"]
+      "category": "Utilisé aussi",
+      "items": ["React", "Flutter"]
     }
   ]
 }

@@ -4,7 +4,6 @@
     "about": "À propos",
     "experience": "Expérience",
     "projects": "Projets",
-    "playground": "Playground",
     "contact": "Contact"
   },
   "resume": "CV",
@@ -12,16 +11,15 @@
     "en": "Anglais",
     "fr": "Français"
   },
-  "comingSoon": "Bientôt disponible",
   "footer": {
-    "copyright": "© {{year}} Thomas Boué. Développé avec React, NestJS et PostgreSQL.",
+    "copyright": "© {{year}} Thomas Boué. Développé avec Claude Code, en React, NestJS et PostgreSQL.",
     "backToTop": "Retour en haut",
     "legalNotice": "Mentions légales",
     "privacy": "Politique de confidentialité",
     "legalNavigation": "Informations légales"
   },
   "meta": {
-    "title": "Thomas Boué — Ingénieur Backend & Logiciel",
+    "title": "Thomas Boué | Ingénieur Backend & Logiciel",
     "description": "Ingénieur logiciel spécialisé dans les API, les infrastructures cloud, l'automatisation et les applications web modernes."
   },
   "language": {

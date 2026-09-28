@@ -3,20 +3,20 @@
   "entries": [
     {
       "company": "La Trace",
-      "role": "Full Stack Developer",
-      "period": "2025 — 2026",
-      "description": "Developing and maintaining business applications, backend services and deployment workflows while collaborating with a multidisciplinary team."
+      "role": "Freelance Full Stack Developer",
+      "period": "Nov 2025 - Mar 2026",
+      "description": "Remote freelance work from Seoul during my exchange year. After starting on bug fixes, I spent most of the mission turning Python proofs of concept for external API integrations into production code: scheduled jobs that fetch and synchronise data from those APIs, and the frontend views that display it."
     },
     {
       "company": "Bouygues Telecom",
-      "role": "Full Stack Software Developer",
-      "period": "2025",
-      "description": "Contributed to the development of internal software solutions within an Agile environment, with a focus on backend features and application maintenance."
+      "role": "Software Engineering Intern (Full Stack)",
+      "period": "2025 · 6 months",
+      "description": "Six-month internship on an internal GitLab analytics tool that helps Bouygues Telecom's IT department govern its code, with metrics such as repository size and technologies in use planned next. Full stack in Java and React, with most of my work on the Java backend."
     },
     {
       "company": "Epitech Nantes",
       "role": "Teaching Assistant",
-      "period": "2024 — 2025",
+      "period": "2024 - 2025",
       "description": "Mentoring first-year and second-year students in C, C++, Python, algorithms and software engineering while reviewing projects and helping them solve technical challenges."
     },
     {

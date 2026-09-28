@@ -4,7 +4,6 @@
     "about": "About",
     "experience": "Experience",
     "projects": "Projects",
-    "playground": "Playground",
     "contact": "Contact"
   },
   "resume": "Resume",
@@ -12,16 +11,15 @@
     "en": "English",
     "fr": "French"
   },
-  "comingSoon": "Coming soon",
   "footer": {
-    "copyright": "© {{year}} Thomas Boué. Built with React, NestJS and PostgreSQL.",
+    "copyright": "© {{year}} Thomas Boué. Built with Claude Code, using React, NestJS and PostgreSQL.",
     "backToTop": "Back to top",
     "legalNotice": "Legal notice",
     "privacy": "Privacy policy",
     "legalNavigation": "Legal information"
   },
   "meta": {
-    "title": "Thomas Boué — Backend & Software Engineer",
+    "title": "Thomas Boué | Backend & Software Engineer",
     "description": "Backend software engineer specializing in scalable APIs, cloud infrastructure, automation and modern web applications."
   },
   "language": {

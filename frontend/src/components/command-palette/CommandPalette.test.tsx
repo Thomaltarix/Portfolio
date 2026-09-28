@@ -2,11 +2,17 @@ import userEvent from '@testing-library/user-event';
 import i18n from 'i18next';
 import { afterEach, describe, expect, it } from 'vitest';
 import { fireEvent, renderWithProviders, screen, waitFor } from '@/test/render';
+import { useLocation } from 'react-router-dom';
 import { CommandPalette } from './CommandPalette';
+
+// Section commands navigate through the router, so the test reads the router's location.
+function CurrentLocation() {
+  const { pathname, hash } = useLocation();
+  return <output data-testid="location">{pathname + hash}</output>;
+}
 
 afterEach(() => {
   window.localStorage.clear();
-  window.location.hash = '';
   void i18n.changeLanguage('en');
 });
 
@@ -102,18 +108,28 @@ describe('CommandPalette', () => {
 
   it('runs a command on click and closes the palette', async () => {
     const user = userEvent.setup();
-    renderWithProviders(<CommandPalette />);
+    renderWithProviders(
+      <>
+        <CommandPalette />
+        <CurrentLocation />
+      </>,
+    );
     await user.click(screen.getByRole('button', { name: 'Open command menu' }));
 
     await user.click(screen.getByRole('option', { name: 'Contact' }));
 
-    expect(window.location.hash).toBe('#contact');
+    expect(screen.getByTestId('location')).toHaveTextContent('/#contact');
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });
 
   it('clicking the backdrop closes the palette without running a command', async () => {
     const user = userEvent.setup();
-    renderWithProviders(<CommandPalette />);
+    renderWithProviders(
+      <>
+        <CommandPalette />
+        <CurrentLocation />
+      </>,
+    );
     await user.click(screen.getByRole('button', { name: 'Open command menu' }));
 
     const dialog = screen.getByRole('dialog');
@@ -122,6 +138,6 @@ describe('CommandPalette', () => {
     await user.click(dialog.parentElement as HTMLElement);
 
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
-    expect(window.location.hash).toBe('');
+    expect(screen.getByTestId('location')).toHaveTextContent(/^\/$/);
   });
 });

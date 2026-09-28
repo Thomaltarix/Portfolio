@@ -1,5 +1,4 @@
 import { CommandPalette } from '@/components/command-palette/CommandPalette';
-import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/cn';
 import { motion, useReducedMotion, useScroll } from 'framer-motion';
 import { Link } from 'react-router-dom';
@@ -14,7 +13,6 @@ const NAV_LINKS = [
   { id: 'about', labelKey: 'nav.about' },
   { id: 'experience', labelKey: 'nav.experience' },
   { id: 'projects', labelKey: 'nav.projects' },
-  { id: 'playground', labelKey: 'nav.playground', comingSoon: true },
   { id: 'contact', labelKey: 'nav.contact' },
 ] as const;
 
@@ -35,16 +33,17 @@ export function Header() {
           {t('brand')}
         </Link>
 
-        <nav className="hidden items-center gap-1 lg:flex">
+        {/* isolate here, not on each link: the sliding pill must stay under every label while it moves between them. */}
+        <nav className="isolate hidden items-center gap-1 lg:flex">
           {NAV_LINKS.map((link) => {
             const isActive = link.id === activeId;
             return (
-              <a
+              <Link
                 key={link.id}
-                href={`#${link.id}`}
+                to={`/#${link.id}`}
                 aria-current={isActive ? 'location' : undefined}
                 className={cn(
-                  'relative isolate flex items-center gap-2 rounded-full px-3 py-1.5 text-sm transition-colors duration-150',
+                  'relative rounded-full px-3 py-1.5 text-sm transition-colors duration-150',
                   isActive
                     ? 'text-foreground'
                     : 'text-muted-foreground [@media(hover:hover)]:hover:text-foreground',
@@ -58,10 +57,7 @@ export function Header() {
                   />
                 )}
                 {t(link.labelKey)}
-                {'comingSoon' in link && link.comingSoon && (
-                  <Badge className="hidden xl:inline-flex">{t('comingSoon')}</Badge>
-                )}
-              </a>
+              </Link>
             );
           })}
         </nav>

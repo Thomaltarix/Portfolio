@@ -7,7 +7,7 @@ import { Search } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const RESUME_FILES = {
   en: '/resume-en.pdf',
@@ -20,7 +20,6 @@ const IS_MAC =
 interface Command {
   readonly id: string;
   readonly label: string;
-  readonly hint?: string;
   readonly keywords?: readonly string[];
   readonly onSelect: () => void;
 }
@@ -45,7 +44,6 @@ export function CommandPalette() {
   const { t, i18n } = useTranslation('common');
   const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
-  const location = useLocation();
 
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState('');
@@ -60,16 +58,8 @@ export function CommandPalette() {
     triggerRef.current?.focus();
   };
 
-  // Mirrors what a plain <a href="#about"> already does elsewhere in the
-  // header nav — same limitation too: a section only scrolls if it exists
-  // on the current page, otherwise this lands on "/" with the hash set.
-  const goToHash = (hash: string) => {
-    if (location.pathname === '/') {
-      window.location.hash = hash;
-    } else {
-      navigate(`/#${hash}`);
-    }
-  };
+  // Same target as the header links: RootLayout scrolls to the section once "/" is rendered.
+  const goToSection = (id: string) => navigate(`/#${id}`);
 
   const resolvedLanguage = i18n.resolvedLanguage ?? 'en';
   const currentLanguage: SupportedLanguage = SUPPORTED_LANGUAGES.includes(
@@ -81,16 +71,10 @@ export function CommandPalette() {
 
   const commands = useMemo<Command[]>(
     () => [
-      { id: 'about', label: t('nav.about'), onSelect: () => goToHash('about') },
-      { id: 'experience', label: t('nav.experience'), onSelect: () => goToHash('experience') },
-      { id: 'projects', label: t('nav.projects'), onSelect: () => goToHash('projects') },
-      {
-        id: 'playground',
-        label: t('nav.playground'),
-        hint: t('comingSoon'),
-        onSelect: () => goToHash('playground'),
-      },
-      { id: 'contact', label: t('nav.contact'), onSelect: () => goToHash('contact') },
+      { id: 'about', label: t('nav.about'), onSelect: () => goToSection('about') },
+      { id: 'experience', label: t('nav.experience'), onSelect: () => goToSection('experience') },
+      { id: 'projects', label: t('nav.projects'), onSelect: () => goToSection('projects') },
+      { id: 'contact', label: t('nav.contact'), onSelect: () => goToSection('contact') },
       {
         id: 'theme',
         label: theme === 'dark' ? t('commandPalette.lightTheme') : t('commandPalette.darkTheme'),
@@ -109,10 +93,10 @@ export function CommandPalette() {
         keywords: ['resume', 'cv', 'pdf'],
         onSelect: () => triggerDownload(RESUME_FILES[currentLanguage]),
       },
-      { id: 'top', label: t('footer.backToTop'), onSelect: () => goToHash('top') },
+      { id: 'top', label: t('footer.backToTop'), onSelect: () => window.scrollTo(0, 0) },
     ],
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [t, theme, currentLanguage, nextLanguage, location.pathname],
+    [t, theme, currentLanguage, nextLanguage],
   );
 
   const filtered = useMemo(() => {
@@ -228,7 +212,6 @@ export function CommandPalette() {
                       )}
                     >
                       <span>{command.label}</span>
-                      {command.hint && <span className="text-xs text-muted-foreground">{command.hint}</span>}
                     </button>
                   </li>
                 ))}

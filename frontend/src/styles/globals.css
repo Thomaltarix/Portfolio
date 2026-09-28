@@ -95,9 +95,17 @@
     text-wrap: pretty;
   }
 
+  /* A tint rather than the solid accent: selecting a whole page must not turn it orange, and the
+     text keeps its own colour. The tint is opaque (mixed into the page colour, not transparent)
+     because the tight leading of the headings makes line boxes overlap, and a translucent tint
+     doubles up there into darker stripes. */
   ::selection {
-    background-color: var(--accent);
-    color: var(--accent-foreground);
+    background-color: color-mix(in srgb, var(--accent) 30%, var(--background));
+  }
+
+  /* Contact is dark in every theme, so its tint is mixed into that dark ground instead. */
+  #contact ::selection {
+    background-color: color-mix(in srgb, #f0906a 35%, #0d1116);
   }
 
   :focus-visible {

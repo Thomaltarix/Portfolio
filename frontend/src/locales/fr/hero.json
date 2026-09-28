@@ -1,20 +1,20 @@
 {
   "eyebrow": "Ingénieur Backend & Logiciel",
   "title": "Concevoir des logiciels fiables, de l'architecture backend jusqu'au déploiement en production.",
-  "subtitle": "Ingénieur logiciel spécialisé dans le développement backend, l'infrastructure cloud et les systèmes distribués — conception d'architectures propres, d'API robustes en production, et automatisation de tout ce qui peut l'être.",
+  "subtitle": "Ingénieur logiciel spécialisé dans le développement backend, l'infrastructure cloud et les systèmes distribués. Je conçois des architectures propres et des API robustes en production, et j'automatise tout ce qui peut l'être.",
   "viewProjects": "Voir les projets",
   "getInTouch": "Me contacter",
   "now": {
-    "label": "La stack — en ce moment",
+    "label": "La stack en ce moment",
     "roleLabel": "Recherche",
     "role": [
-      "Stage à temps partiel : sept.–févr. (lun/mer)",
-      "Stage à temps plein : mars–août"
+      "Stage à temps partiel (lun/mer) : disponible dès maintenant, jusqu'à février 2027",
+      "Stage à temps plein : mars à août 2027"
     ],
     "studyingLabel": "Formation",
-    "studying": "Étudiant en 5e année d'ingénierie logicielle à Epitech",
-    "stackLabel": "Stack",
-    "stack": "Go · TS · NestJS · Postgres · Docker"
+    "studying": "Étudiant en 5e année d'ingénierie logicielle à Epitech, après une année d'échange à Chung-Ang University (Corée du Sud, 2025-2026)",
+    "stackLabel": "Langages",
+    "stack": "Go · C++ · Python · Java · TypeScript · C"
   },
   "photoCaption": "Le mont Fuji depuis le lac Kawaguchi, 1er janvier 2026, 830 m d'altitude."
 }

@@ -50,7 +50,7 @@ describe('ContactSection', () => {
       email: 'ada@example.com',
       message: 'Hello, I would like to get in touch about a project.',
     });
-    expect(await screen.findByText("Thanks — your message was sent.")).toBeInTheDocument();
+    expect(await screen.findByText("Thanks, your message was sent.")).toBeInTheDocument();
   });
 
   it('resets the form fields after a successful submission', async () => {
@@ -96,6 +96,6 @@ describe('ContactSection', () => {
     expect(pendingButton).toBeDisabled();
 
     resolveSubmit({ id: 'message-id' });
-    await screen.findByText("Thanks — your message was sent.");
+    await screen.findByText("Thanks, your message was sent.");
   });
 });

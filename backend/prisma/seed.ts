@@ -72,7 +72,11 @@ A portfolio built like a real product rather than a template. The site you are r
 - **Admin dashboard**: JWT-protected area to manage projects, read contact messages and view analytics.
 - **Contact form**: validated server-side and delivered by email through Resend.
 - **Privacy-first analytics**: first-party page-view stats with an opt-out, no third-party trackers.
-- **Delivery**: Docker Compose with production and staging profiles, and GitHub Actions workflows for CI, releases and deployment.`,
+- **Delivery**: Docker Compose with production and staging profiles, and GitHub Actions workflows for CI, releases and deployment.
+
+## Built with AI
+
+This site was built with the help of AI (Claude Code). I made the architecture and design decisions, and reviewed every change before it shipped.`,
     techStack: [
       'NestJS',
       'Prisma',
@@ -200,7 +204,11 @@ Un portfolio construit comme un vrai produit plutôt que comme un modèle. Le si
 - **Tableau de bord admin** : espace protégé par JWT pour gérer les projets, lire les messages de contact et consulter les statistiques.
 - **Formulaire de contact** : validé côté serveur et envoyé par e-mail via Resend.
 - **Statistiques respectueuses de la vie privée** : mesure d'audience maison avec possibilité de refus, sans traceur tiers.
-- **Livraison** : Docker Compose avec profils production et staging, et workflows GitHub Actions pour la CI, les releases et le déploiement.`,
+- **Livraison** : Docker Compose avec profils production et staging, et workflows GitHub Actions pour la CI, les releases et le déploiement.
+
+## Conçu avec l'IA
+
+Ce site a été réalisé avec l'aide de l'IA (Claude Code). Les choix d'architecture et de design sont les miens, et chaque modification a été relue avant d'être mise en ligne.`,
   },
   momentum: {
     title: 'Momentum',

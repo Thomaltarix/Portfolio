@@ -2,12 +2,12 @@
   "heading": "Skills",
   "groups": [
     {
-      "category": "Backend",
-      "items": ["NestJS", "Node.js", "REST APIs", "GraphQL", "WebSockets"]
+      "category": "Languages",
+      "items": ["Go", "C++", "C", "Python", "Java", "TypeScript", "Bash", "SQL"]
     },
     {
-      "category": "Languages",
-      "items": ["Go", "TypeScript", "C++", "C", "Python", "Java", "Bash", "SQL"]
+      "category": "Backend",
+      "items": ["REST APIs", "NestJS", "Node.js"]
     },
     {
       "category": "Databases",
@@ -15,7 +15,7 @@
     },
     {
       "category": "Cloud & DevOps",
-      "items": ["Docker", "GitHub Actions", "CI/CD", "Linux", "Nginx", "Ansible", "Cloudflare"]
+      "items": ["Docker", "GitHub Actions", "CI/CD", "Linux", "Ansible", "Cloudflare"]
     },
     {
       "category": "Also used",

@@ -2,12 +2,12 @@
   "heading": "Compétences",
   "groups": [
     {
-      "category": "Backend",
-      "items": ["NestJS", "Node.js", "API REST", "GraphQL", "WebSockets"]
+      "category": "Langages",
+      "items": ["Go", "C++", "C", "Python", "Java", "TypeScript", "Bash", "SQL"]
     },
     {
-      "category": "Langages",
-      "items": ["Go", "TypeScript", "C++", "C", "Python", "Java", "Bash", "SQL"]
+      "category": "Backend",
+      "items": ["API REST", "NestJS", "Node.js"]
     },
     {
       "category": "Bases de données",
@@ -15,7 +15,7 @@
     },
     {
       "category": "Cloud & DevOps",
-      "items": ["Docker", "GitHub Actions", "CI/CD", "Linux", "Nginx", "Ansible", "Cloudflare"]
+      "items": ["Docker", "GitHub Actions", "CI/CD", "Linux", "Ansible", "Cloudflare"]
     },
     {
       "category": "Utilisé aussi",

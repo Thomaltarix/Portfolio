@@ -67,6 +67,9 @@ i18n
     },
   });
 
+// The detector resolves the language during init, before this listener exists, so the
+// first value is set by hand; the listener covers later switches.
+document.documentElement.lang = i18n.resolvedLanguage ?? 'en';
 i18n.on('languageChanged', (language) => {
   document.documentElement.lang = language;
 });

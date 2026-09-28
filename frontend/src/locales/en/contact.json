@@ -8,7 +8,7 @@
   },
   "submit": "Send message",
   "sending": "Sending…",
-  "success": "Thanks — your message was sent.",
+  "success": "Thanks, your message was sent.",
   "error": "Something went wrong. Please try again.",
   "validation": {
     "nameMin": "Name must be at least 2 characters.",

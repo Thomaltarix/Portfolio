@@ -1,6 +1,6 @@
-# Thomas Boué — portfolio
+# Thomas Boué, portfolio
 
-> Personal portfolio of Thomas Boué, a software engineering student at Epitech specialised in backend development, cloud infrastructure and distributed systems. Bilingual site (English / French). Currently looking for two internships: part-time (Mon/Wed) September–February, then full-time March–August.
+> Personal portfolio of Thomas Boué, a software engineering student at Epitech specialised in backend development, cloud infrastructure and distributed systems. Bilingual site (English / French). Currently looking for two internships: part-time (Mon/Wed) September to February, then full-time March to August.
 
 Main stack: Go, TypeScript, NestJS, PostgreSQL, Docker. The site itself is a React + NestJS + PostgreSQL project, deployed with Docker and GitHub Actions.
 

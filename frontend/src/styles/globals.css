@@ -95,9 +95,10 @@
     text-wrap: pretty;
   }
 
+  /* A tint rather than the solid accent: selecting a whole page must not turn it orange, and the
+     text keeps its own colour so headings and body copy stay distinguishable while selected. */
   ::selection {
-    background-color: var(--accent);
-    color: var(--accent-foreground);
+    background-color: color-mix(in srgb, var(--accent) 28%, transparent);
   }
 
   :focus-visible {

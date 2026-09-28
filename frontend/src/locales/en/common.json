@@ -14,7 +14,7 @@
   },
   "comingSoon": "Coming soon",
   "footer": {
-    "copyright": "© {{year}} Thomas Boué. Built with React, NestJS and PostgreSQL, with the help of Claude Code.",
+    "copyright": "© {{year}} Thomas Boué. Built with Claude Code, using React, NestJS and PostgreSQL.",
     "backToTop": "Back to top",
     "legalNotice": "Legal notice",
     "privacy": "Privacy policy",

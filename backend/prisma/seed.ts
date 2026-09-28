@@ -76,7 +76,7 @@ A portfolio built like a real product rather than a template. The site you are r
 
 ## Built with AI
 
-This site was built with the help of AI (Claude Code). I made the architecture and design decisions, and reviewed every change before it shipped.`,
+This site was built with Claude Code. I made the architecture and design decisions, and reviewed every change before it shipped.`,
     techStack: [
       'NestJS',
       'Prisma',
@@ -208,7 +208,7 @@ Un portfolio construit comme un vrai produit plutôt que comme un modèle. Le si
 
 ## Conçu avec l'IA
 
-Ce site a été réalisé avec l'aide de l'IA (Claude Code). Les choix d'architecture et de design sont les miens, et chaque modification a été relue avant d'être mise en ligne.`,
+Ce site a été développé avec Claude Code. Les choix d'architecture et de design sont les miens, et chaque modification a été relue avant d'être mise en ligne.`,
   },
   momentum: {
     title: 'Momentum',

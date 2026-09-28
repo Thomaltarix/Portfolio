@@ -128,28 +128,29 @@ A calendar synchronisation platform that brings events from several calendar sou
     featured: false,
   },
   {
-    slug: 'momentum',
-    title: 'Momentum',
+    slug: 'r-type',
+    title: 'R-Type',
     summary:
-      'A native Flutter app that unifies daily habit tracking, step counting and nutrition logging with gamified streaks and rewards.',
+      'A networked remake of the arcade shooter, built by a team of five on our own C++ game engine with an entity-component-system architecture.',
     content: `## What it is
 
-A solo, gamified daily-habit app for Android. Rather than rebuilding step counting, workout logging or a food diary, it reads what those apps already do well through **Health Connect** and layers routines and rewards on top.
+A third-year Epitech project (September to December 2024): a multiplayer remake of R-Type with a multi-threaded server and a graphical client, built on a game engine we wrote ourselves rather than an existing one. The engine turned out generic enough that we built a second game, in 3D, on top of it.
 
-## Features
+## My role
 
-- Routines with recurrence and scheduled local notifications.
-- Steps, workouts, nutrition and weight read from Health Connect (read-only), with a manual-entry fallback per metric.
-- Configurable daily goals and a macro calculator that suggests targets from body parameters.
-- Deterministic gamification: streaks, XP, levels and badges, replayed for every day since the app was last opened.
+I was the top contributor, with 386 of about 1,300 commits. I owned the gameplay design and implemented much of it as engine systems and components:
+
+- Physics: gravity, collisions that deal damage, jumping and hitboxes.
+- The second game, in 3D: player spawning and movement, the camera, the ground and obstacles.
+- Hitbox drawing in the graphics library interface, and the event handlers that connect systems together.
 
 ## Engineering
 
-- Flutter with Riverpod for state and go_router for navigation.
-- Local-first: data lives on the device in a Drift (SQLite) database, with no backend or account.
-- Daily Health Connect data is cached locally so history survives OS query failures or revoked permissions.`,
-    techStack: ['Flutter', 'Dart', 'Riverpod', 'Drift', 'Health Connect'],
-    githubUrl: 'https://github.com/Thomaltarix/Momentum',
+- C++ built with CMake and vcpkg, with Raylib for rendering.
+- The engine, the network layer and each game are separate modules.
+- Continuous integration on both Linux and Windows, with unit tests.`,
+    techStack: ['C++', 'CMake', 'vcpkg', 'Raylib', 'ECS', 'GitHub Actions'],
+    githubUrl: 'https://github.com/FppEpitech/R-Type',
     liveUrl: null,
     featured: false,
   },
@@ -210,27 +211,6 @@ Un portfolio construit comme un vrai produit plutôt que comme un modèle. Le si
 
 Ce site a été développé avec Claude Code. Les choix d'architecture et de design sont les miens, et chaque modification a été relue avant d'être mise en ligne.`,
   },
-  momentum: {
-    title: 'Momentum',
-    summary:
-      "Une application Flutter native qui réunit suivi d'habitudes quotidiennes, comptage de pas et suivi nutritionnel, avec séries et récompenses ludiques.",
-    content: `## De quoi s'agit-il
-
-Une application Android d'habitudes quotidiennes, pensée pour un usage personnel et ludique. Plutôt que de refaire un compteur de pas, un suivi d'entraînement ou un journal alimentaire, elle lit ce que ces applications font déjà bien via **Health Connect** et y ajoute des routines et des récompenses.
-
-## Fonctionnalités
-
-- Routines avec récurrence et notifications locales programmées.
-- Pas, entraînements, nutrition et poids lus depuis Health Connect (en lecture seule), avec une saisie manuelle de secours pour chaque mesure.
-- Objectifs quotidiens configurables et un calculateur de macros qui suggère des cibles à partir des paramètres corporels.
-- Gamification déterministe : séries, XP, niveaux et badges, recalculés pour chaque jour écoulé depuis la dernière ouverture de l'application.
-
-## Ingénierie
-
-- Flutter avec Riverpod pour l'état et go_router pour la navigation.
-- Local d'abord : les données vivent sur l'appareil dans une base Drift (SQLite), sans backend ni compte.
-- Les données quotidiennes de Health Connect sont mises en cache localement, pour que l'historique survive aux échecs de requête du système ou à une permission révoquée.`,
-  },
   'unified-calendar': {
     title: 'UnifiedCalendar',
     summary:
@@ -255,6 +235,28 @@ Une plateforme de synchronisation de calendriers qui réunit dans une seule inte
 - **Backend** : NestJS avec Prisma et PostgreSQL, avec des modules d'authentification et d'utilisateurs, des tests de bout en bout et une documentation Swagger / OpenAPI.
 - **Frontend** : Next.js (App Router) avec Tailwind CSS, pensé mobile d'abord.
 - TypeScript de bout en bout dans le monorepo.`,
+  },
+  'r-type': {
+    title: 'R-Type',
+    summary:
+      "Un remake en réseau du jeu d'arcade, développé à cinq sur notre propre moteur de jeu en C++, avec une architecture entité-composant-système.",
+    content: `## De quoi s'agit-il
+
+Un projet de 3e année à Epitech (septembre à décembre 2024) : un remake multijoueur de R-Type, avec un serveur multithreadé et un client graphique, construit sur un moteur de jeu écrit par nous plutôt que sur un moteur existant. Le moteur s'est révélé assez générique pour qu'on développe un second jeu, en 3D, par-dessus.
+
+## Mon rôle
+
+J'étais le premier contributeur, avec 386 commits sur environ 1 300. J'avais la charge du game design et j'en ai implémenté une grande partie sous forme de systèmes et de composants du moteur :
+
+- Physique : gravité, collisions infligeant des dégâts, saut et hitboxes.
+- Le second jeu, en 3D : apparition et déplacement du joueur, caméra, sol et obstacles.
+- L'affichage des hitboxes dans l'interface de la bibliothèque graphique, et les gestionnaires d'événements qui relient les systèmes entre eux.
+
+## Ingénierie
+
+- C++ compilé avec CMake et vcpkg, rendu avec Raylib.
+- Le moteur, la couche réseau et chaque jeu sont des modules séparés.
+- Intégration continue sous Linux et Windows, avec des tests unitaires.`,
   },
 };
 

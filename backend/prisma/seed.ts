@@ -19,14 +19,14 @@ const projects: {
     slug: 'melo',
     title: 'Melo',
     summary:
-      'My end-of-studies project at Epitech: a music event recommendation app built with a team, with a Go microservices backend, a Flutter mobile app and a Vue web front.',
+      'My end-of-studies project at Epitech, still in progress: a music event recommendation app I am building with a team, with a Go microservices backend, a Flutter mobile app and a Vue web front.',
     content: `## What it is
 
-Melo is a music event recommendation application, and the project I built with my team as my end-of-studies project at Epitech (EIP). It recommends events to users, who can also browse events by title, date, location, cost and type, save favourites and see events on a calendar, with a search radius set in their account settings.
+Melo is a music event recommendation application, and the end-of-studies project (EIP) I have been building with my team at Epitech since March 2025. It is still in active development, and I keep working on it until I graduate. It recommends events to users, who can also browse events by title, date, location, cost and type, save favourites and see events on a calendar, with a search radius set in their account settings.
 
 ## My role
 
-Technical lead of the backend and its main developer. I wrote about half of the backend commits (292 out of roughly 570) over a project that ran from March 2025 to September 2026.
+Technical lead of the backend and its main developer. So far I have written about half of the backend commits (292 out of roughly 570).
 
 ## Backend
 
@@ -165,14 +165,14 @@ const frenchTranslations: Record<
   melo: {
     title: 'Melo',
     summary:
-      "Mon projet de fin d'études à Epitech : une application de recommandation d'événements musicaux réalisée en équipe, avec un backend Go en microservices, une application mobile Flutter et un front web Vue.",
+      "Mon projet de fin d'études à Epitech, toujours en cours : une application de recommandation d'événements musicaux que je développe en équipe, avec un backend Go en microservices, une application mobile Flutter et un front web Vue.",
     content: `## De quoi s'agit-il
 
-Melo est une application de recommandation d'événements musicaux, et le projet que j'ai réalisé avec mon équipe comme projet de fin d'études à Epitech (EIP). Elle recommande des événements aux utilisateurs, qui peuvent aussi parcourir les événements par titre, date, lieu, prix et type, enregistrer des favoris et voir les événements dans un calendrier, avec un rayon de recherche défini dans les paramètres de leur compte.
+Melo est une application de recommandation d'événements musicaux, et le projet de fin d'études (EIP) que je développe avec mon équipe à Epitech depuis mars 2025. Il est toujours en développement actif, et j'y travaille jusqu'à la fin de mes études. Elle recommande des événements aux utilisateurs, qui peuvent aussi parcourir les événements par titre, date, lieu, prix et type, enregistrer des favoris et voir les événements dans un calendrier, avec un rayon de recherche défini dans les paramètres de leur compte.
 
 ## Mon rôle
 
-Responsable technique du backend et son développeur principal. J'ai écrit environ la moitié des commits du backend (292 sur environ 570) sur un projet qui a duré de mars 2025 à septembre 2026.
+Responsable technique du backend et son développeur principal. J'ai écrit jusqu'ici environ la moitié des commits du backend (292 sur environ 570).
 
 ## Backend
 

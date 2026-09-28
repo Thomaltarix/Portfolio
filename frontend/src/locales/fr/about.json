@@ -2,7 +2,7 @@
   "heading": "À propos",
   "paragraphs": [
     "Je suis en 5e année d'ingénierie logicielle à Epitech, et je travaille surtout côté backend : API, bases de données et l'infrastructure qui les fait tourner.",
-    "Sur Melo, mon projet de fin d'études, j'étais lead technique du backend et son principal développeur, sur les microservices Go derrière l'application. Je mène aussi mes propres projets jusqu'en production : ce site tourne sur un serveur que je gère, déployé avec Docker et GitHub Actions.",
+    "Sur Melo, mon projet de fin d'études, je suis lead technique du backend et son principal développeur, sur les microservices Go derrière l'application. Je mène aussi mes propres projets jusqu'en production : ce site tourne sur un serveur que je gère, déployé avec Docker et GitHub Actions.",
     "Je cherche un stage en backend ou en développement logiciel, pour travailler sur des systèmes en production."
   ]
 }

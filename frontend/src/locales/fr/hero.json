@@ -8,11 +8,11 @@
     "label": "La stack en ce moment",
     "roleLabel": "Recherche",
     "role": [
-      "Stage à temps partiel : sept. à févr. (lun/mer)",
-      "Stage à temps plein : mars à août"
+      "Stage à temps partiel (lun/mer) : disponible dès maintenant, jusqu'à février 2027",
+      "Stage à temps plein : mars à août 2027"
     ],
     "studyingLabel": "Formation",
-    "studying": "Étudiant en 5e année d'ingénierie logicielle à Epitech",
+    "studying": "Étudiant en 5e année d'ingénierie logicielle à Epitech, après une année d'échange à Chung-Ang University (Corée du Sud, 2025-2026)",
     "stackLabel": "Langages",
     "stack": "Go · C++ · Python · Java · TypeScript · C"
   },

@@ -8,11 +8,11 @@
     "label": "The stack right now",
     "roleLabel": "Looking for",
     "role": [
-      "Part-time internship: Sep to Feb (Mon/Wed)",
-      "Full-time internship: Mar to Aug"
+      "Part-time internship (Mon/Wed): available now, until February 2027",
+      "Full-time internship: March to August 2027"
     ],
     "studyingLabel": "Education",
-    "studying": "5th year software engineering student at Epitech",
+    "studying": "5th year software engineering student at Epitech, after an exchange year at Chung-Ang University (South Korea, 2025-2026)",
     "stackLabel": "Languages",
     "stack": "Go · C++ · Python · Java · TypeScript · C"
   },

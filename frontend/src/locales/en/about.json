@@ -1,8 +1,8 @@
 {
   "heading": "About",
   "paragraphs": [
-    "Software engineer currently studying at Epitech, with a strong interest in backend development, cloud infrastructure and scalable systems.",
-    "Alongside coursework, builds software and explores new technologies through personal projects, always looking to deepen technical skills and turn ideas into practical, production-ready applications.",
-    "Particular focus on clean architecture, reliable APIs, and software built to be maintainable, scalable and long-lasting."
+    "I'm a fifth-year software engineering student at Epitech, and I mostly work on the backend: APIs, databases and the infrastructure that keeps them running.",
+    "On Melo, my end-of-studies project, I was the backend tech lead and its main developer, building the Go microservices behind the app. I also ship my own projects end to end: this site runs on a server I manage, deployed with Docker and GitHub Actions.",
+    "I'm looking for a backend or software engineering internship where I can work on systems that run in production."
   ]
 }

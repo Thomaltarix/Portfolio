@@ -1,4 +1,3 @@
-import { Badge } from '@/components/ui/badge';
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/cn';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -13,7 +12,6 @@ import { ThemeToggle } from './ThemeToggle';
 export interface MobileMenuLink {
   readonly id: string;
   readonly labelKey: string;
-  readonly comingSoon?: boolean;
 }
 
 interface MobileMenuProps {
@@ -88,7 +86,6 @@ export function MobileMenu({ links, activeId }: MobileMenuProps) {
                       )}
                     >
                       {t(link.labelKey)}
-                      {link.comingSoon && <Badge>{t('comingSoon')}</Badge>}
                     </Link>
                   </li>
                 ))}

@@ -1,5 +1,4 @@
 import { CommandPalette } from '@/components/command-palette/CommandPalette';
-import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/cn';
 import { motion, useReducedMotion, useScroll } from 'framer-motion';
 import { Link } from 'react-router-dom';
@@ -14,7 +13,6 @@ const NAV_LINKS = [
   { id: 'about', labelKey: 'nav.about' },
   { id: 'experience', labelKey: 'nav.experience' },
   { id: 'projects', labelKey: 'nav.projects' },
-  { id: 'playground', labelKey: 'nav.playground', comingSoon: true },
   { id: 'contact', labelKey: 'nav.contact' },
 ] as const;
 
@@ -45,7 +43,7 @@ export function Header() {
                 to={`/#${link.id}`}
                 aria-current={isActive ? 'location' : undefined}
                 className={cn(
-                  'relative flex items-center gap-2 rounded-full px-3 py-1.5 text-sm transition-colors duration-150',
+                  'relative rounded-full px-3 py-1.5 text-sm transition-colors duration-150',
                   isActive
                     ? 'text-foreground'
                     : 'text-muted-foreground [@media(hover:hover)]:hover:text-foreground',
@@ -59,9 +57,6 @@ export function Header() {
                   />
                 )}
                 {t(link.labelKey)}
-                {'comingSoon' in link && link.comingSoon && (
-                  <Badge className="hidden xl:inline-flex">{t('comingSoon')}</Badge>
-                )}
               </Link>
             );
           })}

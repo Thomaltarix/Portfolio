@@ -8,7 +8,6 @@ import enContact from '@/locales/en/contact.json';
 import enExperience from '@/locales/en/experience.json';
 import enLegal from '@/locales/en/legal.json';
 import enNotFound from '@/locales/en/not-found.json';
-import enPlayground from '@/locales/en/playground.json';
 import enProjects from '@/locales/en/projects.json';
 import enSkills from '@/locales/en/skills.json';
 import enHero from '@/locales/en/hero.json';
@@ -19,7 +18,6 @@ import frContact from '@/locales/fr/contact.json';
 import frExperience from '@/locales/fr/experience.json';
 import frLegal from '@/locales/fr/legal.json';
 import frNotFound from '@/locales/fr/not-found.json';
-import frPlayground from '@/locales/fr/playground.json';
 import frProjects from '@/locales/fr/projects.json';
 import frSkills from '@/locales/fr/skills.json';
 import frHero from '@/locales/fr/hero.json';
@@ -36,7 +34,6 @@ const resources = {
     skills: enSkills,
     projects: enProjects,
     contact: enContact,
-    playground: enPlayground,
     legal: enLegal,
     'not-found': enNotFound,
   },
@@ -48,7 +45,6 @@ const resources = {
     skills: frSkills,
     projects: frProjects,
     contact: frContact,
-    playground: frPlayground,
     legal: frLegal,
     'not-found': frNotFound,
   },

@@ -6,7 +6,7 @@ Main stack: Go, TypeScript, NestJS, PostgreSQL, Docker. The site itself is a Rea
 
 ## Pages
 
-- [Home](https://thomasboue.com/): about, experience, skills, projects, playground and contact form, on a single page.
+- [Home](https://thomasboue.com/): about, experience, skills, projects and contact form, on a single page.
 - [Legal notice](https://thomasboue.com/mentions-legales): publisher and host information.
 - [Privacy policy](https://thomasboue.com/confidentialite): personal data processing and rights.
 

@@ -4,7 +4,6 @@
     "about": "À propos",
     "experience": "Expérience",
     "projects": "Projets",
-    "playground": "Playground",
     "contact": "Contact"
   },
   "resume": "CV",
@@ -12,7 +11,6 @@
     "en": "Anglais",
     "fr": "Français"
   },
-  "comingSoon": "Bientôt disponible",
   "footer": {
     "copyright": "© {{year}} Thomas Boué. Développé avec Claude Code, en React, NestJS et PostgreSQL.",
     "backToTop": "Retour en haut",

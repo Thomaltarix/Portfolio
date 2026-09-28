@@ -20,7 +20,6 @@ const IS_MAC =
 interface Command {
   readonly id: string;
   readonly label: string;
-  readonly hint?: string;
   readonly keywords?: readonly string[];
   readonly onSelect: () => void;
 }
@@ -75,12 +74,6 @@ export function CommandPalette() {
       { id: 'about', label: t('nav.about'), onSelect: () => goToSection('about') },
       { id: 'experience', label: t('nav.experience'), onSelect: () => goToSection('experience') },
       { id: 'projects', label: t('nav.projects'), onSelect: () => goToSection('projects') },
-      {
-        id: 'playground',
-        label: t('nav.playground'),
-        hint: t('comingSoon'),
-        onSelect: () => goToSection('playground'),
-      },
       { id: 'contact', label: t('nav.contact'), onSelect: () => goToSection('contact') },
       {
         id: 'theme',
@@ -219,7 +212,6 @@ export function CommandPalette() {
                       )}
                     >
                       <span>{command.label}</span>
-                      {command.hint && <span className="text-xs text-muted-foreground">{command.hint}</span>}
                     </button>
                   </li>
                 ))}

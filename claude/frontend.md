@@ -16,7 +16,7 @@ Cross-cutting, non-feature UI (layout, generic shadcn primitives, motion helpers
 
 ## Routing map
 
-- `/` → `HomePage`, assembling section components in order: Hero → About → Experience → Skills → Projects → Playground → Contact.
+- `/` → `HomePage`, assembling section components in order: Hero → About → Experience → Skills → Projects → Contact. (Playground was removed from the page and nav on 2026-09-28 until it has real content; see `roadmap.md`.)
 - `/projects/:slug` → `ProjectDetailPage`.
 - `*` → `NotFoundPage`.
 

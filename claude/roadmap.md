@@ -20,7 +20,7 @@ A working full-stack skeleton proving the architecture end-to-end, not the finis
 ## Phase 2 — Content and polish
 
 - Real personal content (bio, experience, skills, actual project write-ups) replacing placeholders.
-- Playground: actual interactive content (concept still TBD).
+- Playground: actual interactive content (concept still TBD). The "coming soon" placeholder section, nav link and palette command were removed on 2026-09-28 (a recruiter review flagged an empty section in the nav as looking unfinished); restore them from git history together with the real content.
 - Visual polish pass against `design-system.md` once real content exists to design around.
 
 ## Phase 3 — Deferred features from the original spec

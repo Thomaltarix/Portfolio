@@ -3,21 +3,21 @@
   "entries": [
     {
       "company": "La Trace",
-      "role": "Développeur Full Stack",
-      "period": "2025 - 2026",
-      "description": "Développement et maintenance d'applications métier, de services backend et des processus de déploiement au sein d'une équipe pluridisciplinaire."
+      "role": "Développeur Full Stack freelance",
+      "period": "nov. 2025 - mars 2026",
+      "description": "Mission freelance en télétravail depuis Séoul pendant mon année d'échange. Après avoir commencé par corriger des bugs, j'ai surtout industrialisé des POC Python d'intégration d'API externes : des tâches planifiées (crons) qui récupèrent et synchronisent les données de ces API, et les écrans du frontend qui les affichent."
     },
     {
       "company": "Bouygues Telecom",
-      "role": "Développeur Full Stack",
-      "period": "2025",
-      "description": "Participation au développement de solutions logicielles internes dans un environnement Agile, avec un focus sur les fonctionnalités backend et la maintenance des applications."
+      "role": "Stagiaire Développeur Full Stack",
+      "period": "2025 · 6 mois",
+      "description": "Stage de six mois sur GitCockpit, un outil interne qui aide la DSI de Bouygues Telecom à gouverner son code en calculant des analyses sur le GitLab de l'entreprise, avec à venir des indicateurs comme la taille des dépôts ou les technologies utilisées. Full stack en Java et React, avec l'essentiel de mon travail sur le backend Java."
     },
     {
       "company": "Epitech Nantes",
       "role": "Assistant pédagogique",
       "period": "2024 - 2025",
-      "description": "Accompagnement des étudiants de première année en C, C++, Python, algorithmique et ingénierie logicielle, en les aidant à résoudre des problématiques techniques et à progresser dans leurs projets."
+      "description": "Accompagnement des étudiants de première et deuxième année en C, C++, Python, algorithmique et ingénierie logicielle, en les aidant à résoudre des problématiques techniques et à progresser dans leurs projets."
     },
     {
       "company": "SERAD",

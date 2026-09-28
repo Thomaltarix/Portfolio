@@ -17,7 +17,8 @@ export function ProjectDetailPage() {
     <section className="mx-auto max-w-3xl px-6 py-16 sm:py-24">
       {project && (
         <Helmet>
-          <title>{project.title} | Portfolio</title>
+          {/* One string child: Helmet drops a <title> whose children are split into several nodes. */}
+          <title>{`${project.title} | Portfolio`}</title>
           <meta name="description" content={project.summary} />
         </Helmet>
       )}

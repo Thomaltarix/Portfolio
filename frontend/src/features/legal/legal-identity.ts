@@ -7,7 +7,7 @@ export const LEGAL_IDENTITY = {
   contactEmail: CONTACT_LINKS.email,
   hostName: 'OVH SAS',
   hostAddress: '2 rue Kellermann, 59100 Roubaix, France',
-  hostPhone: '1007 (depuis la France)',
+  hostPhone: '1007',
   hostWebsite: 'https://www.ovhcloud.com',
   siteUrl: 'https://thomasboue.com',
   lastUpdated: '2026-09-20',

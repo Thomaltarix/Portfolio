@@ -32,7 +32,7 @@
         "heading": "Hébergeur",
         "paragraphs": [
           "{{hostName}}, {{hostAddress}}.",
-          "Téléphone : {{hostPhone}}. Site : {{hostWebsite}}."
+          "Téléphone : {{hostPhone}} (depuis la France). Site : {{hostWebsite}}."
         ]
       },
       {

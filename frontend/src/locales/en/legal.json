@@ -32,7 +32,7 @@
         "heading": "Hosting",
         "paragraphs": [
           "{{hostName}}, {{hostAddress}}.",
-          "Phone: {{hostPhone}}. Website: {{hostWebsite}}."
+          "Phone: {{hostPhone}} (from France). Website: {{hostWebsite}}."
         ]
       },
       {

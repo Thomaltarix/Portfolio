@@ -1,6 +1,7 @@
 import { RootLayout } from '@/components/layout/RootLayout';
 import { PageViewTracker } from '@/features/analytics/components/PageViewTracker';
 import { QueryClientProvider } from '@tanstack/react-query';
+import { MotionConfig } from 'framer-motion';
 import { lazy, Suspense } from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -33,33 +34,37 @@ function AdminFallback() {
 }
 
 export function App() {
+  // reducedMotion="user" makes every Framer animation honour the OS "reduce motion" setting (transforms are
+  // dropped, fades kept), so no component can forget to check it.
   return (
-    <QueryClientProvider client={queryClient}>
-      <HelmetProvider>
-        <ThemeProvider>
-          <BrowserRouter>
-            <PageViewTracker />
-            <Routes>
-              <Route element={<RootLayout />}>
-                <Route index element={<HomePage />} />
-                <Route path="projects/:slug" element={<ProjectDetailPage />} />
-                <Route path="mentions-legales" element={<LegalNoticePage />} />
-                <Route path="confidentialite" element={<PrivacyPolicyPage />} />
-                <Route path="*" element={<NotFoundPage />} />
-              </Route>
+    <MotionConfig reducedMotion="user">
+      <QueryClientProvider client={queryClient}>
+        <HelmetProvider>
+          <ThemeProvider>
+            <BrowserRouter>
+              <PageViewTracker />
+              <Routes>
+                <Route element={<RootLayout />}>
+                  <Route index element={<HomePage />} />
+                  <Route path="projects/:slug" element={<ProjectDetailPage />} />
+                  <Route path="mentions-legales" element={<LegalNoticePage />} />
+                  <Route path="confidentialite" element={<PrivacyPolicyPage />} />
+                  <Route path="*" element={<NotFoundPage />} />
+                </Route>
 
-              <Route
-                path="admin/*"
-                element={
-                  <Suspense fallback={<AdminFallback />}>
-                    <AdminRoutes />
-                  </Suspense>
-                }
-              />
-            </Routes>
-          </BrowserRouter>
-        </ThemeProvider>
-      </HelmetProvider>
-    </QueryClientProvider>
+                <Route
+                  path="admin/*"
+                  element={
+                    <Suspense fallback={<AdminFallback />}>
+                      <AdminRoutes />
+                    </Suspense>
+                  }
+                />
+              </Routes>
+            </BrowserRouter>
+          </ThemeProvider>
+        </HelmetProvider>
+      </QueryClientProvider>
+    </MotionConfig>
   );
 }

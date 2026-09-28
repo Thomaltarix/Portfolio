@@ -64,7 +64,8 @@ export function HeroSection() {
         sizes="100vw"
         alt=""
         fetchPriority="high"
-        style={isDrifting ? { y: imageY, scale: imageScale } : undefined}
+        // will-change keeps the large photo on its own GPU layer, so Chrome moves it instead of repainting it every frame.
+        style={isDrifting ? { y: imageY, scale: imageScale, willChange: 'transform' } : undefined}
         // Phones: the photo keeps its own height (tied to the screen width) and is aligned to the top, so the mountain
         // sits between the title and the copy instead of being stretched behind everything. From sm up it fills the hero.
         className="absolute inset-x-0 top-0 -z-20 max-sm:h-[var(--photo-height,150vw)] h-[150vw] w-full object-cover object-[50%_46%] sm:inset-0 sm:h-full"

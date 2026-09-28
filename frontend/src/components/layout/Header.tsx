@@ -35,7 +35,8 @@ export function Header() {
           {t('brand')}
         </Link>
 
-        <nav className="hidden items-center gap-1 lg:flex">
+        {/* isolate here, not on each link: the sliding pill must stay under every label while it moves between them. */}
+        <nav className="isolate hidden items-center gap-1 lg:flex">
           {NAV_LINKS.map((link) => {
             const isActive = link.id === activeId;
             return (
@@ -44,7 +45,7 @@ export function Header() {
                 to={`/#${link.id}`}
                 aria-current={isActive ? 'location' : undefined}
                 className={cn(
-                  'relative isolate flex items-center gap-2 rounded-full px-3 py-1.5 text-sm transition-colors duration-150',
+                  'relative flex items-center gap-2 rounded-full px-3 py-1.5 text-sm transition-colors duration-150',
                   isActive
                     ? 'text-foreground'
                     : 'text-muted-foreground [@media(hover:hover)]:hover:text-foreground',

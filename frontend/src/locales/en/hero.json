@@ -13,8 +13,8 @@
     ],
     "studyingLabel": "Education",
     "studying": "5th year software engineering student at Epitech",
-    "stackLabel": "Stack",
-    "stack": "Go · TypeScript · NestJS · PostgreSQL · Docker"
+    "stackLabel": "Languages",
+    "stack": "Go · C++ · Python · Java · TypeScript · C"
   },
   "photoCaption": "Mount Fuji from Lake Kawaguchi, 1 January 2026, 830 m above sea level."
 }

@@ -132,7 +132,7 @@ export function HeroSection() {
                   </ul>
                 </dd>
               ) : (
-                <dd className={cn('text-base text-foreground', item === 'stack' && 'font-mono text-sm')}>
+                <dd className={cn('text-base text-foreground', item === 'stack' && 'font-mono text-sm text-balance')}>
                   {t(`now.${item}`)}
                 </dd>
               )}

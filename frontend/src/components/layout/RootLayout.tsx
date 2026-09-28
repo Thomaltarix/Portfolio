@@ -6,13 +6,19 @@ import { Header } from './Header';
 
 export function RootLayout() {
   const { t } = useTranslation('common');
-  const { pathname, hash } = useLocation();
+  const { pathname, hash, key } = useLocation();
 
-  // BrowserRouter keeps the previous scroll position on navigation, which would
-  // open a legal page from the footer already scrolled to its bottom.
+  // BrowserRouter neither resets the scroll position nor follows a hash on client-side
+  // navigation: a legal page would open scrolled to its bottom, and "/#projects" from
+  // another page would land on the hero. Keyed on the location so clicking the same
+  // section link twice still scrolls back to it.
   useEffect(() => {
-    if (!hash) window.scrollTo(0, 0);
-  }, [pathname, hash]);
+    if (!hash) {
+      window.scrollTo(0, 0);
+      return;
+    }
+    document.getElementById(decodeURIComponent(hash.slice(1)))?.scrollIntoView();
+  }, [pathname, hash, key]);
 
   return (
     <div id="top" className="flex min-h-screen flex-col">

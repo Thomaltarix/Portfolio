@@ -39,9 +39,9 @@ export function Header() {
           {NAV_LINKS.map((link) => {
             const isActive = link.id === activeId;
             return (
-              <a
+              <Link
                 key={link.id}
-                href={`#${link.id}`}
+                to={`/#${link.id}`}
                 aria-current={isActive ? 'location' : undefined}
                 className={cn(
                   'relative isolate flex items-center gap-2 rounded-full px-3 py-1.5 text-sm transition-colors duration-150',
@@ -61,7 +61,7 @@ export function Header() {
                 {'comingSoon' in link && link.comingSoon && (
                   <Badge className="hidden xl:inline-flex">{t('comingSoon')}</Badge>
                 )}
-              </a>
+              </Link>
             );
           })}
         </nav>

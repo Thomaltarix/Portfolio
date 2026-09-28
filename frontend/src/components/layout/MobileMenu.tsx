@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { LanguageToggle } from './LanguageToggle';
 import { RESUME_FILES } from './resume-files';
 import { ThemeToggle } from './ThemeToggle';
@@ -78,8 +78,8 @@ export function MobileMenu({ links, activeId }: MobileMenuProps) {
               <ul>
                 {links.map((link) => (
                   <li key={link.id}>
-                    <a
-                      href={`#${link.id}`}
+                    <Link
+                      to={`/#${link.id}`}
                       onClick={() => setIsOpen(false)}
                       aria-current={link.id === activeId ? 'location' : undefined}
                       className={cn(
@@ -89,7 +89,7 @@ export function MobileMenu({ links, activeId }: MobileMenuProps) {
                     >
                       {t(link.labelKey)}
                       {link.comingSoon && <Badge>{t('comingSoon')}</Badge>}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>

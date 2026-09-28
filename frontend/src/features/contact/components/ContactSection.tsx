@@ -60,12 +60,12 @@ export function ContactSection() {
               </a>
             </li>
             <li>
-              <a href={CONTACT_LINKS.linkedinUrl} rel="noopener noreferrer" className={LINK_CLASS}>
+              <a href={CONTACT_LINKS.linkedinUrl} target="_blank" rel="noopener noreferrer" className={LINK_CLASS}>
                 LinkedIn
               </a>
             </li>
             <li>
-              <a href={CONTACT_LINKS.githubUrl} rel="noopener noreferrer" className={LINK_CLASS}>
+              <a href={CONTACT_LINKS.githubUrl} target="_blank" rel="noopener noreferrer" className={LINK_CLASS}>
                 GitHub
               </a>
             </li>

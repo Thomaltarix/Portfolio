@@ -2,24 +2,24 @@
   "heading": "Compétences",
   "groups": [
     {
-      "category": "Langages",
-      "items": ["Go", "TypeScript", "C++", "Java", "Python", "C", "Bash", "SQL"]
+      "category": "Backend",
+      "items": ["NestJS", "Node.js", "API REST", "GraphQL", "WebSockets"]
     },
     {
-      "category": "Backend",
-      "items": ["NestJS", "Node.js", "REST", "GraphQL", "Prisma", "WebSockets"]
+      "category": "Langages",
+      "items": ["Go", "TypeScript", "C++", "C", "Python", "Java", "Bash", "SQL"]
     },
     {
       "category": "Bases de données",
-      "items": ["PostgreSQL", "SQL"]
+      "items": ["PostgreSQL", "Prisma"]
     },
     {
       "category": "Cloud & DevOps",
-      "items": ["Docker", "GitHub Actions", "Linux", "Cloudflare", "Nginx", "CI/CD", "Ansible"]
+      "items": ["Docker", "GitHub Actions", "CI/CD", "Linux", "Nginx", "Ansible", "Cloudflare"]
     },
     {
-      "category": "Frontend & Mobile",
-      "items": ["React", "Vue.js", "Flutter", "TailwindCSS"]
+      "category": "Utilisé aussi",
+      "items": ["React", "Flutter"]
     }
   ]
 }

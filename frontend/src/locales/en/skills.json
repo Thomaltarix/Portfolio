@@ -2,24 +2,24 @@
   "heading": "Skills",
   "groups": [
     {
-      "category": "Languages",
-      "items": ["Go", "TypeScript", "C++", "Java", "Python", "C", "Bash", "SQL"]
-    },
-    {
       "category": "Backend",
-      "items": ["NestJS", "Node.js", "REST APIs", "GraphQL", "Prisma", "WebSockets"]
+      "items": ["NestJS", "Node.js", "REST APIs", "GraphQL", "WebSockets"]
     },
     {
-      "category": "Database",
-      "items": ["PostgreSQL", "SQL"]
+      "category": "Languages",
+      "items": ["Go", "TypeScript", "C++", "C", "Python", "Java", "Bash", "SQL"]
+    },
+    {
+      "category": "Databases",
+      "items": ["PostgreSQL", "Prisma"]
     },
     {
       "category": "Cloud & DevOps",
-      "items": ["Docker", "GitHub Actions", "Linux", "Cloudflare", "Nginx", "CI/CD", "Ansible"]
+      "items": ["Docker", "GitHub Actions", "CI/CD", "Linux", "Nginx", "Ansible", "Cloudflare"]
     },
     {
-      "category": "Frontend & Mobile",
-      "items": ["React", "Vue.js", "Flutter", "TailwindCSS"]
+      "category": "Also used",
+      "items": ["React", "Flutter"]
     }
   ]
 }

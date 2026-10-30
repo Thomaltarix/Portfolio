@@ -1,8 +1,8 @@
 {
   "heading": "About",
   "paragraphs": [
-    "I'm a fifth-year software engineering student at Epitech, and I mostly work on the backend: APIs, databases and the infrastructure that keeps them running.",
-    "On Melo, my end-of-studies project, I'm the backend tech lead and its main developer, building the Go microservices behind the app. I also ship my own projects end to end: this site runs on a server I manage, deployed with Docker and GitHub Actions.",
-    "I'm looking for a backend or software engineering internship where I can work on systems that run in production."
+    "I'm a fifth-year student at Epitech, moving towards IoT, embedded systems and connected devices.",
+    "C++ is my strongest language: among other things, I used it to write a game engine with my team on R-Type. I'm comfortable on Linux, on the command line, and with Git and Docker. I also come from software development: on Melo, my end-of-studies project, I'm the backend tech lead.",
+    "I spent a year in South Korea, speaking English every day: very comfortable speaking and reading, solid in writing. I'm looking for a six-month end-of-studies internship from March 2027, with a view to a permanent position."
   ]
 }

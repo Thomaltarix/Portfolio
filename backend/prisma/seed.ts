@@ -158,7 +158,7 @@ I was the top contributor, with 386 of about 1,300 commits. I owned the gameplay
     slug: 'home-server',
     title: 'Home server',
     summary:
-      'A storage server on an old laptop, first set up in August 2025 to keep photos safe during a year in South Korea. Further work planned this year.',
+      'A storage server on an old laptop, first set up in August 2025 to keep photos safe during a year in South Korea. Power consumption dashboard in progress.',
     content: `## Problem
 
 Photos needed a place to live during a year in South Korea.
@@ -172,9 +172,9 @@ A personal storage server on an old laptop, started in August 2025:
 - **Immich** for the photos.
 - **Tailscale** for remote access.
 
-## Next
+## In progress
 
-So far it has mostly served as photo storage, with more serious work planned this year. The goal is a power consumption dashboard, possibly with Home Assistant.`,
+So far it has mostly served as photo storage. Current goal: a power consumption dashboard, possibly with Home Assistant.`,
     techStack: ['TrueNAS', 'Docker', 'Immich', 'Tailscale'],
     githubUrl: null,
     liveUrl: null,
@@ -311,7 +311,7 @@ J'étais le premier contributeur, avec 386 commits sur environ 1 300. J'avais la
   'home-server': {
     title: 'Serveur personnel',
     summary:
-      'Serveur de stockage sur un vieil ordinateur portable, mis en place en août 2025 pour conserver des photos pendant une année en Corée du Sud. Évolutions prévues cette année.',
+      'Serveur de stockage sur un vieil ordinateur portable, mis en place en août 2025 pour conserver des photos pendant une année en Corée du Sud. Tableau de bord de consommation électrique en cours.',
     content: `## Problème
 
 Une année en Corée du Sud, et besoin d'un endroit où stocker les photos.
@@ -325,9 +325,9 @@ Un serveur de stockage personnel sur un vieil ordinateur portable, commencé en 
 - **Immich** pour les photos.
 - **Tailscale** pour l'accès à distance.
 
-## Et ensuite
+## En cours
 
-Jusqu'ici, il a surtout servi au stockage de photos ; un travail plus poussé est prévu cette année. L'objectif est un tableau de bord de consommation électrique, peut-être avec Home Assistant.`,
+Jusqu'ici, il a surtout servi au stockage de photos. Objectif actuel : un tableau de bord de consommation électrique, peut-être avec Home Assistant.`,
   },
   'iot-telemetry-simulator': {
     title: 'Simulateur de télémétrie IoT',

@@ -80,7 +80,7 @@ export function HeroSection() {
           ref={titleRef}
           {...rise(0)}
           className={cn(
-            // 54rem is the width where both locales wrap onto three lines (measured: FR needs >= 800px, EN stays on three up to 920px).
+            // 54rem keeps the title on two lines in both locales on desktop.
             'max-w-[54rem] text-[1.75rem] font-semibold leading-[1.12] tracking-[-0.03em] min-[400px]:text-[2rem] sm:text-[2.75rem] lg:text-[3.25rem]',
             SKY_INK,
           )}

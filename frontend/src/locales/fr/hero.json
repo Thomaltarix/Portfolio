@@ -1,6 +1,6 @@
 {
-  "title": "Étudiant à Epitech, je cherche un stage de fin d'études en IoT ou en embarqué.",
-  "subtitle": "C++, Linux, Docker. J'ai installé mon propre serveur de stockage (TrueNAS, Tailscale) et je commence un simulateur de télémétrie IoT en C++ avec MQTT.",
+  "title": "Développement C++ et Linux, orienté IoT et systèmes embarqués.",
+  "subtitle": "Cinquième année à Epitech, stage de fin d'études de 6 mois recherché à partir de mars 2027. Un serveur personnel sous TrueNAS en place, un simulateur de télémétrie MQTT en cours.",
   "viewProjects": "Voir les projets",
   "getInTouch": "Me contacter",
   "now": {

@@ -1,6 +1,6 @@
 {
-  "title": "Epitech student, looking for a final internship in IoT or embedded systems.",
-  "subtitle": "C++, Linux, Docker. I set up my own storage server (TrueNAS, Tailscale) and I'm starting an IoT telemetry simulator in C++ with MQTT.",
+  "title": "C++ and Linux development, focused on IoT and embedded systems.",
+  "subtitle": "Fifth year at Epitech, seeking a six-month end-of-studies internship from March 2027. A personal TrueNAS server in place, an MQTT telemetry simulator in progress.",
   "viewProjects": "View projects",
   "getInTouch": "Get in touch",
   "now": {

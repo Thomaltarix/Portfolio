@@ -16,7 +16,7 @@ A personal portfolio that is itself a production system: React frontend, NestJS 
 
 ## Positioning
 
-A student moving towards IoT and embedded systems, with C++ and Linux as proof, not an experienced embedded engineer: no firmware or microcontroller work exists yet, and the copy must not imply otherwise. IoT and systems projects come first; backend and full-stack work follows as supporting experience.
+Lead with the motivation, not a list of technologies: automation, understanding how things work, and software with an effect on physical objects. C++ and Linux are supporting proof, and he should not be labelled a "C++ and Linux developer". A student moving towards IoT and embedded systems, not an experienced embedded engineer: no firmware or microcontroller work exists yet, and the copy must not imply otherwise. IoT and systems projects come first; backend and full-stack work follows as supporting experience.
 
 ## Operating Context
 

@@ -1,6 +1,6 @@
 # Thomas Boué, portfolio
 
-> Personal portfolio of Thomas Boué, a fifth-year student at Epitech moving towards IoT, embedded systems and connected devices. Bilingual site (English / French). Looking for a six-month end-of-studies internship from March 2027, with a view to a permanent position. Exchange year at Chung-Ang University (South Korea) in 2025-2026.
+> Personal portfolio of Thomas Boué, a fifth-year student at Epitech drawn to automation and to software that acts on physical objects: IoT, embedded systems and connected devices. Bilingual site (English / French). Looking for a six-month end-of-studies internship from March 2027, with a view to a permanent position. Exchange year at Chung-Ang University (South Korea) in 2025-2026.
 
 Main skills: C++, Linux, Git, Docker. The site itself is a React + NestJS + PostgreSQL project, deployed with Docker and GitHub Actions.
 

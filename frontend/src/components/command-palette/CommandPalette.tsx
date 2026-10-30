@@ -72,8 +72,8 @@ export function CommandPalette() {
   const commands = useMemo<Command[]>(
     () => [
       { id: 'about', label: t('nav.about'), onSelect: () => goToSection('about') },
-      { id: 'experience', label: t('nav.experience'), onSelect: () => goToSection('experience') },
       { id: 'projects', label: t('nav.projects'), onSelect: () => goToSection('projects') },
+      { id: 'experience', label: t('nav.experience'), onSelect: () => goToSection('experience') },
       { id: 'contact', label: t('nav.contact'), onSelect: () => goToSection('contact') },
       {
         id: 'theme',

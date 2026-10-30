@@ -1,6 +1,6 @@
 # Portfolio
 
-A production-style portfolio for a Backend & Software Engineer: NestJS + Prisma + PostgreSQL API, React + Vite frontend, Docker Compose for deployment.
+A production-style portfolio for a student seeking an IoT and embedded internship: NestJS + Prisma + PostgreSQL API, React + Vite frontend, Docker Compose for deployment.
 
 See [`CLAUDE.md`](CLAUDE.md) for engineering principles and [`claude/`](claude/CLAUDE.md) for architecture, schema, and roadmap docs.
 

@@ -1,8 +1,8 @@
 {
   "heading": "About",
   "paragraphs": [
-    "I'm a fifth-year software engineering student at Epitech, and I mostly work on the backend: APIs, databases and the infrastructure that keeps them running.",
-    "On Melo, my end-of-studies project, I'm the backend tech lead and its main developer, building the Go microservices behind the app. I also ship my own projects end to end: this site runs on a server I manage, deployed with Docker and GitHub Actions.",
-    "I'm looking for a backend or software engineering internship where I can work on systems that run in production."
+    "Automating things, understanding how they work, and seeing the result on an actual physical object.",
+    "C++ remains my strongest language, notably through a game engine written with my team on R-Type. Linux, the command line, Git and Docker are part of my toolkit. Backend experience adds to that: backend tech lead on Melo, my end-of-studies project.",
+    "A year in South Korea, using English every day: very comfortable speaking and reading, solid in writing. Seeking a six-month end-of-studies internship from March 2027, with a view to a permanent position."
   ]
 }

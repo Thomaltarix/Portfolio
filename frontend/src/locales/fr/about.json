@@ -1,8 +1,8 @@
 {
   "heading": "À propos",
   "paragraphs": [
-    "Je suis en 5e année d'ingénierie logicielle à Epitech, et je travaille surtout côté backend : API, bases de données et l'infrastructure qui les fait tourner.",
-    "Sur Melo, mon projet de fin d'études, je suis lead technique du backend et son principal développeur, sur les microservices Go derrière l'application. Je mène aussi mes propres projets jusqu'en production : ce site tourne sur un serveur que je gère, déployé avec Docker et GitHub Actions.",
-    "Je cherche un stage en backend ou en développement logiciel, pour travailler sur des systèmes en production."
+    "Automatiser, comprendre comment les choses fonctionnent, et voir le résultat sur un objet bien réel.",
+    "Le C++ reste mon langage le plus solide, avec notamment un moteur de jeu écrit en équipe sur R-Type. Linux, la ligne de commande, Git et Docker font partie de mes outils. S'y ajoute une expérience backend : lead technique du backend sur Melo, mon projet de fin d'études.",
+    "Un an en Corée du Sud, avec l'anglais au quotidien : très à l'aise à l'oral et à la lecture, solide à l'écrit. Stage de fin d'études de 6 mois recherché à partir de mars 2027, avec l'objectif d'un CDI."
   ]
 }

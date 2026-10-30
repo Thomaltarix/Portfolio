@@ -1,12 +1,12 @@
 # Thomas Boué, portfolio
 
-> Personal portfolio of Thomas Boué, a software engineering student at Epitech specialised in backend development, cloud infrastructure and distributed systems. Bilingual site (English / French). Currently looking for two internships: part-time (Mon/Wed) available now until February 2027, then full-time March to August 2027. Exchange year at Chung-Ang University (South Korea) in 2025-2026.
+> Personal portfolio of Thomas Boué, a fifth-year student at Epitech moving towards IoT, embedded systems and connected devices. Bilingual site (English / French). Looking for a six-month end-of-studies internship from March 2027, with a view to a permanent position. Exchange year at Chung-Ang University (South Korea) in 2025-2026.
 
-Main stack: Go, TypeScript, NestJS, PostgreSQL, Docker. The site itself is a React + NestJS + PostgreSQL project, deployed with Docker and GitHub Actions.
+Main skills: C++, Linux, Git, Docker. The site itself is a React + NestJS + PostgreSQL project, deployed with Docker and GitHub Actions.
 
 ## Pages
 
-- [Home](https://thomasboue.com/): about, experience, skills, projects and contact form, on a single page.
+- [Home](https://thomasboue.com/): about, projects, skills, experience and contact form, on a single page.
 - [Legal notice](https://thomasboue.com/mentions-legales): publisher and host information.
 - [Privacy policy](https://thomasboue.com/confidentialite): personal data processing and rights.
 

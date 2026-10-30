@@ -2,6 +2,12 @@
   "heading": "Experience",
   "entries": [
     {
+      "company": "Konversational",
+      "role": "Part-time Intern",
+      "period": "Since Oct 2026",
+      "description": "Part-time internship, Monday to Wednesday. I'm currently training on ServiceNow."
+    },
+    {
       "company": "La Trace",
       "role": "Freelance Full Stack Developer",
       "period": "Nov 2025 - Mar 2026",
@@ -10,8 +16,8 @@
     {
       "company": "Bouygues Telecom",
       "role": "Software Engineering Intern (Full Stack)",
-      "period": "2025 · 6 months",
-      "description": "Six-month internship on an internal GitLab analytics tool that helps Bouygues Telecom's IT department govern its code, with metrics such as repository size and technologies in use planned next. Full stack in Java and React, with most of my work on the Java backend."
+      "period": "Apr - Aug 2025",
+      "description": "Internship on an internal GitLab analytics tool that helps Bouygues Telecom's IT department govern its code, with metrics such as repository size and technologies in use planned next. Full stack in Java and React, with most of my work on the Java backend."
     },
     {
       "company": "Epitech Nantes",

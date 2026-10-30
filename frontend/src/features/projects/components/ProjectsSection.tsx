@@ -3,7 +3,32 @@ import { FadeIn } from '@/components/motion/FadeIn';
 import { SectionHeading } from '@/components/ui/section-heading';
 import { useTranslation } from 'react-i18next';
 import { useProjects } from '../hooks/use-projects';
+import type { ProjectSummary } from '../types/project.types';
 import { ProjectCard } from './ProjectCard';
+
+interface ProjectGroupProps {
+  readonly heading: string;
+  readonly projects: readonly ProjectSummary[];
+}
+
+function ProjectGroup({ heading, projects }: ProjectGroupProps) {
+  if (projects.length === 0) return null;
+
+  return (
+    <div className="mt-12 md:mt-16">
+      <FadeIn>
+        <h3 className="text-sm text-muted-foreground">{heading}</h3>
+      </FadeIn>
+      <div className="mt-6 grid gap-4 md:grid-cols-2 md:gap-6">
+        {projects.map((project, index) => (
+          <FadeIn key={project.id} delay={index * 0.05}>
+            <ProjectCard project={project} />
+          </FadeIn>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export function ProjectsSection() {
   const { t } = useTranslation('projects');
@@ -28,13 +53,10 @@ export function ProjectsSection() {
       )}
 
       {projects && projects.length > 0 && (
-        <div className="mt-12 grid gap-4 md:mt-16 md:grid-cols-2 md:gap-6">
-          {projects.map((project, index) => (
-            <FadeIn key={project.id} delay={index * 0.05}>
-              <ProjectCard project={project} />
-            </FadeIn>
-          ))}
-        </div>
+        <>
+          <ProjectGroup heading={t('groups.featured')} projects={projects.filter((project) => project.featured)} />
+          <ProjectGroup heading={t('groups.other')} projects={projects.filter((project) => !project.featured)} />
+        </>
       )}
     </section>
   );

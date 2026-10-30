@@ -54,7 +54,7 @@ The source code lives in a private organisation, so there is no public repositor
     ],
     githubUrl: null,
     liveUrl: null,
-    featured: true,
+    featured: false,
   },
   {
     slug: 'portfolio',
@@ -88,7 +88,7 @@ This site was built with Claude Code. I made the architecture and design decisio
     ],
     githubUrl: 'https://github.com/Thomaltarix/Portfolio',
     liveUrl: null,
-    featured: true,
+    featured: false,
   },
   {
     slug: 'unified-calendar',
@@ -152,7 +152,57 @@ I was the top contributor, with 386 of about 1,300 commits. I owned the gameplay
     techStack: ['C++', 'CMake', 'vcpkg', 'Raylib', 'ECS', 'GitHub Actions'],
     githubUrl: 'https://github.com/FppEpitech/R-Type',
     liveUrl: null,
-    featured: false,
+    featured: true,
+  },
+  {
+    slug: 'home-server',
+    title: 'Home server',
+    summary:
+      'A storage server on an old laptop, first set up in August 2025 to keep my photos before leaving for South Korea. I am developing it further this year.',
+    content: `## Problem
+
+Before leaving for a year in South Korea, I needed somewhere to store my photos.
+
+## What I built
+
+A personal storage server on an old laptop, started in August 2025:
+
+- **TrueNAS** as the operating system.
+- **Docker** to run the services.
+- **Immich** for the photos.
+- **Tailscale** for remote access.
+
+## Next
+
+So far it has mostly served as photo storage, and I plan to work on it seriously this year. The goal is a power consumption dashboard, possibly with Home Assistant.`,
+    techStack: ['TrueNAS', 'Docker', 'Immich', 'Tailscale'],
+    githubUrl: null,
+    liveUrl: null,
+    featured: true,
+  },
+  // Listed last so it is the newest row: featured projects are served newest first.
+  {
+    slug: 'iot-telemetry-simulator',
+    title: 'IoT telemetry simulator',
+    summary:
+      'In progress: a telemetry pipeline in C++ over MQTT, with simulated sensors, a collector, SQLite storage and alerts.',
+    content: `## Status
+
+In progress. The project has just started, so everything below is what I plan to build, not what already works. The repository will be linked here once there is code to read.
+
+## Problem
+
+Understanding how IoT data travels from a device to an alert, without real sensors: all the data is simulated.
+
+## What I plan to build
+
+- Simulated sensors in C++ that publish their readings over **MQTT**.
+- A collector that receives those readings and stores them in **SQLite**.
+- Alerts raised from the collected data.`,
+    techStack: ['C++', 'MQTT', 'SQLite'],
+    githubUrl: null,
+    liveUrl: null,
+    featured: true,
   },
 ];
 
@@ -257,6 +307,45 @@ J'étais le premier contributeur, avec 386 commits sur environ 1 300. J'avais la
 - C++ compilé avec CMake et vcpkg, rendu avec Raylib.
 - Le moteur, la couche réseau et chaque jeu sont des modules séparés.
 - Intégration continue sous Linux et Windows, avec des tests unitaires.`,
+  },
+  'home-server': {
+    title: 'Serveur personnel',
+    summary:
+      'Un serveur de stockage sur un vieil ordinateur portable, mis en place en août 2025 pour garder mes photos avant de partir en Corée du Sud. Je le développe cette année.',
+    content: `## Problème
+
+Avant de partir un an en Corée du Sud, il me fallait un endroit où stocker mes photos.
+
+## Ce que j'ai construit
+
+Un serveur de stockage personnel sur un vieil ordinateur portable, commencé en août 2025 :
+
+- **TrueNAS** comme système d'exploitation.
+- **Docker** pour faire tourner les services.
+- **Immich** pour les photos.
+- **Tailscale** pour l'accès à distance.
+
+## Et ensuite
+
+Jusqu'ici, il a surtout servi à stocker mes photos, et je compte m'y consacrer sérieusement cette année. L'objectif est un tableau de bord de consommation électrique, peut-être avec Home Assistant.`,
+  },
+  'iot-telemetry-simulator': {
+    title: 'Simulateur de télémétrie IoT',
+    summary:
+      'En cours : une chaîne de télémétrie en C++ sur MQTT, avec capteurs simulés, collecteur, stockage SQLite et alertes.',
+    content: `## Statut
+
+En cours. Le projet vient de commencer : ce qui suit décrit ce que je prévois de construire, pas ce qui fonctionne déjà. Le dépôt sera lié ici dès qu'il y aura du code à lire.
+
+## Problème
+
+Comprendre comment les données IoT circulent d'un appareil jusqu'à une alerte, sans vrais capteurs : toutes les données sont simulées.
+
+## Ce que je prévois de construire
+
+- Des capteurs simulés en C++ qui publient leurs mesures sur **MQTT**.
+- Un collecteur qui reçoit ces mesures et les stocke dans **SQLite**.
+- Des alertes déclenchées à partir des données collectées.`,
   },
 };
 

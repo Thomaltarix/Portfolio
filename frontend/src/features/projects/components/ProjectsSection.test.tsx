@@ -84,6 +84,30 @@ describe('ProjectsSection', () => {
     expect(screen.getByText('Portfolio Site')).toBeInTheDocument();
   });
 
+  it('lists featured projects under their own group, before the others', async () => {
+    fetchProjectsMock.mockResolvedValue(projects);
+
+    renderWithProviders(<ProjectsSection />);
+
+    const featuredHeading = await screen.findByRole('heading', { name: 'IoT and systems' });
+    const otherHeading = screen.getByRole('heading', { name: 'Web and backend' });
+    const featuredCard = screen.getByText('Realtime Chat Platform');
+    const otherCard = screen.getByText('Portfolio Site');
+
+    expect(featuredHeading.compareDocumentPosition(featuredCard)).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+    expect(featuredCard.compareDocumentPosition(otherHeading)).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+    expect(otherHeading.compareDocumentPosition(otherCard)).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+  });
+
+  it('hides a group that has no projects', async () => {
+    fetchProjectsMock.mockResolvedValue(projects.filter((project) => !project.featured));
+
+    renderWithProviders(<ProjectsSection />);
+
+    await screen.findByRole('heading', { name: 'Web and backend' });
+    expect(screen.queryByRole('heading', { name: 'IoT and systems' })).not.toBeInTheDocument();
+  });
+
   it('requests the projects in the site language and reloads them when it changes', async () => {
     fetchProjectsMock.mockResolvedValue(projects);
 

@@ -33,6 +33,15 @@ describe('apiFetch', () => {
     expect(init.headers).toMatchObject({ 'Content-Type': 'application/json' });
   });
 
+  it('leaves Content-Type to the browser for a multipart upload', async () => {
+    fetchMock.mockResolvedValue({ ok: true, json: () => Promise.resolve({}) });
+
+    await apiFetch('/resume/en', { method: 'PUT', body: new FormData() });
+
+    const [, init] = fetchMock.mock.calls[0] as [string, RequestInit];
+    expect(init.headers).not.toHaveProperty('Content-Type');
+  });
+
   it('includes credentials so the admin session cookie round-trips', async () => {
     fetchMock.mockResolvedValue({ ok: true, json: () => Promise.resolve({}) });
 

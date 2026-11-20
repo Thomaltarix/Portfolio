@@ -28,4 +28,6 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 # across nginx version bumps instead of being silently bypassed.
 COPY docker-entrypoint.d/40-generate-runtime-config.sh /docker-entrypoint.d/40-generate-runtime-config.sh
 RUN chmod +x /docker-entrypoint.d/40-generate-runtime-config.sh
+# Empty until the entrypoint script fills it, so nginx still starts if that script never ran.
+RUN mkdir -p /etc/nginx/runtime && touch /etc/nginx/runtime/resume-redirect.conf
 EXPOSE 80

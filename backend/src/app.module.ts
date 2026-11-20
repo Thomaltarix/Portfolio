@@ -12,6 +12,7 @@ import { ContactModule } from './modules/contact/contact.module';
 import { GithubModule } from './modules/github/github.module';
 import { HealthModule } from './modules/health/health.module';
 import { ProjectsModule } from './modules/projects/projects.module';
+import { ResumeModule } from './modules/resume/resume.module';
 import { PrismaModule } from './prisma/prisma.module';
 
 @Module({
@@ -33,6 +34,7 @@ import { PrismaModule } from './prisma/prisma.module';
     GithubModule,
     AuthModule,
     AnalyticsModule,
+    ResumeModule,
   ],
   providers: [{ provide: APP_GUARD, useClass: ThrottlerGuard }],
 })

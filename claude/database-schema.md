@@ -71,6 +71,17 @@ Provisioned by `prisma/create-admin.ts` (upsert by email), not through the API �
 
 No IP column, by design — see `backend.md`'s analytics section for the privacy reasoning. This is a first-party alternative to the Phase 3 "real analytics vendor" item, not a replacement for it; they can coexist.
 
+## `Resume`
+
+| Field | Type | Notes |
+|---|---|---|
+| `locale` | `String @id` | `en` or `fr` — one row per language, replaced in place by `PUT /resume/:locale`. |
+| `content` | `Bytes` | The PDF itself (`BYTEA`). |
+| `sizeBytes` | `Int` | Stored so the admin list never has to load `content`. |
+| `updatedAt` | `DateTime @updatedAt` | |
+
+The file lives in Postgres rather than on disk on purpose: a résumé is ~60 KB, so this needs no Docker volume or VPS change, follows the staging/production database split for free, and is covered by database backups. Empty after the migration: each environment's résumés are uploaded from its own `/admin/resume`.
+
 ## Migration policy
 
 - Never edit a previously-applied migration file. If a mistake ships, write a new migration that corrects it.

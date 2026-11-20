@@ -53,6 +53,16 @@ model Admin {
   updatedAt    DateTime @updatedAt
 }
 
+// One downloadable résumé PDF per language, replaced from the admin dashboard.
+// Stored in Postgres rather than on disk so it needs no extra volume, follows
+// the staging/production database split and is covered by database backups.
+model Resume {
+  locale    String   @id
+  content   Bytes
+  sizeBytes Int
+  updatedAt DateTime @updatedAt
+}
+
 model PageView {
   id          String   @id @default(uuid())
   path        String

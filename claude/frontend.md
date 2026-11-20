@@ -23,7 +23,7 @@ Cross-cutting, non-feature UI (layout, generic shadcn primitives, motion helpers
 These routes render inside `RootLayout` (`Header` + `<Outlet/>` + `Footer`).
 
 - `/admin/login` → `AdminLoginPage` (public).
-- `/admin/*` → gated by `ProtectedRoute` (redirects to `/admin/login` if `useMe()` fails), then rendered inside `AdminLayout` (its own header/nav — not the public site chrome): `/admin/dashboard`, `/admin/projects`, `/admin/messages`.
+- `/admin/*` → gated by `ProtectedRoute` (redirects to `/admin/login` if `useMe()` fails), then rendered inside `AdminLayout` (its own header/nav — not the public site chrome): `/admin/dashboard`, `/admin/projects`, `/admin/messages`, `/admin/resume`.
 
 ## Data fetching
 
@@ -67,7 +67,8 @@ Two independent things, both called "analytics" — don't conflate them:
 ## Admin dashboard (`features/admin/`, `features/auth/`, `features/analytics/`)
 
 - `features/auth/` — `useMe()`/`useLogin()`/`useLogout()` (TanStack Query on top of `/auth/*`). `apiFetch` always sends `credentials: 'include'` so the httpOnly admin cookie round-trips to `api.<domain>` (harmless for anonymous requests — there's simply no cookie yet).
-- `features/admin/components/ProtectedRoute.tsx` gates the `/admin/*` subtree; `AdminLayout` is a separate shell from the public `RootLayout` (own nav: Dashboard/Projets/Messages + logout).
+- `features/admin/components/ProtectedRoute.tsx` gates the `/admin/*` subtree; `AdminLayout` is a separate shell from the public `RootLayout` (own nav: Dashboard/Projets/Messages/CV + logout).
+- `/admin/resume` (`ResumeAdmin` + one `ResumeUploadCard` per language) uploads the résumé PDFs through `features/resume/`. The public download links (`components/layout/resume-files.ts`, used by the header menu, mobile menu and command palette) point at `GET /resume/:locale` on the API, so a new upload is live without a redeploy. `apiFetch` skips its JSON `Content-Type` for a `FormData` body so the browser can set the multipart boundary.
 - Charts and ranked breakdowns (`features/analytics/components/TimeSeriesChart.tsx`, `RankedList.tsx`) are hand-rolled (inline SVG / styled lists), not a charting library — the design system (`design-system.md`) has exactly one accent color and no categorical palette, so a magnitude/ranked-list encoding (one hue, varying bar length) fits without inventing new colors or a dependency. Followed the `dataviz` skill's procedure (form → color → hover interaction → legend) rather than reaching for a library by default.
 - Project create/edit (`features/admin/components/ProjectForm.tsx`) reuses the existing `Button`/`Input`/`Label`/`Textarea` primitives and the react-hook-form + zod pattern from the contact form — no new `table`/`dialog`/`toast` primitives were needed; edit is a full-page form swap, not a modal, and save/delete feedback is inline text, matching `ContactSection`'s existing convention.
 - The project editor has Anglais / Français tabs: English holds the shared fields (slug, stack, links, featured) and the default text, French is saved separately through the translation endpoints. Both panes stay mounted so switching tabs never loses unsaved edits. Everything in the admin is usable at 360px (scrolling nav, stacked cards, one-column forms, 44px targets).

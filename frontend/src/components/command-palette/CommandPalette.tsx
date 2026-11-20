@@ -8,11 +8,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-
-const RESUME_FILES = {
-  en: '/resume-en.pdf',
-  fr: '/resume-fr.pdf',
-} as const;
+import { RESUME_FILES } from '@/components/layout/resume-files';
 
 const IS_MAC =
   typeof navigator !== 'undefined' && /Mac|iPhone|iPod|iPad/.test(navigator.userAgent);

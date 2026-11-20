@@ -8,6 +8,7 @@ const NAV_ITEMS = [
   { to: '/admin/dashboard', label: 'Dashboard' },
   { to: '/admin/projects', label: 'Projets' },
   { to: '/admin/messages', label: 'Messages' },
+  { to: '/admin/resume', label: 'CV' },
 ];
 
 export function AdminLayout() {

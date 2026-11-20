@@ -21,3 +21,25 @@ window.__APP_CONFIG__ = {
   apiBaseUrl: "${escaped_url}",
 };
 EOF
+
+# The résumés now live in the API (replaced from the admin), but links to the
+# old static /resume-<lang>.pdf URLs are already out there — in sent
+# applications and llms.txt — so they redirect to the current file instead of
+# breaking. This lands inside an nginx config rather than a JS string, so the
+# URL is allowlisted instead of escaped: anything else (";", "}", spaces...)
+# could inject directives, and is skipped with a warning.
+redirect_conf=/etc/nginx/runtime/resume-redirect.conf
+api_url=$(printf '%s' "${API_BASE_URL:-}" | sed 's:/*$::')
+
+if printf '%s' "$api_url" | grep -Eq '^https?://[A-Za-z0-9.-]+(:[0-9]+)?(/[A-Za-z0-9._~/-]*)?$'; then
+  cat <<EOF > "$redirect_conf"
+location ~ ^/resume-(en|fr)\.pdf\$ {
+    # Never cached, so the redirect always reaches the résumé currently uploaded.
+    add_header Cache-Control "no-store" always;
+    return 302 ${api_url}/resume/\$1;
+}
+EOF
+else
+  echo "40-generate-runtime-config: API_BASE_URL is not a plain http(s) URL, old résumé URLs will not redirect" >&2
+  : > "$redirect_conf"
+fi

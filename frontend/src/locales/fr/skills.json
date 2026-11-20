@@ -3,23 +3,27 @@
   "groups": [
     {
       "category": "Langages",
-      "items": ["Go", "C++", "Python", "Java", "TypeScript", "C"]
+      "items": ["C++", "C", "Python", "Go", "Java", "TypeScript"]
     },
     {
-      "category": "Backend",
-      "items": ["API REST", "NestJS", "Node.js"]
+      "category": "Systèmes et outils",
+      "items": ["Linux", "Ligne de commande", "Git", "Docker", "CMake"]
     },
     {
-      "category": "Bases de données",
-      "items": ["PostgreSQL", "Prisma"]
+      "category": "IoT (projet en cours)",
+      "items": ["MQTT", "SQLite"]
     },
     {
-      "category": "Cloud & DevOps",
-      "items": ["Docker", "GitHub Actions", "CI/CD", "Linux", "Ansible", "Cloudflare"]
+      "category": "Auto-hébergement",
+      "items": ["TrueNAS", "Immich", "Tailscale"]
+    },
+    {
+      "category": "Backend et web",
+      "items": ["API REST", "NestJS", "Node.js", "PostgreSQL", "Prisma", "React"]
     },
     {
       "category": "Utilisé aussi",
-      "items": ["React", "Flutter"]
+      "items": ["GitHub Actions", "CI/CD", "Ansible", "Cloudflare", "Flutter"]
     }
   ]
 }

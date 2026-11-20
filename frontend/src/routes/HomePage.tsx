@@ -19,9 +19,9 @@ export function HomePage() {
 
       <HeroSection />
       <AboutSection />
-      <ExperienceSection />
-      <SkillsSection />
       <ProjectsSection />
+      <SkillsSection />
+      <ExperienceSection />
       <ContactSection />
     </>
   );

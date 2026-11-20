@@ -8,15 +8,15 @@ web
 
 ## Users
 
-Recruiters and tech leads evaluating Thomas Boué for two internships (part-time Mon/Wed Sep–Feb, full-time Mar–Aug). They skim: within seconds they need to know the profile (backend / software engineer, Epitech), the stack, which projects exist, proof that the work is really deployed, and how to make contact. Bilingual audience (FR/EN).
+Recruiters and tech leads in IoT and embedded systems evaluating Thomas Boué for a six-month end-of-studies internship from March 2027, with a view to a permanent position. They skim: within seconds they need to know the target (IoT / embedded internship, Epitech), the core skills (C++, Linux), which projects exist and how to make contact. Bilingual audience (FR/EN).
 
 ## Product Purpose
 
-A personal portfolio that is itself a production system: React frontend, NestJS + Prisma + PostgreSQL backend, Docker, CI/CD, admin area, analytics, GitHub activity proxy, legal pages. Success = a recruiter reaches the contact form or downloads the résumé convinced the owner ships production-grade backend work.
+A personal portfolio that is itself a production system: React frontend, NestJS + Prisma + PostgreSQL backend, Docker, CI/CD, admin area, analytics, GitHub activity proxy, legal pages. Success = a recruiter understands the IoT / embedded target within seconds, then reaches the contact form or downloads the résumé.
 
 ## Positioning
 
-The site is the proof: the backend behind it is real (live `/health`, real analytics, real CI), unlike a static template. Backend depth first, frontend craft second.
+Lead with the motivation, not a list of technologies: automation, understanding how things work, and software with an effect on physical objects. C++ and Linux are supporting proof, and he should not be labelled a "C++ and Linux developer". A student moving towards IoT and embedded systems, not an experienced embedded engineer: no firmware or microcontroller work exists yet, and the copy must not imply otherwise. IoT and systems projects come first; backend and full-stack work follows as supporting experience.
 
 ## Operating Context
 
@@ -35,7 +35,7 @@ Name: Thomas Boué. Voice: precise, engineering-minded, no hype. Existing copy i
 
 ## Evidence on Hand
 
-Real experience entries (La Trace, Bouygues Telecom, Epitech Nantes, SERAD), real project data served by the backend, a live `/health` endpoint. No testimonials, customers or benchmarks exist; none must be invented.
+Real experience entries (Konversational, La Trace, Bouygues Telecom, Epitech Nantes, SERAD), real project data served by the backend, a live `/health` endpoint. No testimonials, customers or benchmarks exist; none must be invented.
 
 ## Product Principles
 

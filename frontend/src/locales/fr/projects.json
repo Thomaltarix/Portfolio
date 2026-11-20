@@ -1,5 +1,9 @@
 {
   "heading": "Projets",
+  "groups": {
+    "featured": "IoT et systèmes",
+    "other": "Web et backend"
+  },
   "loading": "Chargement des projets…",
   "loadError": "Impossible de charger les projets pour l'instant.",
   "comingSoonTitle": "Bientôt disponible",

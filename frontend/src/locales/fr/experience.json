@@ -2,6 +2,12 @@
   "heading": "Expérience",
   "entries": [
     {
+      "company": "Konversational",
+      "role": "Stagiaire, plateforme ServiceNow (CSM)",
+      "period": "oct. 2026 - févr. 2027",
+      "description": "Stage à temps partiel, du lundi au mercredi. Conception d'agents IA connectés à ServiceNow et outillage interne : audit d'instances et automatisation des tests."
+    },
+    {
       "company": "La Trace",
       "role": "Développeur Full Stack freelance",
       "period": "nov. 2025 - mars 2026",
@@ -10,8 +16,8 @@
     {
       "company": "Bouygues Telecom",
       "role": "Stagiaire Développeur Full Stack",
-      "period": "2025 · 6 mois",
-      "description": "Stage de six mois sur un outil interne d'analyse du GitLab, qui aide la DSI de Bouygues Telecom à gouverner son code, avec à venir des indicateurs comme la taille des dépôts ou les technologies utilisées. Full stack en Java et React, avec l'essentiel de mon travail sur le backend Java."
+      "period": "avr. - août 2025",
+      "description": "Stage sur un outil interne d'analyse du GitLab, qui aide la DSI de Bouygues Telecom à gouverner son code, avec à venir des indicateurs comme la taille des dépôts ou les technologies utilisées. Full stack en Java et React, avec l'essentiel de mon travail sur le backend Java."
     },
     {
       "company": "Epitech Nantes",

@@ -11,8 +11,8 @@ import { useActiveSection } from './use-active-section';
 
 const NAV_LINKS = [
   { id: 'about', labelKey: 'nav.about' },
-  { id: 'experience', labelKey: 'nav.experience' },
   { id: 'projects', labelKey: 'nav.projects' },
+  { id: 'experience', labelKey: 'nav.experience' },
   { id: 'contact', labelKey: 'nav.contact' },
 ] as const;
 

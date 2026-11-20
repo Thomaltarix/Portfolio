@@ -5,6 +5,7 @@ import { AdminLoginPage } from '../AdminLoginPage';
 import { DashboardPage } from './DashboardPage';
 import { MessagesPage } from './MessagesPage';
 import { ProjectsPage } from './ProjectsPage';
+import { ResumePage } from './ResumePage';
 
 // The whole admin lives behind one lazy import (see App.tsx), so visitors of the public
 // site never download it: this module is the only static entry into everything under /admin.
@@ -19,6 +20,7 @@ export function AdminRoutes() {
           <Route path="dashboard" element={<DashboardPage />} />
           <Route path="projects" element={<ProjectsPage />} />
           <Route path="messages" element={<MessagesPage />} />
+          <Route path="resume" element={<ResumePage />} />
         </Route>
       </Route>
     </Routes>

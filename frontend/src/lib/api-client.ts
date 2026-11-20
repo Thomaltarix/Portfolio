@@ -20,14 +20,22 @@ export class ApiError extends Error {
   }
 }
 
+// For plain links (e.g. a file download) that hit the API without going through apiFetch.
+export function apiUrl(path: string): string {
+  return `${API_BASE_URL}${path}`;
+}
+
 export async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> {
-  const response = await fetch(`${API_BASE_URL}${path}`, {
+  // A multipart upload needs the browser to set Content-Type itself, since
+  // only it knows the boundary that separates the form parts.
+  const isFormData = init?.body instanceof FormData;
+  const response = await fetch(apiUrl(path), {
     ...init,
     // Lets the admin session cookie round-trip to api.<domain> — harmless for
     // anonymous requests, since there's no cookie to send until logged in.
     credentials: 'include',
     headers: {
-      'Content-Type': 'application/json',
+      ...(isFormData ? {} : { 'Content-Type': 'application/json' }),
       ...init?.headers,
     },
   });

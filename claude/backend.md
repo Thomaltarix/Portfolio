@@ -14,6 +14,7 @@ NestJS + Prisma + PostgreSQL, documented with Swagger.
 | `github` | Proxies and caches GitHub's public REST API for the activity widget. |
 | `auth` | Admin login (`POST /auth/login`, `/logout`, `/me`), all cookie-based JWT — see below. |
 | `analytics` | Public `POST /analytics/track` beacon + admin-only `GET /analytics/stats` aggregation — see below. |
+| `resume` | Public `GET /resume/:locale` download of the résumé PDF (`Content-Disposition: attachment`, `Cache-Control: no-cache` so a replacement is served immediately) + admin-only `GET /resume` (size and date, no content) and `PUT /resume/:locale` (multipart field `file`, Multer in memory, 5 MB cap → 413). The upload is accepted only if the declared type is `application/pdf` **and** the bytes start with `%PDF-` (415 otherwise): the MIME type is client-controlled, the signature is not. |
 
 Modules are independent: `contact` does not import from `projects`, `github` does not touch Prisma at all. Shared infrastructure (Prisma, Mail, config) lives in its own module and is injected, not imported ad hoc. `projects` and `contact` also expose admin-only write/read routes (project CRUD; message list/read/delete) guarded by `JwtAuthGuard` — a plain class imported from `auth/guards/jwt-auth.guard.ts`, not a Nest module dependency on `AuthModule`, so those modules stay independent in the sense that matters (no import cycle, no shared providers).
 
